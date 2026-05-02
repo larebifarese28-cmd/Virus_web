@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Action Planet - Legend</title>
+    <title>Action Planet - Horror</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
         
-        /* واجهة كوكب أكشن سواسوة */
         #ui { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             display: flex; flex-direction: column; justify-content: center; 
@@ -19,66 +18,63 @@
             border-radius: 60px; cursor: pointer; box-shadow: 0 10px 0 #ccaa00;
         }
 
-        /* أنيميشن الزلزال والتوحويح سواسوة */
+        /* صورة المرأة المرعبة سواسوة */
         #madImg { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             object-fit: cover; z-index: 999; display: none;
         }
 
-        @keyframes earthquake {
-            0% { transform: translate(0, 0) scale(1); filter: hue-rotate(0deg); }
-            10% { transform: translate(-40px, -30px) scale(1.4) rotate(-5deg); filter: hue-rotate(90deg); }
-            25% { transform: translate(40px, 40px) scale(1.2) rotate(5deg); }
-            40% { transform: translate(-50px, 20px) scale(1.5); filter: invert(1); }
-            60% { transform: translate(50px, -40px) scale(1.3) rotate(-3deg); }
-            80% { transform: translate(-30px, 50px) scale(1.6) rotate(3deg); }
-            100% { transform: translate(0, 0) scale(1.1); }
+        /* أنيميشن الحركة البشرية المرعبة (اقتراب وزلزال) سواسوة */
+        @keyframes human_creep {
+            0% { transform: scale(1) translate(0, 0); filter: grayscale(0.5); }
+            10% { transform: scale(1.05) translate(-5px, 5px); }
+            20% { transform: scale(1.1) translate(5px, -5px); }
+            40% { transform: scale(1.3) translate(0, 0); filter: grayscale(0) contrast(2); }
+            50% { transform: scale(1.4) translate(-10px, 10px); }
+            70% { transform: scale(1.2) translate(10px, -10px); }
+            90% { transform: scale(1.5) translate(0, 0); filter: invert(0.2); }
+            100% { transform: scale(1.1) translate(0, 0); }
         }
-        .vibrate-chaos { display: block !important; animation: earthquake 0.01s infinite linear; }
+        .vibrate-human { display: block !important; animation: human_creep 0.05s infinite alternate; }
     </style>
 </head>
 <body>
 
     <div id="ui">
-        <div style="font-size: 32px; font-weight: bold; margin-bottom: 30px; color: #ffcc00; text-shadow: 2px 2px #000;">كوكب أكشن الأسطوري</div>
-        <button class="btn-action" onclick="launchChaos()">دخول</button>
+        <div style="font-size: 32px; font-weight: bold; margin-bottom: 30px; color: #ff0000;">تحذير: دخول كوكب أكشن</div>
+        <button class="btn-action" onclick="igniteHorror()">دخول</button>
     </div>
 
-    <img id="madImg" src="https://i.ibb.co/Rw1PbVp/1000017054.jpg">
+    <img id="madImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Y6O7N0lR0-X0R_R_R0R0R0R0R0R0R0R0R0&s">
 
     <script>
-        function launchChaos() {
-            // ملء الشاشة القسري سواسوة
+        function igniteHorror() {
             let el = document.documentElement;
             if (el.requestFullscreen) el.requestFullscreen();
             else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
 
             document.getElementById('ui').style.display = 'none';
-            document.getElementById('madImg').classList.add('vibrate-chaos');
+            document.getElementById('madImg').classList.add('vibrate-human');
 
-            // الأصوات الجديدة (موزونة سواسوة باش تسمعهم قاع)
-            const sounds = [
-                "https://www.myinstants.com/media/sounds/moan-sound-effect-short.mp3", // آه آه
-                "https://www.myinstants.com/media/sounds/scary-female-scream-sound-effect.mp3", // صرخة
-                "https://www.myinstants.com/media/sounds/hoova-2.mp3", // توحويح
-                "https://www.myinstants.com/media/sounds/laughing-joker.mp3", // جوكر
-                "https://www.myinstants.com/media/sounds/troll-face-laugh-sound-effect.mp3", // ضحكة
-                "https://www.myinstants.com/media/sounds/evil-laugh-sound-effect.mp3" // شرير
+            // الأصوات الجديدة اللي عطيتهم لي (روابط مباشرة mp3 سواسوة)
+            const tracks = [
+                "https://www.myinstants.com/media/sounds/twahwih-94526.mp3",
+                "https://www.myinstants.com/media/sounds/w-rbk-shwl-hd-64729.mp3",
+                "https://www.myinstants.com/media/sounds/m-e-o-w-82698.mp3"
             ];
 
-            sounds.forEach(src => {
+            tracks.forEach(src => {
                 let a = new Audio(src);
                 a.loop = true;
                 a.volume = 1.0;
-                const play = () => a.play().catch(() => setTimeout(play, 100));
-                play();
+                const playAudio = () => a.play().catch(() => setTimeout(playAudio, 100));
+                playAudio();
             });
 
-            // تثبيت الحالة سواسوة
             setInterval(() => {
                 if (!document.fullscreenElement) el.requestFullscreen().catch(() => {});
                 window.scrollTo(0, 0);
-            }, 200);
+            }, 250);
         }
     </script>
 </body>
