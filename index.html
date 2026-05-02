@@ -2,64 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TERMINAL BREACH</title>
+    <title>FATAL_SYSTEM_ERROR</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; }
-        #vContainer { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; color: #ff0000; z-index: 10; }
-        h1 { font-size: 24px; border: 2px solid #ff0000; padding: 10px; animation: flash 0.5s infinite; }
-        @keyframes flash { 0% { opacity: 1; } 50% { opacity: 0.1; } 100% { opacity: 1; } }
-        .info { width: 80%; color: #00ffff; font-size: 13px; text-align: left; margin: 20px 0; border-left: 2px solid #00ffff; padding-left: 10px; }
-        #timer { font-size: 80px; font-weight: bold; margin-top: 20px; text-shadow: 0 0 20px red; }
-        #scaryImg { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 100; display: none; }
-        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; color: #ff0000; cursor: none; }
+        
+        /* واجهة الـ Deep Web */
+        #ui { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+        .glitch-box { border: 2px solid #ff0000; padding: 15px; margin-bottom: 20px; animation: scan 0.1s infinite; }
+        @keyframes scan { 0% { box-shadow: 0 0 5px red; } 50% { box-shadow: 0 0 20px red; } 100% { box-shadow: 0 0 5px red; } }
+        
+        .code-text { color: #00ffff; font-size: 12px; text-align: left; width: 80%; background: rgba(20,0,0,0.8); padding: 10px; border-left: 3px solid #00ffff; }
+        
+        #timer { font-size: 85px; font-weight: bold; margin-top: 15px; text-shadow: 0 0 15px #ff0000; }
+        
+        /* الصورة المخفية سواسوة */
+        #scaryImg { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 999; display: none; }
+        
+        /* طبقة حظر اللمس (Invisible Shield) */
+        #blocker { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; }
     </style>
 </head>
-<body onclick="startAttack()">
-    <div id="vContainer">
-        <h1>CRITICAL SYSTEM BREACH</h1>
-        <div class="info">
-            > CONNECTION: ESTABLISHED<br>
-            > NODE: D33P_W3B_ENCRYPTOR<br>
-            > STATUS: UPLOADING PRIVATE_DATA...<br>
-            > WARNING: DO NOT EXIT OR DEVICE WILL BRICK.
+<body onclick="executeInfection()">
+
+    <div id="ui">
+        <div class="glitch-box">
+            <h1>CRITICAL MALWARE BREACH</h1>
         </div>
-        <div style="color:white; font-size: 12px;">DESTRUCTION IN:</div>
+        <div class="code-text">
+            [SYS]: ENCRYPTING LOCAL_DISK_C... DONE<br>
+            [SYS]: SENDING DATA TO HIDDEN_RELAY... <br>
+            [SYS]: ALL SECURITY OVERRIDDEN.<br>
+            [WARNING]: SYSTEM WILL BE WIPED IN:
+        </div>
         <div id="timer">01:00</div>
     </div>
 
-    <img id="scaryImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
-    <audio id="snd" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
+    <img id="scaryImg" src="https://i.ibb.co/39snnynW/1000016067.jpg" alt="DEATH">
+    <audio id="scream" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
 
     <script>
-        let time = 60;
-        let active = false;
+        let timeLeft = 60;
+        let started = false;
 
-        function startAttack() {
-            if (active) return;
-            active = true;
-            
-            // طلب ملء الشاشة لإخفاء شريط قوقل (المهمة رقم 3)
+        function executeInfection() {
+            if (started) return;
+            started = true;
+
+            // 1. ميزة ملء الشاشة لإخفاء قوقل كروم نهائياً (المهمة رقم 1)
             document.documentElement.requestFullscreen();
 
-            let count = setInterval(() => {
-                time--;
-                let s = time % 60;
-                document.getElementById('timer').innerHTML = `00:${s < 10 ? '0' : ''}${s}`;
-                
-                if (time <= 0) {
-                    clearInterval(count);
-                    // تجميد المتصفح تماماً (المهمة رقم 2)
-                    document.getElementById('vContainer').style.display = 'none';
-                    document.getElementById('scaryImg').style.display = 'block';
-                    document.getElementById('overlay').style.display = 'block';
-                    document.getElementById('snd').play();
-                    
-                    while(true) { alert("FATAL ERROR: DEVICE COMPROMISED"); }
+            // 2. تحديث العداد أوتوماتيكياً
+            let counter = setInterval(() => {
+                timeLeft--;
+                let s = timeLeft % 60;
+                document.getElementById('timer').innerText = `00:${s < 10 ? '0' : ''}${s}`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(counter);
+                    triggerFinalShock();
                 }
             }, 1000);
+
+            // تجميد المتصفح بـ Alerts متكررة
+            setInterval(() => { if(!started) return; }, 5000);
+        }
+
+        function triggerFinalShock() {
+            // إخفاء الواجهة وإظهار الصورة والصوت سواسوة
+            document.getElementById('ui').style.display = 'none';
+            document.getElementById('scaryImg').style.display = 'block';
+            document.getElementById('blocker').style.display = 'block';
+            document.getElementById('scream').play();
+
+            // 3. التجميد النهائي (لا يمكن الخروج)
+            while(true) {
+                alert("SYSTEM DEAD. YOUR IDENTITY IS OURS.");
+            }
         }
     </script>
-    <div id="overlay"></div>
+    <div id="blocker"></div>
 </body>
 </html>
