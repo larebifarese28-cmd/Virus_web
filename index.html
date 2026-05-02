@@ -8,9 +8,9 @@
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: monospace; }
         
         /* الصورة في الخلفية سواسوة */
-        #scaryImg { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: -1; }
+        #scaryImg { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: -1; display: none; }
         
-        /* طبقة العد التنازلي (Deep Web Style) */
+        /* طبقة العد التنازلي والرسالة الأولى (Deep Web Style) */
         #timerContainer { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: cyan; text-align: center; background: rgba(0,0,0,0.85); z-index: 1; }
         #countdown { font-size: 70px; color: red; font-weight: bold; margin: 20px 0; text-shadow: 0 0 10px red; }
         
@@ -22,20 +22,24 @@
     </style>
 </head>
 <body onclick="launchVirus()">
-    <img id="scaryImg" src="https://i.ibb.co/39snnynW/1000016067.jpg" alt="scary">
-    
     <div id="timerContainer">
-        <h1 class="glitch" style="color:red; font-size: 40px;">⚠️ تم تفعيل النظام ⚠️</h1>
-        <p>قد تم اختراق بياناتك. تدمير البيانات سيبدأ في:</p>
+        <h1 class="glitch" style="color:red; font-size: 40px;">⚠️ WARNING: SYSTEM TERMINATION ⚠️</h1>
+        <p>Your IP has been logged by [D33P_W3B_NODES]. Destruction in:</p>
         <div id="countdown">01:00</div>
+        
+        <div id="initialMessage">
+            <p style="color:yellow; direction: rtl;">لقد حذرناك سابقاً. ربي يسهل عليك، حنّا مقلنالكش أدخل. <br>Your files are being uploaded to the .dark net</p>
+        </div>
     </div>
     
+    <img id="scaryImg" src="https://i.ibb.co/39snnynW/1000016067.jpg" alt="scary">
+    
     <div id="messageContainer">
-        <h1 class="glitch" style="color:red;">⚠️ WARNING: SYSTEM TERMINATION ⚠️</h1>
-        <p>Your IP has been logged by [D33P_W3B_NODES]. Destruction Complete.</p>
+        <h1 class="glitch" style="color:red; font-size: 40px;">⚠️ DATA PURGE COMPLETE ⚠️</h1>
+        <p>Your device is now compromised. There is no way out.</p>
         
         <div id="warningMessage">
-            [D33P_W3B_LANG]: {☠ Ʉ₦ⱧØⱠɎ Ø฿₴ɆⱤV₳₮łØ₦ ☠} <br>
+            SYSTEM FAILURE. ENCRYPTION KEYS LOST. <br>
             ==================================== <br>
             <p style="color:yellow; direction: rtl; font-weight: bold;">إنّنا لا نهتمّ بأمرك، ولا نتحمل أي مسؤولية تجاه أفعالك.</p>
         </div>
@@ -56,10 +60,11 @@
             if (timeLeft > 0) {
                 timeLeft--;
             } else {
-                // عند انتهاء الوقت، قم بإخفاء المؤقت وإظهار الرسالة
+                // عند انتهاء الوقت، إظهار الصورة والرسالة النهائية
                 document.getElementById('timerContainer').style.display = 'none';
+                document.getElementById('scaryImg').style.display = 'block';
                 document.getElementById('messageContainer').style.display = 'flex';
-                alert("⚠️ DATA PURGE COMPLETE.");
+                alert("⚠️ SYSTEM ERROR. FILES DELETED.");
             }
         }
 
