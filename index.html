@@ -3,78 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Action Planet - Horror</title>
+    <title>Action Planet - Final</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
+        #ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; background: #ffffff; }
+        .btn-action { background: #ffcc00; color: #000; border: 5px solid #000; padding: 25px 70px; font-size: 28px; font-weight: bold; border-radius: 60px; cursor: pointer; }
         
-        #ui { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            display: flex; flex-direction: column; justify-content: center; 
-            align-items: center; z-index: 10000; background: #ffffff;
-        }
-        .btn-action { 
-            background: #ffcc00; color: #000; border: 5px solid #000; 
-            padding: 25px 70px; font-size: 28px; font-weight: bold; 
-            border-radius: 60px; cursor: pointer; box-shadow: 0 10px 0 #ccaa00;
-        }
-
         /* صورة المرأة المرعبة سواسوة */
-        #madImg { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            object-fit: cover; z-index: 999; display: none;
-        }
+        #madImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
 
-        /* أنيميشن الحركة البشرية المرعبة (اقتراب وزلزال) سواسوة */
-        @keyframes human_creep {
-            0% { transform: scale(1) translate(0, 0); filter: grayscale(0.5); }
-            10% { transform: scale(1.05) translate(-5px, 5px); }
-            20% { transform: scale(1.1) translate(5px, -5px); }
-            40% { transform: scale(1.3) translate(0, 0); filter: grayscale(0) contrast(2); }
-            50% { transform: scale(1.4) translate(-10px, 10px); }
-            70% { transform: scale(1.2) translate(10px, -10px); }
-            90% { transform: scale(1.5) translate(0, 0); filter: invert(0.2); }
-            100% { transform: scale(1.1) translate(0, 0); }
+        /* أنيميشن الرعب سواسوة */
+        @keyframes creep {
+            0% { transform: scale(1); filter: grayscale(1); }
+            50% { transform: scale(1.3) translate(10px, -10px); filter: grayscale(0) contrast(2); }
+            100% { transform: scale(1.1) translate(-10px, 10px); }
         }
-        .vibrate-human { display: block !important; animation: human_creep 0.05s infinite alternate; }
+        .vibrate { display: block !important; animation: creep 0.05s infinite alternate; }
     </style>
 </head>
 <body>
-
     <div id="ui">
-        <div style="font-size: 32px; font-weight: bold; margin-bottom: 30px; color: #ff0000;">تحذير: دخول كوكب أكشن</div>
-        <button class="btn-action" onclick="igniteHorror()">دخول</button>
+        <button class="btn-action" onclick="startChaos()">دخول</button>
     </div>
 
-    <img id="madImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Y6O7N0lR0-X0R_R_R0R0R0R0R0R0R0R0R0&s">
+    <img id="madImg" src="https://i.postimg.cc/9f09z77X/horror-lady.jpg">
 
     <script>
-        function igniteHorror() {
-            let el = document.documentElement;
-            if (el.requestFullscreen) el.requestFullscreen();
-            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-
+        function startChaos() {
             document.getElementById('ui').style.display = 'none';
-            document.getElementById('madImg').classList.add('vibrate-human');
+            document.getElementById('madImg').classList.add('vibrate');
 
-            // الأصوات الجديدة اللي عطيتهم لي (روابط مباشرة mp3 سواسوة)
-            const tracks = [
+            // الروابط المباشرة (Direct Links) سواسوة
+            const sounds = [
                 "https://www.myinstants.com/media/sounds/twahwih-94526.mp3",
                 "https://www.myinstants.com/media/sounds/w-rbk-shwl-hd-64729.mp3",
                 "https://www.myinstants.com/media/sounds/m-e-o-w-82698.mp3"
             ];
 
-            tracks.forEach(src => {
+            sounds.forEach(src => {
                 let a = new Audio(src);
                 a.loop = true;
-                a.volume = 1.0;
-                const playAudio = () => a.play().catch(() => setTimeout(playAudio, 100));
-                playAudio();
+                a.play().catch(() => {
+                    // إذا منع المتصفح الصوت، ننتظر أول لمسة سواسوة
+                    document.addEventListener('click', () => a.play(), {once: true});
+                });
             });
 
-            setInterval(() => {
-                if (!document.fullscreenElement) el.requestFullscreen().catch(() => {});
-                window.scrollTo(0, 0);
-            }, 250);
+            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
         }
     </script>
 </body>
