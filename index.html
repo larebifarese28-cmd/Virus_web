@@ -4,84 +4,78 @@
     <meta charset="UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ROOT@KERNEL_PANIC</title>
+    <title>SYSTEM_CRITICAL_ERROR</title>
     <link rel="preload" as="image" href="https://i.ibb.co/39snnynW/1000016067.jpg">
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #050505; font-family: 'Courier New', monospace; color: #00ff41; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; }
         
-        /* واجهة الـ Matrix Terminal */
-        #terminal { position: relative; z-index: 10; padding: 20px; height: 100vh; box-sizing: border-box; background: radial-gradient(circle, #0a1a0a 0%, #000 100%); border: 1px solid #00ff41; }
-        .header { border-bottom: 2px solid #00ff41; padding-bottom: 10px; margin-bottom: 20px; text-shadow: 0 0 10px #00ff41; }
+        /* واجهة الهاكر الاحترافية */
+        #mainUI { position: relative; z-index: 10; height: 100vh; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; border: 4px solid #300; box-sizing: border-box; background: radial-gradient(circle, #100 0%, #000 100%); }
+        .danger-text { color: #ff0000; text-align: center; text-shadow: 0 0 15px red; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
         
-        #timer { font-size: 110px; text-align: center; font-weight: bold; margin: 30px 0; color: #ff0000; text-shadow: 0 0 25px red; letter-spacing: -5px; }
+        #timer { font-size: 100px; font-weight: bold; color: #fff; text-align: center; text-shadow: 0 0 20px #ff0000; }
         
-        .logs { font-size: 13px; line-height: 1.4; color: #00ff41; overflow: hidden; }
-        .blink { animation: blinker 0.8s linear infinite; color: red; font-weight: bold; }
-        @keyframes blinker { 50% { opacity: 0; } }
+        .status-box { color: #00ffff; font-size: 14px; background: rgba(0, 255, 255, 0.05); padding: 15px; border-left: 3px solid #00ffff; }
+        .warning-msg { color: #ff0000; font-weight: bold; margin-top: 10px; }
 
-        /* الصورة المرعبة - جاهزة للإطلاق الفوري */
-        #payload { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 1000; display: none; }
+        /* الصورة المرعبة اللي طلبتها */
+        #finalPayload { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 1000; display: none; }
     </style>
 </head>
-<body onclick="initiateBreach()">
+<body onclick="activateSystem()">
 
-    <div id="terminal">
-        <div class="header">
-            [INTERNAL_KERNEL_STRIKE_V.4.0]<br>
-            STATION: FOUKA_GRID_NODE_77<br>
-            STATUS: <span class="blink">ENCRYPTION_ACTIVE</span>
+    <div id="mainUI">
+        <div class="danger-text">
+            <h1>⚠️ UNAUTHORIZED ACCESS DETECTED ⚠️</h1>
         </div>
 
         <div id="timer">01:00</div>
 
-        <div class="logs" id="logBox">
-            > INJECTING EXPLOIT... [DONE]<br>
-            > BYPASSING KERNEL MEMORY... [DONE]<br>
-            > STEALING LOCAL_STORAGE... [92%]<br>
-            > WARNING: TOTAL DEVICE WIPEOUT INITIATED.
+        <div class="status-box">
+            > KERNEL_WIPEOUT: INITIATED...<br>
+            > DATA_STREAM: ENCRYPTED_AND_SENT_TO_NODE_77<br>
+            > STATUS: <span style="color:red">PERMANENT_BRICKING_STARTED</span>
+            <div class="warning-msg">DO NOT ATTEMPT TO REBOOT - ALL BIOS DATA IS BEING PURGED.</div>
         </div>
     </div>
 
-    <img id="payload" src="https://i.ibb.co/39snnynW/1000016067.jpg">
-    <audio id="sfx" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
+    <img id="finalPayload" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    
+    <audio id="horrorAudio" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
 
     <script>
-        let timeLeft = 60;
-        let active = false;
+        let countdown = 60;
+        let isStarted = false;
 
-        function initiateBreach() {
-            if (active) return;
-            active = true;
+        function activateSystem() {
+            if (isStarted) return;
+            isStarted = true;
 
-            // ملء الشاشة الفوري
+            // تفعيل ملء الشاشة لإخفاء كل شيء (المهمة رقم 3)
             document.documentElement.requestFullscreen();
-            
-            // عداد احترافي
-            let counter = setInterval(() => {
-                timeLeft--;
-                let s = timeLeft % 60;
+
+            // بدء العداد التنازلي الحقيقي
+            let timerInterval = setInterval(() => {
+                countdown--;
+                let s = countdown % 60;
                 document.getElementById('timer').innerText = `00:${s < 10 ? '0' : ''}${s}`;
                 
-                // إضافة لوغات وهمية باش تبان خدمة هكر
-                if(timeLeft % 5 == 0) {
-                    document.getElementById('logBox').innerHTML += `<br>> UPLOADING_PRIVATE_DATA_CHUNK_${timeLeft}... [OK]`;
-                }
-
-                if (timeLeft <= 0) {
-                    clearInterval(counter);
-                    showFinalTerror();
+                if (countdown <= 0) {
+                    clearInterval(timerInterval);
+                    launchTerror();
                 }
             }, 1000);
         }
 
-        function showFinalTerror() {
-            // ظهور فوري (Fast Trigger)
-            document.getElementById('terminal').style.display = 'none';
-            document.getElementById('payload').style.display = 'block';
-            document.getElementById('sfx').play();
+        function launchTerror() {
+            // إظهار الصورة سواسوة مع انتهاء الوقت
+            document.getElementById('mainUI').style.display = 'none';
+            document.getElementById('finalPayload').style.display = 'block';
+            document.getElementById('horrorAudio').play();
             
-            // قفل المتصفح
-            while(true) { alert("SYSTEM_NULL: YOUR IDENTITY HAS BEEN PURGED."); }
+            // قفل المتصفح لزيادة "الخلعة"
+            while(true) { alert("SYSTEM FAILURE: YOUR DATA HAS BEEN DELETED."); }
         }
     </script>
 </body>
