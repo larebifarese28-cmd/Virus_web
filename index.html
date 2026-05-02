@@ -11,8 +11,8 @@
         #madImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
         @keyframes touhouh {
             0% { transform: scale(1.1); }
-            10% { transform: translate(-20px, -20px) scale(1.3); }
-            50% { transform: translate(20px, 20px) scale(1.4); }
+            5% { transform: translate(-25px, -15px) scale(1.3); }
+            15% { transform: translate(25px, 25px) scale(1.4); }
             100% { transform: scale(1.1); }
         }
         .vibrate { display: block !important; animation: touhouh 0.01s infinite linear; }
@@ -20,42 +20,36 @@
 </head>
 <body>
     <div id="ui">
-        <div style="font-size: 24px; margin-bottom: 20px;">كوكب أكشن يرحب بكم</div>
-        <button class="btn-action" onclick="startVirus()">دخول</button>
+        <div style="font-size: 26px; font-weight: bold; margin-bottom: 25px;">مرحباً بك في كوكب أكشن</div>
+        <button class="btn-action" onclick="activateChaos()">دخول</button>
     </div>
     <img id="madImg" src="https://i.ibb.co/Rw1PbVp/1000017054.jpg">
 
     <script>
-        function startVirus() {
-            // إخفاء الواجهة وإظهار التوحويح
+        function activateChaos() {
             document.getElementById('ui').style.display = 'none';
             document.getElementById('madImg').classList.add('vibrate');
 
-            // قائمة الأصوات الستة سواسوة
+            // الأصوات الجديدة الموزونة سواسوة (مع صوت آه آه)
             const sounds = [
+                "https://www.myinstants.com/media/sounds/moan-sound-effect-short.mp3", // صوت آه آه الموزون
                 "https://www.myinstants.com/media/sounds/hoova-2.mp3",
-                "https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3",
-                "https://www.myinstants.com/media/sounds/dzonza.mp3",
-                "https://www.myinstants.com/media/sounds/nikomok-55306.mp3",
-                "https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador-57357.mp3",
-                "https://www.myinstants.com/media/sounds/nykwny-35320.mp3"
+                "https://www.myinstants.com/media/sounds/scary-female-scream-sound-effect.mp3", // صرخة حادة
+                "https://www.myinstants.com/media/sounds/laughing-joker.mp3", // ضحكة هستيرية
+                "https://www.myinstants.com/media/sounds/troll-face-laugh-sound-effect.mp3",
+                "https://www.myinstants.com/media/sounds/evil-laugh-sound-effect.mp3"
             ];
 
-            // فرض تشغيل كل صوت سواسوة
             sounds.forEach(src => {
-                let audio = new Audio(src);
-                audio.loop = true;
-                // المحاولة المتكررة للتشغيل سواسوة لتجاوز الحظر
-                let playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => {
-                        // إذا رفض المتصفح، نعيد المحاولة عند أي لمسة
-                        document.body.addEventListener('click', () => audio.play(), {once: true});
-                    });
-                }
+                let a = new Audio(src);
+                a.loop = true;
+                // نعدلو الفوليم لكل صوت باش يخرجوا قاع كيف كيف سواسوة
+                a.volume = 1.0; 
+                
+                const start = () => { a.play().catch(() => setTimeout(start, 100)); };
+                start();
             });
 
-            // ملء الشاشة سواسوة
             document.documentElement.requestFullscreen().catch(()=>{});
         }
     </script>
