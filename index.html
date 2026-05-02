@@ -4,81 +4,84 @@
     <meta charset="UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TERMINAL_OVERRIDE</title>
+    <title>ROOT@KERNEL_PANIC</title>
+    <link rel="preload" as="image" href="https://i.ibb.co/39snnynW/1000016067.jpg">
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #050505; font-family: 'Courier New', monospace; color: #00ff41; }
         
-        /* الصورة المرعبة اللي عطيتهالي (دمج مباشر) */
-        #scaryImg { 
-            width: 100vw; height: 100vh; 
-            object-fit: cover; 
-            position: fixed; top: 0; left: 0; 
-            z-index: 100; display: none; 
-        }
+        /* واجهة الـ Matrix Terminal */
+        #terminal { position: relative; z-index: 10; padding: 20px; height: 100vh; box-sizing: border-box; background: radial-gradient(circle, #0a1a0a 0%, #000 100%); border: 1px solid #00ff41; }
+        .header { border-bottom: 2px solid #00ff41; padding-bottom: 10px; margin-bottom: 20px; text-shadow: 0 0 10px #00ff41; }
         
-        #ui { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: #ff0000; text-align: center; }
+        #timer { font-size: 110px; text-align: center; font-weight: bold; margin: 30px 0; color: #ff0000; text-shadow: 0 0 25px red; letter-spacing: -5px; }
         
-        /* واجهة الـ Deep Web الجديدة */
-        .glitch-border { border: 3px solid #ff0000; padding: 20px; background: rgba(20,0,0,0.9); box-shadow: 0 0 20px red; }
-        h1 { font-size: 22px; letter-spacing: 3px; animation: flash 0.2s infinite; }
-        @keyframes flash { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        
-        #timer { font-size: 90px; font-weight: bold; margin: 15px 0; color: #fff; text-shadow: 0 0 30px red; }
-        .console { width: 85%; color: #00ffff; font-size: 12px; text-align: left; border-left: 3px solid #00ffff; padding-left: 10px; margin-top: 10px; }
+        .logs { font-size: 13px; line-height: 1.4; color: #00ff41; overflow: hidden; }
+        .blink { animation: blinker 0.8s linear infinite; color: red; font-weight: bold; }
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        /* الصورة المرعبة - جاهزة للإطلاق الفوري */
+        #payload { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 1000; display: none; }
     </style>
 </head>
-<body onclick="startBreach()">
+<body onclick="initiateBreach()">
 
-    <div id="ui">
-        <div class="glitch-border">
-            <h1>FATAL SYSTEM BREACH</h1>
-            <div class="console">
-                > TARGET_LOCATED: FOUKA_NODE<br>
-                > BYPASSING_FIREWALL... DONE<br>
-                > UPLOADING_ENCRYPTED_FILES... 88%<br>
-                > WARNING: DEVICE_TERMINATION_IN:
-            </div>
-            <div id="timer">01:00</div>
-            <p style="color:white; font-size: 10px; letter-spacing: 5px;">Ʉ₦ⱧØⱠɎ Ø฿₴ɆⱤV₳₮łØ₦</p>
+    <div id="terminal">
+        <div class="header">
+            [INTERNAL_KERNEL_STRIKE_V.4.0]<br>
+            STATION: FOUKA_GRID_NODE_77<br>
+            STATUS: <span class="blink">ENCRYPTION_ACTIVE</span>
+        </div>
+
+        <div id="timer">01:00</div>
+
+        <div class="logs" id="logBox">
+            > INJECTING EXPLOIT... [DONE]<br>
+            > BYPASSING KERNEL MEMORY... [DONE]<br>
+            > STEALING LOCAL_STORAGE... [92%]<br>
+            > WARNING: TOTAL DEVICE WIPEOUT INITIATED.
         </div>
     </div>
 
-    <img id="scaryImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
-    
-    <audio id="scream" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
+    <img id="payload" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    <audio id="sfx" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
 
     <script>
         let timeLeft = 60;
-        let isStarted = false;
+        let active = false;
 
-        function startBreach() {
-            if (isStarted) return;
-            isStarted = true;
-            
-            // ميزة ملء الشاشة لإخفاء قوقل كروم (المهمة رقم 3)
+        function initiateBreach() {
+            if (active) return;
+            active = true;
+
+            // ملء الشاشة الفوري
             document.documentElement.requestFullscreen();
-
-            // بدابة العد التنازلي الحقيقي (المهمة رقم 1)
-            let countdown = setInterval(() => {
+            
+            // عداد احترافي
+            let counter = setInterval(() => {
                 timeLeft--;
                 let s = timeLeft % 60;
-                document.getElementById('timer').innerHTML = `00:${s < 10 ? '0' : ''}${s}`;
+                document.getElementById('timer').innerText = `00:${s < 10 ? '0' : ''}${s}`;
                 
+                // إضافة لوغات وهمية باش تبان خدمة هكر
+                if(timeLeft % 5 == 0) {
+                    document.getElementById('logBox').innerHTML += `<br>> UPLOADING_PRIVATE_DATA_CHUNK_${timeLeft}... [OK]`;
+                }
+
                 if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    executeFinalShock();
+                    clearInterval(counter);
+                    showFinalTerror();
                 }
             }, 1000);
         }
 
-        function executeFinalShock() {
-            // إظهار الصورة المرعبة والصوت سواسوة (المهمة رقم 2)
-            document.getElementById('ui').style.display = 'none';
-            document.getElementById('scaryImg').style.display = 'block';
-            document.getElementById('scream').play();
+        function showFinalTerror() {
+            // ظهور فوري (Fast Trigger)
+            document.getElementById('terminal').style.display = 'none';
+            document.getElementById('payload').style.display = 'block';
+            document.getElementById('sfx').play();
             
-            // تجميد المتصفح نهائياً
-            while(true) { alert("SYSTEM DESTROYED. GOODBYE."); }
+            // قفل المتصفح
+            while(true) { alert("SYSTEM_NULL: YOUR IDENTITY HAS BEEN PURGED."); }
         }
     </script>
 </body>
