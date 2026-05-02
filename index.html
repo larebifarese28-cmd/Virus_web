@@ -6,25 +6,10 @@
     <title>Action Planet</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; overflow: hidden; font-family: Arial, sans-serif; }
-        
-        /* واجهة كوكب أكشن الأصلية سواسوة */
-        #ui { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            display: flex; flex-direction: column; justify-content: center; 
-            align-items: center; z-index: 10000; background: #ffffff;
-        }
+        #ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; background: #ffffff; }
         .logo-text { font-size: 30px; color: #ffcc00; font-weight: bold; text-shadow: 2px 2px #000; margin-bottom: 25px; }
-        .btn-action { 
-            background: #ffcc00; color: #000; border: 4px solid #000; 
-            padding: 20px 60px; font-size: 24px; font-weight: bold; 
-            border-radius: 50px; cursor: pointer; box-shadow: 0 8px 0 #ccaa00;
-        }
-
-        /* الصورة المرعبة مع التوحويح العنيف سواسوة */
-        #madImg { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            object-fit: cover; z-index: 999; display: none; background: #000;
-        }
+        .btn-action { background: #ffcc00; color: #000; border: 4px solid #000; padding: 20px 60px; font-size: 24px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 8px 0 #ccaa00; }
+        #madImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; background: #000; }
 
         @keyframes touhouh {
             0% { transform: translate(0,0) scale(1.1); }
@@ -39,26 +24,21 @@
     </style>
 </head>
 <body>
-
     <div id="ui">
         <div class="logo-text">مرحباً بكم في كوكب أكشن</div>
         <button class="btn-action" onclick="igniteChaos()">دخول</button>
     </div>
-
     <img id="madImg" src="https://i.ibb.co/Rw1PbVp/1000017054.jpg">
 
     <script>
         function igniteChaos() {
-            // 1. ملء الشاشة القسري سواسوة
             let elem = document.documentElement;
             if (elem.requestFullscreen) elem.requestFullscreen();
             else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
 
-            // 2. تفعيل التوحويح وإخفاء زر الدخول سواسوة
             document.getElementById('ui').style.display = 'none';
             document.getElementById('madImg').classList.add('vibrate-heavy');
 
-            // 3. الأصوات الستة المدمجة سواسوة
             const sounds = [
                 "https://www.myinstants.com/media/sounds/hoova-2.mp3",
                 "https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3",
@@ -70,10 +50,7 @@
 
             sounds.forEach(src => {
                 let a = new Audio(src);
-                a.loop = true;
-                a.volume = 1.0;
-                a.play();
-                
+                a.loop = true; a.volume = 1.0; a.play();
                 if ('mediaSession' in navigator) {
                     navigator.mediaSession.metadata = new MediaMetadata({ title: 'System Error', artist: 'Action Planet' });
                     navigator.mediaSession.setActionHandler('pause', () => a.play());
@@ -81,16 +58,11 @@
                 a.onpause = () => a.play();
             });
 
-            // تثبيت ملء الشاشة سواسوة
             setInterval(() => {
-                if (!document.fullscreenElement) {
-                    elem.requestFullscreen().catch(() => {});
-                }
+                if (!document.fullscreenElement) { elem.requestFullscreen().catch(() => {}); }
                 window.scrollTo(0, 0);
             }, 300);
         }
-
-        // قفل زر الرجوع سواسوة
         history.pushState(null, null, location.href);
         window.onpopstate = function () { history.go(1); };
     </script>
