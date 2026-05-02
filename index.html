@@ -2,80 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM_CRITICAL_ERROR</title>
+    <title>FATAL_SYSTEM_ERROR</title>
     <link rel="preload" as="image" href="https://i.ibb.co/39snnynW/1000016067.jpg">
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; }
         
-        /* واجهة الهاكر الاحترافية */
-        #mainUI { position: relative; z-index: 10; height: 100vh; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; border: 4px solid #300; box-sizing: border-box; background: radial-gradient(circle, #100 0%, #000 100%); }
-        .danger-text { color: #ff0000; text-align: center; text-shadow: 0 0 15px red; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        /* واجهة الـ Hacker UI اللي خدمناها */
+        #hackerScreen { position: relative; z-index: 10; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #1a0000 0%, #000 100%); color: #ff0000; }
+        .warning-icon { font-size: 50px; margin-bottom: 10px; animation: flash 0.5s infinite; }
+        @keyframes flash { 50% { opacity: 0; } }
         
-        #timer { font-size: 100px; font-weight: bold; color: #fff; text-align: center; text-shadow: 0 0 20px #ff0000; }
+        #timer { font-size: 100px; font-weight: bold; color: #fff; text-shadow: 0 0 20px #ff0000; margin: 20px 0; }
         
-        .status-box { color: #00ffff; font-size: 14px; background: rgba(0, 255, 255, 0.05); padding: 15px; border-left: 3px solid #00ffff; }
-        .warning-msg { color: #ff0000; font-weight: bold; margin-top: 10px; }
+        .log-box { width: 80%; background: rgba(0,0,0,0.8); border: 1px solid #ff0000; padding: 15px; color: #00ffff; font-size: 12px; line-height: 1.5; }
 
-        /* الصورة المرعبة اللي طلبتها */
-        #finalPayload { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 1000; display: none; }
+        /* ميزة الرعب: الصورة تخرج فجأة بملء الشاشة */
+        #jumpScare { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            object-fit: cover; z-index: 9999; display: none; 
+        }
     </style>
 </head>
-<body onclick="activateSystem()">
+<body onclick="startCountdown()">
 
-    <div id="mainUI">
-        <div class="danger-text">
-            <h1>⚠️ UNAUTHORIZED ACCESS DETECTED ⚠️</h1>
-        </div>
-
+    <div id="hackerScreen">
+        <div class="warning-icon">⚠️</div>
+        <div style="text-align: center; font-weight: bold; text-shadow: 0 0 10px red;">UNAUTHORIZED ACCESS DETECTED</div>
         <div id="timer">01:00</div>
-
-        <div class="status-box">
+        <div class="log-box">
             > KERNEL_WIPEOUT: INITIATED...<br>
             > DATA_STREAM: ENCRYPTED_AND_SENT_TO_NODE_77<br>
             > STATUS: <span style="color:red">PERMANENT_BRICKING_STARTED</span>
-            <div class="warning-msg">DO NOT ATTEMPT TO REBOOT - ALL BIOS DATA IS BEING PURGED.</div>
         </div>
     </div>
 
-    <img id="finalPayload" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    <img id="jumpScare" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     
-    <audio id="horrorAudio" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
+    <audio id="scream" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
 
     <script>
-        let countdown = 60;
-        let isStarted = false;
+        let timeLeft = 60;
+        let active = false;
 
-        function activateSystem() {
-            if (isStarted) return;
-            isStarted = true;
+        function startCountdown() {
+            if (active) return;
+            active = true;
 
-            // تفعيل ملء الشاشة لإخفاء كل شيء (المهمة رقم 3)
+            // ملء الشاشة إجباري لإخفاء المتصفح
             document.documentElement.requestFullscreen();
 
-            // بدء العداد التنازلي الحقيقي
-            let timerInterval = setInterval(() => {
-                countdown--;
-                let s = countdown % 60;
+            let itv = setInterval(() => {
+                timeLeft--;
+                let s = timeLeft % 60;
                 document.getElementById('timer').innerText = `00:${s < 10 ? '0' : ''}${s}`;
                 
-                if (countdown <= 0) {
-                    clearInterval(timerInterval);
-                    launchTerror();
+                if (timeLeft <= 0) {
+                    clearInterval(itv);
+                    executeScare();
                 }
             }, 1000);
         }
 
-        function launchTerror() {
-            // إظهار الصورة سواسوة مع انتهاء الوقت
-            document.getElementById('mainUI').style.display = 'none';
-            document.getElementById('finalPayload').style.display = 'block';
-            document.getElementById('horrorAudio').play();
+        function executeScare() {
+            // إخفاء الواجهة وإظهار صورة الرعب فوراً
+            document.getElementById('hackerScreen').style.display = 'none';
+            document.getElementById('jumpScare').style.display = 'block';
+            document.getElementById('scream').play();
             
-            // قفل المتصفح لزيادة "الخلعة"
-            while(true) { alert("SYSTEM FAILURE: YOUR DATA HAS BEEN DELETED."); }
+            // قفل المتصفح بـ Alert لا ينتهي
+            while(true) { alert("YOUR IDENTITY HAS BEEN PURGED. DO NOT LOOK BEHIND YOU."); }
         }
     </script>
 </body>
