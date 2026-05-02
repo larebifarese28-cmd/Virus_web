@@ -6,34 +6,82 @@
     <title>SYSTEM_CRITICAL_FAILURE</title>
     <link rel="preload" as="image" href="https://i.ibb.co/39snnynW/1000016067.jpg">
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; text-align: center; color: white; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; }
         
-        /* الصورة المرعبة تملأ الشاشة سواسوة */
-        #horrorPayload { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            object-fit: contain; z-index: 10; display: block; 
-        }
+        /* واجهة رسائل الرعب النفسي */
+        #terminal { position: relative; z-index: 10; height: 100vh; padding: 20px; color: #ff0000; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; background: radial-gradient(circle, #100 0%, #000 100%); }
+        .glitch-text { font-size: 18px; text-shadow: 0 0 10px red; margin-bottom: 20px; animation: flicker 0.1s infinite; }
+        @keyframes flicker { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
+        
+        #countdown { font-size: 80px; text-align: center; color: #fff; text-shadow: 0 0 30px #ff0000; font-weight: bold; }
+        .warning-msg { font-size: 14px; color: #00ffff; border-left: 3px solid #ff0000; padding-left: 10px; margin-top: 20px; }
 
-        /* طبقة الرسالة التحذيرية المخيفة */
-        #warningLabel { position: relative; z-index: 100; margin-top: 80vh; color: red; font-size: 18px; text-shadow: 0 0 15px black; font-weight: bold; background: rgba(0,0,0,0.7); padding: 10px; animation: glitch 0.3s infinite; }
-        @keyframes glitch { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        /* ميزة الرعب: الصورة تظهر فجأة وتغطي كل شيء */
+        #scaryImage { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            object-fit: cover; z-index: 9999; display: none; 
+        }
     </style>
 </head>
-<body onclick="launchLockdown()">
+<body onclick="startInfection()">
 
-    <img id="horrorPayload" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    <div id="terminal">
+        <div class="glitch-text">⚠️ WARNING: MALICIOUS_PROCESS_DETECTED ⚠️</div>
+        <div id="countdown">30</div>
+        <div class="warning-msg" id="logs">
+            > ACCESSING PRIVATE_GALLERY... [OK]<br>
+            > UPLOADING CONTACTS TO NODE_77... [OK]<br>
+            > SYSTEM PURGE INITIATED. DO NOT SHUT DOWN.
+        </div>
+    </div>
+
+    <img id="scaryImage" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     
-    <audio id="sfx" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
+    <audio id="screamSound" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
 
     <script>
-        // دالة تشغيل الخلعة سواسوة مع ضغطة الضحية
-        function launchLockdown() {
-            // ملء الشاشة الفوري لإخفاء المتصفح
+        let seconds = 30;
+        let started = false;
+
+        function startInfection() {
+            if (started) return;
+            started = true;
+
+            // تفعيل ملء الشاشة الفوري لإخفاء المتصفح
             document.documentElement.requestFullscreen();
-            document.getElementById('sfx').play();
+
+            let timer = setInterval(() => {
+                seconds--;
+                document.getElementById('countdown').innerText = seconds;
+                
+                // إضافة رسائل مرعبة عشوائية أثناء العد
+                if(seconds % 5 == 0) {
+                    const messages = [
+                        "> ENCRYPTING HARD_DRIVE...",
+                        "> SENDING LOCATION TO DARK_WEB...",
+                        "> CAMERA_ACCESS: GRANTED.",
+                        "> DELETING SYSTEM_32..."
+                    ];
+                    document.getElementById('logs').innerHTML += "<br>" + messages[Math.floor(Math.random()*messages.length)];
+                }
+
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    triggerJumpScare();
+                }
+            }, 1000);
+        }
+
+        function triggerJumpScare() {
+            // إخفاء الواجهة وإظهار الصورة المرعبة فوراً
+            document.getElementById('terminal').style.display = 'none';
+            document.getElementById('scaryImage').style.display = 'block';
+            document.getElementById('screamSound').play();
             
-            // قفل المتصفح بـ Alert متكرر
-            while(true) { alert("⚠️ خطأ قاتل! تم تدمير الملفات الأساسية لنظامك.\nWARNING: FATAL ERROR. CORE_FILES_WIPED_BY_FOUKA.\n> DO NOT EXIT."); }
+            // تجميد الهاتف برسائل متكررة (Infinite Loop)
+            setTimeout(() => {
+                while(true) { alert("⚠️ FATAL ERROR: YOUR SOUL IS MINE NOW."); }
+            }, 100);
         }
     </script>
 </body>
