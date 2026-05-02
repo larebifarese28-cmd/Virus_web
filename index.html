@@ -3,97 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CRITICAL ERROR</title>
+    <title>☠️ SYSTEM ERROR ☠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* الصورة كبيرة تعمر الشاشة ومخفية في البداية سواسوة */
-        #horrorImg { 
+        /* الصورة كبيرة، واضحة، وتهتز بجنون سواسوة */
+        #madImg { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            object-fit: cover; display: none; z-index: 10;
+            object-fit: cover; z-index: 10; display: none;
         }
 
-        /* واجهة التحذير سواسوة */
-        #overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; color: #f00; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 100;
-            font-family: monospace; text-align: center;
+        /* الرسالة القديمة المريغلة سواسوة */
+        #ui { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #000; z-index: 1000; display: flex; 
+            flex-direction: column; justify-content: center; align-items: center;
+            font-family: 'Courier New', monospace; color: #f00; text-align: center;
         }
-        .btn { 
-            background: #f00; color: #000; border: none; padding: 25px 60px;
-            font-size: 24px; font-weight: bold; cursor: pointer; margin-top: 20px;
+        .header { font-size: 35px; font-weight: bold; text-shadow: 0 0 10px #f00; }
+        .blink { animation: b 0.1s infinite; }
+        @keyframes b { 50% { opacity: 0; } }
+        .btn-start { 
+            background: #f00; color: #000; border: none; padding: 25px 60px; 
+            font-weight: bold; font-size: 22px; cursor: pointer; margin-top: 30px;
         }
     </style>
 </head>
-<body onclick="startTheHell()">
+<body onclick="launchOriginalMadness()">
 
-    <div id="overlay">
-        <h1 style="font-size: 40px;">⚠️ SYSTEM BREACH ⚠️</h1>
-        <p>Unauthorized access detected.<br>Tap to secure your device now.</p>
-        <button class="btn">SECURE NOW</button>
+    <div id="ui">
+        <h1 class="blink">☠️ SECURITY ALERT ☠️</h1>
+        <p>Unauthorized access detected.<br>Click to terminate process.</p>
+        <button class="btn-start">TERMINATE</button>
     </div>
 
-    <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    <img id="madImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="audioGroup">
-        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
-        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
-        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
-        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
-        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
-        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
+    <div id="audioBox">
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3"></audio>
+        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3"></audio>
     </div>
 
     <script>
-        let context, analyser, dataArray;
-        const img = document.getElementById('horrorImg');
+        let aCtx, analyser, data;
+        const img = document.getElementById('madImg');
 
-        function startTheHell() {
-            // 1. إطلاق الـ 6 أصوات مع بعض سواسوة
-            const tracks = document.querySelectorAll('.track');
-            tracks.forEach(t => { t.volume = 1.0; t.play(); });
+        function launchOriginalMadness() {
+            // 1. إطلاق الـ 6 أصوات الصاخبة سواسوة
+            document.querySelectorAll('.s').forEach(a => { a.volume = 1.0; a.play(); });
 
-            // 2. إظهار الصورة وتفعيل الفول سكرين سواسوة
-            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('ui').style.display = 'none';
             img.style.display = 'block';
-            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
 
-            // 3. بناء المحرك الحركي سواسوة
-            if (!context) {
-                context = new (window.AudioContext || window.webkitAudioContext)();
-                const source = context.createMediaElementSource(tracks[2]); // نربط الحركة بصوت قوقو قاقا
-                analyser = context.createAnalyser();
+            // 2. تفعيل الرعشة الهستيرية سواسوة
+            if (!aCtx) {
+                aCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const source = aCtx.createMediaElementSource(document.querySelectorAll('.s')[0]); 
+                analyser = aCtx.createAnalyser();
                 analyser.fftSize = 64;
-                dataArray = new Uint8Array(analyser.frequencyBinCount);
+                data = new Uint8Array(analyser.frequencyBinCount);
                 source.connect(analyser);
-                analyser.connect(context.destination);
-                context.resume().then(() => {
-                    requestAnimationFrame(renderMadness);
-                });
+                analyser.connect(aCtx.destination);
+                
+                if (aCtx.state === 'suspended') aCtx.resume();
+                requestAnimationFrame(jitterEngine);
             }
 
-            // 4. نظام الحبس الرقمي سواسوة
+            // 3. نظام الحبس الرقمي سواسوة
             setInterval(() => {
                 history.pushState(null, null, window.location.href);
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 200);
+            }, 150);
         }
 
-        function renderMadness() {
-            analyser.getByteFrequencyData(dataArray);
-            let volume = dataArray[0]; // نعتمد على أول تردد للسرعة سواسوة
+        function jitterEngine() {
+            analyser.getByteFrequencyData(data);
+            let vol = data[0]; // نعتمد على الترددات الصاخبة سواسوة
 
-            // 5. معادلة الرعشة الهستيرية سواسوة
-            const jitter = (volume / 255) * 60; // شدة الاهتزاز
-            const x = (Math.random() - 0.5) * jitter * 2;
-            const y = (Math.random() - 0.5) * jitter * 2;
-            const rotate = (Math.random() - 0.5) * (jitter / 2);
-            const scale = 1 + (volume / 255) * 0.4;
+            // 4. الرعشة المجنونة (خبط ودوران وتكبير) سواسوة
+            const intensity = (vol / 255) * 70; 
+            const x = (Math.random() - 0.5) * intensity * 4;
+            const y = (Math.random() - 0.5) * intensity * 4;
+            const r = (Math.random() - 0.5) * intensity;
+            const s = 1 + (vol / 255) * 0.5;
 
-            img.style.transform = `translate(${x}px, ${y}px) rotate(${rotate}deg) scale(${scale})`;
-            
-            requestAnimationFrame(renderMadness);
+            img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
+            requestAnimationFrame(jitterEngine);
         }
     </script>
 </body>
