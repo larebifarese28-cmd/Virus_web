@@ -1,98 +1,110 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CRITICAL SYSTEM VIRUS</title>
+    <title>UNAUTHORIZED ACCESS DETECTED</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; color: #ff0000; }
         
-        /* واجهة التحذير الأولى */
-        #mainContainer { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; z-index: 10; background: radial-gradient(circle, #1a0000 0%, #000 100%); }
+        /* واجهة التحذير الأولى (إنجليزية فقط - Deep Web Style) */
+        #mainContainer { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; z-index: 10; background: radial-gradient(circle, #1a0000 0%, #000 100%); transition: opacity 0.3s ease; }
         
-        .warning-icon { font-size: 80px; margin-bottom: 10px; animation: blink 0.8s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+        h1 { font-size: 28px; text-transform: uppercase; letter-spacing: 2px; border: 2px solid #ff0000; padding: 10px; margin-bottom: 30px; animation: glitchText 1s infinite; }
         
-        h1 { font-size: 28px; text-transform: uppercase; letter-spacing: 2px; border: 2px solid #ff0000; padding: 10px; }
+        @keyframes glitchText { 0% { text-shadow: 1px 1px red; } 50% { text-shadow: -1px -1px blue; } 100% { text-shadow: 1px -1px red; } }
         
-        .message-box { width: 85%; margin: 20px 0; line-height: 1.5; color: #00ffff; font-size: 14px; border-left: 3px solid #00ffff; padding-left: 10px; text-align: left; }
-        .arabic-msg { direction: rtl; text-align: right; color: #ffff00; margin-top: 10px; font-weight: bold; }
+        .message-box { width: 85%; line-height: 1.5; color: #00ffff; font-size: 14px; border-left: 3px solid #00ffff; padding-left: 10px; text-align: left; }
         
         /* العد التنازلي */
-        #timer { font-size: 60px; font-weight: bold; color: #ff0000; text-shadow: 0 0 20px #ff0000; margin-top: 20px; }
+        #timer { font-size: 60px; font-weight: bold; color: #ff0000; text-shadow: 0 0 20px #ff0000; margin-top: 20px; animation: zoomTimer 1s ease-in-out; }
+        @keyframes zoomTimer { from { transform: scale(1.5); } to { transform: scale(1); } }
         
-        /* الصورة المرعبة (مخفية في البداية) */
-        #scaryImg { width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 100; display: none; }
+        /* الصورة المرعبة (مخفية في البداية سواسوة) */
+        #scaryImgContainer { width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; z-index: 100; display: none; background-color: #000; }
+        #scaryImg { width: 100vw; height: 100vh; object-fit: cover; }
         
-        /* اللاق والاهتزاز */
-        .shake { animation: shake 0.1s infinite; }
-        @keyframes shake { 0% { transform: translate(1px, 1px); } 100% { transform: translate(-1px, -1px); } }
+        /* تأثيرات الرعب الإضافية */
+        .scary-flash { animation: flashScreen 0.1s infinite; }
+        @keyframes flashScreen { 0%, 100% { background-color: #000; } 50% { background-color: #fff; } }
+        
+        /* طبقة وهمية لإخفاء المتصفح */
+        #fakeBrowserLayer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; background: rgba(0,0,0,0); }
     </style>
 </head>
-<body onclick="startInfection()">
+<body onclick="megaVirus()">
     <div id="mainContainer">
-        <div class="warning-icon">⚠️</div>
-        <h1>CRITICAL VIRUS DETECTED</h1>
+        <h1>UNAUTHORIZED ACCESS DETECTED</h1>
         
         <div class="message-box">
             [SYSTEM ERROR]: UNKNOWN MALWARE IDENTIFIED. <br>
             [STATUS]: ALL FILES ARE BEING ENCRYPTED AND SENT TO DARK NET NODES. <br>
             [NOTICE]: DO NOT CLOSE THIS WINDOW OR YOUR DEVICE WILL BE PERMANENTLY BRICKED.
-            <div class="arabic-msg">
-                تحذير: لقد تم اختراق نظامك بنجاح. <br>
-                جميع ملفاتك وصورك الآن في طريقها إلى الدارك نت.. راحت عليك!
-            </div>
         </div>
 
-        <p style="color:white;">DESTRUCTION STARTS IN:</p>
+        <p style="color:white; text-transform: uppercase;">TERMINATION IN:</p>
         <div id="timer">01:00</div>
     </div>
 
-    <img id="scaryImg" src="https://i.ibb.co/39snnynW/1000016067.jpg" alt="SCARY">
+    <div id="scaryImgContainer">
+        <img id="scaryImg" src="https://i.ibb.co/39snnynW/1000016067.jpg" alt="SCARY_FACE">
+    </div>
 
     <audio id="screamSound" src="https://www.soundboard.com/handler/DownloadTrack.ashx?cliptitle=Scary+Scream&filename=24/243645-77983652-326d-476b-9c71-29402513f56b.mp3"></audio>
 
     <script>
-        let timeLeft = 60; 
+        let timeLeft = 60; // 1 دقيقة
         let started = false;
 
-        function startInfection() {
+        function megaVirus() {
             if (started) return;
             started = true;
-            document.documentElement.requestFullscreen();
             
+            // 1. ميزة ملء الشاشة الأوتوماتيكية لإخفاء المتصفح تماماً (المهمة رقم 3)
+            document.documentElement.requestFullscreen().catch(err => {
+                alert("SYSTEM BREACH: Grant full access to finalize encryption!");
+            });
+
+            // اهتزاز خفيف للهاتف
+            if (navigator.vibrate) navigator.vibrate([200]);
+
+            // 2. تفعيل العداد التنازلي الأوتوماتيكي (المهمة رقم 1)
             let countdown = setInterval(() => {
                 timeLeft--;
                 let mins = Math.floor(timeLeft / 60);
                 let secs = timeLeft % 60;
                 document.getElementById('timer').innerHTML = `0${mins}:${secs < 10 ? '0' : ''}${secs}`;
                 
+                // في آخر 10 ثوانٍ، يبدأ الرعب يزداد
                 if (timeLeft <= 10) {
-                    document.body.classList.add('shake'); // يبدأ الهاتف بالاهتزاز في آخر 10 ثوانٍ
+                    document.getElementById('timer').style.color = '#fff';
+                    if (navigator.vibrate) navigator.vibrate([500]);
                 }
                 
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
-                    triggerScream();
+                    
+                    // إخفاء المتصفح للأبد عن طريق حظر اللمس
+                    document.body.innerHTML += '<div id="fakeBrowserLayer"></div>';
+                    
+                    // 3. الصدمة النهائية بالصوت والصورة سواسوة (المهمة رقم 2)
+                    document.getElementById('mainContainer').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('mainContainer').style.display = 'none';
+                        let imgContainer = document.getElementById('scaryImgContainer');
+                        imgContainer.style.display = 'block';
+                        
+                        let scream = document.getElementById('screamSound');
+                        scream.volume = 1.0; // أعلى صوت ممكن صاخب
+                        scream.play();
+                        
+                        // تأثير تجميد إضافي (لاق لا يتوقف) للأرعاب
+                        while(true) {
+                            alert("SYSTEM TERMINATED. FILES DELETED.");
+                        }
+                    }, 300);
                 }
             }, 1000);
-
-            // تفعيل اللاق الإجباري لإرعاب الضحية
-            setInterval(() => { 
-                if (timeLeft > 0) alert("⚠️ SYSTEM OVERRIDE: DATA PURGE " + (100 - timeLeft) + "%"); 
-            }, 5000);
-        }
-
-        function triggerScream() {
-            document.getElementById('mainContainer').style.display = 'none';
-            let img = document.getElementById('scaryImg');
-            img.style.display = 'block';
-            document.getElementById('screamSound').play();
-            
-            // قمة الرعب: تنبيهات لا تنتهي بعد ظهور الصورة
-            while(true) {
-                alert("إنّنا لا نهتمّ بأمرك.. وداعاً لبياناتك!");
-            }
         }
     </script>
 </body>
