@@ -3,54 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Action Planet</title>
+    <title>Action Planet - Legend</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; overflow: hidden; }
-        #ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; background: #ffffff; }
-        .btn-action { background: #ffcc00; color: #000; border: 4px solid #000; padding: 20px 60px; font-size: 24px; font-weight: bold; border-radius: 50px; cursor: pointer; }
-        #madImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
-        @keyframes touhouh {
-            0% { transform: scale(1.1); }
-            5% { transform: translate(-25px, -15px) scale(1.3); }
-            15% { transform: translate(25px, 25px) scale(1.4); }
-            100% { transform: scale(1.1); }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
+        
+        /* واجهة كوكب أكشن سواسوة */
+        #ui { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; z-index: 10000; background: #ffffff;
         }
-        .vibrate { display: block !important; animation: touhouh 0.01s infinite linear; }
+        .btn-action { 
+            background: #ffcc00; color: #000; border: 5px solid #000; 
+            padding: 25px 70px; font-size: 28px; font-weight: bold; 
+            border-radius: 60px; cursor: pointer; box-shadow: 0 10px 0 #ccaa00;
+        }
+
+        /* أنيميشن الزلزال والتوحويح سواسوة */
+        #madImg { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            object-fit: cover; z-index: 999; display: none;
+        }
+
+        @keyframes earthquake {
+            0% { transform: translate(0, 0) scale(1); filter: hue-rotate(0deg); }
+            10% { transform: translate(-40px, -30px) scale(1.4) rotate(-5deg); filter: hue-rotate(90deg); }
+            25% { transform: translate(40px, 40px) scale(1.2) rotate(5deg); }
+            40% { transform: translate(-50px, 20px) scale(1.5); filter: invert(1); }
+            60% { transform: translate(50px, -40px) scale(1.3) rotate(-3deg); }
+            80% { transform: translate(-30px, 50px) scale(1.6) rotate(3deg); }
+            100% { transform: translate(0, 0) scale(1.1); }
+        }
+        .vibrate-chaos { display: block !important; animation: earthquake 0.01s infinite linear; }
     </style>
 </head>
 <body>
+
     <div id="ui">
-        <div style="font-size: 26px; font-weight: bold; margin-bottom: 25px;">مرحباً بك في كوكب أكشن</div>
-        <button class="btn-action" onclick="activateChaos()">دخول</button>
+        <div style="font-size: 32px; font-weight: bold; margin-bottom: 30px; color: #ffcc00; text-shadow: 2px 2px #000;">كوكب أكشن الأسطوري</div>
+        <button class="btn-action" onclick="launchChaos()">دخول</button>
     </div>
+
     <img id="madImg" src="https://i.ibb.co/Rw1PbVp/1000017054.jpg">
 
     <script>
-        function activateChaos() {
-            document.getElementById('ui').style.display = 'none';
-            document.getElementById('madImg').classList.add('vibrate');
+        function launchChaos() {
+            // ملء الشاشة القسري سواسوة
+            let el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen();
+            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
 
-            // الأصوات الجديدة الموزونة سواسوة (مع صوت آه آه)
+            document.getElementById('ui').style.display = 'none';
+            document.getElementById('madImg').classList.add('vibrate-chaos');
+
+            // الأصوات الجديدة (موزونة سواسوة باش تسمعهم قاع)
             const sounds = [
-                "https://www.myinstants.com/media/sounds/moan-sound-effect-short.mp3", // صوت آه آه الموزون
-                "https://www.myinstants.com/media/sounds/hoova-2.mp3",
-                "https://www.myinstants.com/media/sounds/scary-female-scream-sound-effect.mp3", // صرخة حادة
-                "https://www.myinstants.com/media/sounds/laughing-joker.mp3", // ضحكة هستيرية
-                "https://www.myinstants.com/media/sounds/troll-face-laugh-sound-effect.mp3",
-                "https://www.myinstants.com/media/sounds/evil-laugh-sound-effect.mp3"
+                "https://www.myinstants.com/media/sounds/moan-sound-effect-short.mp3", // آه آه
+                "https://www.myinstants.com/media/sounds/scary-female-scream-sound-effect.mp3", // صرخة
+                "https://www.myinstants.com/media/sounds/hoova-2.mp3", // توحويح
+                "https://www.myinstants.com/media/sounds/laughing-joker.mp3", // جوكر
+                "https://www.myinstants.com/media/sounds/troll-face-laugh-sound-effect.mp3", // ضحكة
+                "https://www.myinstants.com/media/sounds/evil-laugh-sound-effect.mp3" // شرير
             ];
 
             sounds.forEach(src => {
                 let a = new Audio(src);
                 a.loop = true;
-                // نعدلو الفوليم لكل صوت باش يخرجوا قاع كيف كيف سواسوة
-                a.volume = 1.0; 
-                
-                const start = () => { a.play().catch(() => setTimeout(start, 100)); };
-                start();
+                a.volume = 1.0;
+                const play = () => a.play().catch(() => setTimeout(play, 100));
+                play();
             });
 
-            document.documentElement.requestFullscreen().catch(()=>{});
+            // تثبيت الحالة سواسوة
+            setInterval(() => {
+                if (!document.fullscreenElement) el.requestFullscreen().catch(() => {});
+                window.scrollTo(0, 0);
+            }, 200);
         }
     </script>
 </body>
