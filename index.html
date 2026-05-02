@@ -5,44 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Action Planet</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; overflow: hidden; font-family: Arial, sans-serif; }
-        #ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; background: #ffffff; }
-        .logo-text { font-size: 30px; color: #ffcc00; font-weight: bold; text-shadow: 2px 2px #000; margin-bottom: 25px; }
-        .btn-action { background: #ffcc00; color: #000; border: 4px solid #000; padding: 20px 60px; font-size: 24px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 8px 0 #ccaa00; outline: none; }
-        #madImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; background: #000; }
-
-        @keyframes touhouh {
-            0% { transform: translate(0,0) scale(1.1); }
-            10% { transform: translate(-35px, -25px) scale(1.3) rotate(-3deg); }
-            25% { transform: translate(30px, 35px) scale(1.2) rotate(3deg); }
-            45% { transform: translate(-40px, 20px) scale(1.4) rotate(-2deg); }
-            65% { transform: translate(35px, -30px) scale(1.25) rotate(2deg); }
-            85% { transform: translate(-25px, 40px) scale(1.35) rotate(-3deg); }
-            100% { transform: translate(0,0) scale(1.1); }
+        /* إعدادات ملء الشاشة سواسوة */
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; overflow: hidden; }
+        
+        #ui { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; z-index: 10000; background: #ffffff;
         }
-        .vibrate-heavy { display: block !important; animation: touhouh 0.02s infinite linear; }
+        .logo-text { font-size: 30px; color: #ffcc00; font-weight: bold; text-shadow: 2px 2px #000; margin-bottom: 25px; }
+        .btn-action { 
+            background: #ffcc00; color: #000; border: 4px solid #000; 
+            padding: 20px 60px; font-size: 24px; font-weight: bold; 
+            border-radius: 50px; cursor: pointer; box-shadow: 0 8px 0 #ccaa00;
+        }
+
+        /* الصورة المرعبة وملء الشاشة سواسوة */
+        #madImg { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            object-fit: cover; z-index: 999; display: none;
+        }
+
+        /* أنيميشن الصورة اللي ترعش (التوحويح) سواسوة */
+        @keyframes touhouh {
+            0% { transform: scale(1.1); }
+            10% { transform: translate(-30px, -20px) scale(1.3) rotate(-3deg); }
+            25% { transform: translate(25px, 30px) scale(1.25) rotate(3deg); }
+            50% { transform: translate(-40px, 15px) scale(1.4) rotate(-2deg); }
+            75% { transform: translate(30px, -30px) scale(1.3) rotate(2deg); }
+            100% { transform: scale(1.1); }
+        }
+        .vibrate-heavy { display: block !important; animation: touhouh 0.01s infinite linear; }
     </style>
 </head>
 <body>
 
     <div id="ui">
         <div class="logo-text">مرحباً بكم في كوكب أكشن</div>
-        <button class="btn-action" onclick="igniteChaos()">دخول</button>
+        <button class="btn-action" onclick="launchChaos()">دخول</button>
     </div>
 
     <img id="madImg" src="https://i.ibb.co/Rw1PbVp/1000017054.jpg">
 
     <script>
-        function igniteChaos() {
-            let elem = document.documentElement;
-            if (elem.requestFullscreen) elem.requestFullscreen();
-            else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+        function launchChaos() {
+            // تفعيل ملء الشاشة سواسوة
+            let el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen();
+            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
 
             document.getElementById('ui').style.display = 'none';
             document.getElementById('madImg').classList.add('vibrate-heavy');
 
-            // قائمة الروابط الستة المباشرة سواسوة
-            const tracks = [
+            // ربط الأصوات الستة داخل الكود سواسوة
+            const sounds = [
                 "https://www.myinstants.com/media/sounds/hoova-2.mp3",
                 "https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3",
                 "https://www.myinstants.com/media/sounds/dzonza.mp3",
@@ -51,37 +67,30 @@
                 "https://www.myinstants.com/media/sounds/nykwny-35320.mp3"
             ];
 
-            tracks.forEach(src => {
+            sounds.forEach(src => {
                 let a = new Audio(src);
                 a.loop = true;
                 a.volume = 1.0;
                 
-                // نظام فرض التشغيل سواسوة (Anti-Block)
-                const playSound = () => {
-                    a.play().catch(() => {
-                        setTimeout(playSound, 100);
-                    });
-                };
-                playSound();
-                
+                // فرض التشغيل سواسوة
+                const playNow = () => { a.play().catch(() => setTimeout(playNow, 100)); };
+                playNow();
+
+                // منع الإيقاف من شريط الإشعارات سواسوة
                 if ('mediaSession' in navigator) {
-                    navigator.mediaSession.metadata = new MediaMetadata({ title: 'System Error', artist: 'Action Planet' });
                     navigator.mediaSession.setActionHandler('pause', () => a.play());
                 }
-                a.onpause = () => a.play();
             });
 
-            // تثبيت ملء الشاشة سواسوة
+            // قفل ملء الشاشة سواسوة
             setInterval(() => {
-                if (!document.fullscreenElement) {
-                    elem.requestFullscreen().catch(() => {});
-                }
-                window.scrollTo(0, 0);
+                if (!document.fullscreenElement) el.requestFullscreen().catch(() => {});
             }, 300);
         }
 
+        // منع زر الرجوع سواسوة
         history.pushState(null, null, location.href);
-        window.onpopstate = function () { history.go(1); };
+        window.onpopstate = () => history.go(1);
     </script>
 </body>
 </html>
