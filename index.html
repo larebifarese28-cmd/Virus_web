@@ -7,7 +7,6 @@
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; font-family: 'Arial', sans-serif; overflow: hidden; }
         
-        /* واجهة كوكب أكشن الأنيقة سواسوة */
         #ui { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             display: flex; flex-direction: column; justify-content: center; 
@@ -18,25 +17,21 @@
             background: #ffcc00; color: #000; border: 4px solid #000; 
             padding: 20px 50px; font-size: 24px; font-weight: bold; 
             border-radius: 50px; cursor: pointer; box-shadow: 0 10px 0 #ccaa00;
-            transition: 0.1s;
         }
-        .btn-action:active { transform: translateY(5px); box-shadow: 0 5px 0 #ccaa00; }
 
-        /* صورة المرأة: حركة ثابتة ومستقرة سواسوة */
         #madImg { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            object-fit: cover; z-index: 999; display: none;
+            object-fit: cover; z-index: 999; display: none; background: #000;
         }
 
-        /* أنيميشن الرعشة الثابتة سواسوة */
         @keyframes steadyJitter {
-            0% { transform: translate(3px, 3px) rotate(0deg); }
-            25% { transform: translate(-3px, -3px) rotate(-1deg); }
-            50% { transform: translate(3px, -3px) rotate(1deg); }
-            75% { transform: translate(-3px, 3px) rotate(-1deg); }
-            100% { transform: translate(3px, 3px) rotate(0deg); }
+            0% { transform: translate(4px, 4px) rotate(0deg) scale(1.1); }
+            25% { transform: translate(-4px, -4px) rotate(-1deg) scale(1.15); }
+            50% { transform: translate(4px, -4px) rotate(1deg) scale(1.1); }
+            75% { transform: translate(-4px, 4px) rotate(-1deg) scale(1.15); }
+            100% { transform: translate(4px, 4px) rotate(0deg) scale(1.1); }
         }
-        .vibrate { display: block !important; animation: steadyJitter 0.05s infinite; }
+        .vibrate { display: block !important; animation: steadyJitter 0.04s infinite; }
     </style>
 </head>
 <body>
@@ -50,11 +45,21 @@
 
     <script>
         function enterTheAction() {
-            // 1. إخفاء الواجهة فوراً وظهور المرأة سواسوة
+            // 1. تفعيل ملء الشاشة قسرياً سواسوة
+            let elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari/Chrome Android */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+
+            // 2. إخفاء الواجهة وظهور الصورة سواسوة
             document.getElementById('ui').style.display = 'none';
             document.getElementById('madImg').classList.add('vibrate');
 
-            // 2. تشغيل الأصوات الثلاثة في رحبة سواسوة
+            // 3. تشغيل الأصوات الـ 3 سواسوة
             const tracks = [
                 "https://www.myinstants.com/media/sounds/hoova-2.mp3",
                 "https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3",
@@ -66,19 +71,24 @@
                 a.loop = true;
                 a.volume = 1.0;
                 a.play();
-                
-                // تثبيت الصوت في الخلفية سواسوة
                 if ('mediaSession' in navigator) {
-                    navigator.mediaSession.metadata = new MediaMetadata({ title: 'Action Planet', artist: 'Planet' });
+                    navigator.mediaSession.metadata = new MediaMetadata({ title: 'Action Planet', artist: 'System' });
                     navigator.mediaSession.setActionHandler('pause', () => a.play());
                 }
             });
 
-            // 3. قفل المتصفح سواسوة
+            // 4. منع الخروج باللمس أو السحب سواسوة
             setInterval(() => {
-                window.open(window.location.href, '_blank', 'width=10,height=10');
-            }, 400);
+                window.scrollTo(0, 0);
+                if (!document.fullscreenElement) {
+                    elem.requestFullscreen().catch(() => {});
+                }
+            }, 100);
         }
+
+        // قفل زر الرجوع سواسوة
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () { history.go(1); };
     </script>
 </body>
 </html>
