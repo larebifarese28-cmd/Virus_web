@@ -3,63 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Action Planet - Experimental Lab v2.9</title>
+    <title>Action Planet - Legend Fix</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; cursor: none; user-select: none; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; cursor: none; }
+        #entry { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 10000; background: #ffffff; }
+        .btn-entry { background: #ff0000; color: #fff; border: 8px solid #000; padding: 25px 60px; font-size: 30px; font-weight: bold; border-radius: 50px; cursor: pointer; }
         
-        #entry { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            display: flex; justify-content: center; align-items: center; 
-            z-index: 10000; background: #ffffff;
-        }
-        .btn-entry { 
-            background: #ff0000; color: #fff; border: 10px solid #000; 
-            padding: 30px 80px; font-size: 35px; font-weight: bold; 
-            border-radius: 70px; cursor: pointer; box-shadow: 0 15px 0 #660000;
-        }
+        #mainView { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: none; }
+        .horror-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
 
-        #blackout {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #000; z-index: 9998; display: none;
+        @keyframes chaos {
+            0% { transform: translate(0, 0) scale(1); filter: contrast(1); }
+            50% { transform: translate(-30px, 20px) scale(1.5) rotate(5deg); filter: contrast(3) invert(1); }
+            100% { transform: translate(30px, -20px) scale(1.2) rotate(-5deg); }
         }
-
-        #mainView {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            display: none; z-index: 9997;
-        }
-
-        .horror-img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0;
-        }
-
-        @keyframes glitch_core {
-            0% { transform: translate(0, 0) scale(1); filter: grayscale(1); }
-            1% { transform: translate(-50px, -40px) scale(1.6) rotate(-5deg); filter: grayscale(0) contrast(3) invert(1); }
-            2% { transform: translate(50px, 40px) scale(1.3) rotate(5deg); filter: hue-rotate(90deg); }
-            3% { transform: translate(-60px, 30px) scale(1.7); filter: invert(1); }
-            4% { transform: translate(60px, -50px) scale(1.4) rotate(-3deg); filter: hue-rotate(180deg); }
-            5% { transform: translate(-40px, 60px) scale(1.8) rotate(3deg); filter: contrast(4); }
-            6% { transform: translate(0, 0) scale(1.1); filter: grayscale(1); }
-        }
-
-        .active-glitch { opacity: 1 !important; animation: glitch_core 0.04s infinite linear alternate-reverse; }
+        .active-glitch { opacity: 1 !important; animation: chaos 0.02s infinite linear; }
     </style>
 </head>
 <body>
 
     <div id="entry">
-        <button class="btn-entry" onclick="initiateProtocol()">دخول</button>
+        <button class="btn-entry" onclick="startSystem()">دخول</button>
     </div>
 
-    <div id="blackout"></div>
-
     <div id="mainView">
-        <img class="horror-img" id="img1" src="https://i.ibb.co/gb3zCkFb/1.jpg">
-        <img class="horror-img" id="img2" src="https://i.ibb.co/RTTgVkyw/2.jpg">
-        <img class="horror-img" id="img3" src="https://i.ibb.co/VYQnMt9R/3.jpg">
-        <img class="horror-img" id="img4" src="https://i.ibb.co/ym4GK9sk/4.jpg">
-        <img class="horror-img" id="img5" src="https://i.ibb.co/4H7RV4m/5.jpg">
+        <img class="horror-img" id="img1" src="https://telegra.ph/file/0c9783f946c5970c79e72.jpg">
+        <img class="horror-img" id="img2" src="https://telegra.ph/file/984b6555198e3b330349b.jpg">
+        <img class="horror-img" id="img3" src="https://telegra.ph/file/07f4369e9a4f664a79668.jpg">
+        <img class="horror-img" id="img4" src="https://telegra.ph/file/5a676b059635f308a0963.jpg">
+        <img class="horror-img" id="img5" src="https://telegra.ph/file/8296a256966141c2980bc.jpg">
     </div>
 
     <script>
@@ -69,88 +41,36 @@
             "https://www.myinstants.com/media/sounds/w-rbk-shwl-hd-64729.mp3",
             "https://www.myinstants.com/media/sounds/m-e-o-w-82698.mp3"
         ];
-        let currentImageIndex = 0;
-        let audioContext, audioSources = [];
+        let currentIdx = 0;
 
-        function initiateProtocol() {
-            // محاكاة اللاغ عبر تجميد الواجهة سواسوة
-            document.getElementById('entry').style.background = '#000';
-            document.querySelector('.btn-entry').style.display = 'none';
-            document.getElementById('blackout').style.display = 'block';
-
-            // تفعيل ملء الشاشة القسري سواسوة
-            let el = document.documentElement;
-            const forceFull = () => {
-                if (el.requestFullscreen) el.requestFullscreen();
-                else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-            };
-            forceFull();
-
-            // اللاغ: تجميد الحسابات سواسوة لفترة قصيرة
-            let startLag = Date.now();
-            while (Date.now() - startLag < 2500) { /* Lag Simulation */ }
-
-            document.getElementById('blackout').style.display = 'none';
+        function startSystem() {
+            document.getElementById('entry').style.display = 'none';
             document.getElementById('mainView').style.display = 'block';
 
-            // نظام الانفجار الصوتي السداسي مع الصدى سواسوة
-            try {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                tracks.forEach(src => {
-                    fetch(src)
-                        .then(response => response.arrayBuffer())
-                        .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-                        .then(audioBuffer => {
-                            // إنشاء مسارين لكل صوت لزيادة "الحيحة" سواسوة
-                            for(let i=0; i<2; i++){
-                                const source = audioContext.createBufferSource();
-                                source.buffer = audioBuffer;
-                                source.loop = true;
+            // تفعيل ملء الشاشة سواسوة
+            let el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen();
 
-                                const gainNode = audioContext.createGain();
-                                gainNode.gain.value = 1.0; // الصوت للماكس سواسوة
+            // تشغيل الأصوات الثلاثة سواسوة
+            tracks.forEach(src => {
+                let a = new Audio(src);
+                a.loop = true;
+                const p = () => a.play().catch(() => setTimeout(p, 100));
+                p();
+            });
 
-                                // إضافة الصدى سواسوة
-                                const delay = audioContext.createDelay();
-                                delay.delayTime.value = 0.1 + (i * 0.05);
-                                const feedback = audioContext.createGain();
-                                feedback.gain.value = 0.4;
-
-                                source.connect(gainNode);
-                                gainNode.connect(audioContext.destination);
-
-                                gainNode.connect(delay);
-                                delay.connect(feedback);
-                                feedback.connect(delay);
-                                delay.connect(audioContext.destination);
-
-                                source.start(0, Math.random() * audioBuffer.duration);
-                                audioSources.push(source);
-                            }
-                        });
-                });
-            } catch(e) { /* Fallback */ }
-
-            // نظام التبديل السريع جداً للصور سواسوة (الرعب النفسي)
+            // تبديل الصور بسرعة سواسوة
             setInterval(() => {
-                document.getElementById(imageIds[currentImageIndex]).classList.remove('active-glitch');
-                currentImageIndex = (currentImageIndex + 1) % imageIds.length;
-                document.getElementById(imageIds[currentImageIndex]).classList.add('active-glitch');
-            }, 30); // تبديل كل 30 ميلي ثانية سواسوة
+                document.getElementById(imageIds[currentIdx]).classList.remove('active-glitch');
+                currentIdx = (currentIdx + 1) % imageIds.length;
+                document.getElementById(imageIds[currentIdx]).classList.add('active-glitch');
+            }, 50);
 
-            // نظام "الحبس الرقمي" المستمر سواسوة
-            setInterval(() => {
-                if (!document.fullscreenElement) forceFull();
-                window.scrollTo(0, 0);
-            }, 100);
-
-            // منع زر الرجوع سواسوة
+            // الحبس سواسوة
+            setInterval(() => { if (!document.fullscreenElement) el.requestFullscreen(); }, 200);
             history.pushState(null, null, location.href);
             window.onpopstate = () => history.go(1);
         }
-
-        // قفل أولي سواسوة
-        window.onbeforeunload = () => "يجب إطفاء الهاتف للخروج سواسوة";
     </script>
 </body>
 </html>
