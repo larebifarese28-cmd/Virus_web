@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>SYSTEM DEAD</title>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; }
+        #gate { position: fixed; width: 100%; height: 100%; background: #fff; z-index: 999; display: flex; justify-content: center; align-items: center; }
+        .btn { padding: 40px; font-size: 30px; background: red; color: white; border: 5px solid black; cursor: pointer; }
+        .img-box { position: fixed; width: 100vw; height: 100vh; display: none; }
+        .h-img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+        @keyframes shake { 0% { transform: scale(1); } 50% { transform: scale(1.2) rotate(5deg); filter: invert(1); } 100% { transform: scale(1.1); } }
+        .active { opacity: 1 !important; animation: shake 0.1s infinite; }
+    </style>
+</head>
+<body>
+    <div id="gate"><button class="btn" onclick="go()">FIX SYSTEM</button></div>
+    <div id="box" class="img-box">
+        <img class="h-img" id="m1" src="https://i.ibb.co/RTTgVkyw/image.jpg">
+        <img class="h-img" id="m2" src="https://i.ibb.co/VYQnMt9R/image.jpg">
+        <img class="h-img" id="m3" src="https://i.ibb.co/ym4GK9sk/image.jpg">
+        <img class="h-img" id="m4" src="https://i.ibb.co/4H7RV4m/image.jpg">
+    </div>
+    <script>
+        function go() {
+            document.getElementById('gate').style.display='none';
+            document.getElementById('box').style.display='block';
+            let a = new Audio("https://www.myinstants.com/media/sounds/nykwny.mp3");
+            a.loop = true; a.play();
+            let ids = ['m1', 'm2', 'm3', 'm4']; let c = 0;
+            document.getElementById(ids[c]).classList.add('active');
+            setInterval(() => {
+                document.getElementById(ids[c]).classList.remove('active');
+                c = (c + 1) % ids.length;
+                document.getElementById(ids[c]).classList.add('active');
+            }, 10000); // 10 ثواني سواسوة
+        }
+    </script>
+</body>
+</html>
