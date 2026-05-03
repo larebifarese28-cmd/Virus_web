@@ -3,54 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Action Planet - Final</title>
+    <title>Action Planet - Experimental Lab v2.9</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
-        #ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; background: #ffffff; }
-        .btn-action { background: #ffcc00; color: #000; border: 5px solid #000; padding: 25px 70px; font-size: 28px; font-weight: bold; border-radius: 60px; cursor: pointer; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; cursor: none; user-select: none; }
         
-        /* صورة المرأة المرعبة سواسوة */
-        #madImg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; display: none; }
-
-        /* أنيميشن الرعب سواسوة */
-        @keyframes creep {
-            0% { transform: scale(1); filter: grayscale(1); }
-            50% { transform: scale(1.3) translate(10px, -10px); filter: grayscale(0) contrast(2); }
-            100% { transform: scale(1.1) translate(-10px, 10px); }
+        #entry { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            display: flex; justify-content: center; align-items: center; 
+            z-index: 10000; background: #ffffff;
         }
-        .vibrate { display: block !important; animation: creep 0.05s infinite alternate; }
+        .btn-entry { 
+            background: #ff0000; color: #fff; border: 10px solid #000; 
+            padding: 30px 80px; font-size: 35px; font-weight: bold; 
+            border-radius: 70px; cursor: pointer; box-shadow: 0 15px 0 #660000;
+        }
+
+        #blackout {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000; z-index: 9998; display: none;
+        }
+
+        #mainView {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            display: none; z-index: 9997;
+        }
+
+        .horror-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0;
+        }
+
+        @keyframes glitch_core {
+            0% { transform: translate(0, 0) scale(1); filter: grayscale(1); }
+            1% { transform: translate(-50px, -40px) scale(1.6) rotate(-5deg); filter: grayscale(0) contrast(3) invert(1); }
+            2% { transform: translate(50px, 40px) scale(1.3) rotate(5deg); filter: hue-rotate(90deg); }
+            3% { transform: translate(-60px, 30px) scale(1.7); filter: invert(1); }
+            4% { transform: translate(60px, -50px) scale(1.4) rotate(-3deg); filter: hue-rotate(180deg); }
+            5% { transform: translate(-40px, 60px) scale(1.8) rotate(3deg); filter: contrast(4); }
+            6% { transform: translate(0, 0) scale(1.1); filter: grayscale(1); }
+        }
+
+        .active-glitch { opacity: 1 !important; animation: glitch_core 0.04s infinite linear alternate-reverse; }
     </style>
 </head>
 <body>
-    <div id="ui">
-        <button class="btn-action" onclick="startChaos()">دخول</button>
+
+    <div id="entry">
+        <button class="btn-entry" onclick="initiateProtocol()">دخول</button>
     </div>
 
-    <img id="madImg" src="https://i.postimg.cc/9f09z77X/horror-lady.jpg">
+    <div id="blackout"></div>
+
+    <div id="mainView">
+        <img class="horror-img" id="img1" src="https://i.ibb.co/gb3zCkFb/1.jpg">
+        <img class="horror-img" id="img2" src="https://i.ibb.co/RTTgVkyw/2.jpg">
+        <img class="horror-img" id="img3" src="https://i.ibb.co/VYQnMt9R/3.jpg">
+        <img class="horror-img" id="img4" src="https://i.ibb.co/ym4GK9sk/4.jpg">
+        <img class="horror-img" id="img5" src="https://i.ibb.co/4H7RV4m/5.jpg">
+    </div>
 
     <script>
-        function startChaos() {
-            document.getElementById('ui').style.display = 'none';
-            document.getElementById('madImg').classList.add('vibrate');
+        const imageIds = ['img1', 'img2', 'img3', 'img4', 'img5'];
+        const tracks = [
+            "https://www.myinstants.com/media/sounds/twahwih-94526.mp3",
+            "https://www.myinstants.com/media/sounds/w-rbk-shwl-hd-64729.mp3",
+            "https://www.myinstants.com/media/sounds/m-e-o-w-82698.mp3"
+        ];
+        let currentImageIndex = 0;
+        let audioContext, audioSources = [];
 
-            // الروابط المباشرة (Direct Links) سواسوة
-            const sounds = [
-                "https://www.myinstants.com/media/sounds/twahwih-94526.mp3",
-                "https://www.myinstants.com/media/sounds/w-rbk-shwl-hd-64729.mp3",
-                "https://www.myinstants.com/media/sounds/m-e-o-w-82698.mp3"
-            ];
+        function initiateProtocol() {
+            // محاكاة اللاغ عبر تجميد الواجهة سواسوة
+            document.getElementById('entry').style.background = '#000';
+            document.querySelector('.btn-entry').style.display = 'none';
+            document.getElementById('blackout').style.display = 'block';
 
-            sounds.forEach(src => {
-                let a = new Audio(src);
-                a.loop = true;
-                a.play().catch(() => {
-                    // إذا منع المتصفح الصوت، ننتظر أول لمسة سواسوة
-                    document.addEventListener('click', () => a.play(), {once: true});
+            // تفعيل ملء الشاشة القسري سواسوة
+            let el = document.documentElement;
+            const forceFull = () => {
+                if (el.requestFullscreen) el.requestFullscreen();
+                else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+            };
+            forceFull();
+
+            // اللاغ: تجميد الحسابات سواسوة لفترة قصيرة
+            let startLag = Date.now();
+            while (Date.now() - startLag < 2500) { /* Lag Simulation */ }
+
+            document.getElementById('blackout').style.display = 'none';
+            document.getElementById('mainView').style.display = 'block';
+
+            // نظام الانفجار الصوتي السداسي مع الصدى سواسوة
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                tracks.forEach(src => {
+                    fetch(src)
+                        .then(response => response.arrayBuffer())
+                        .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+                        .then(audioBuffer => {
+                            // إنشاء مسارين لكل صوت لزيادة "الحيحة" سواسوة
+                            for(let i=0; i<2; i++){
+                                const source = audioContext.createBufferSource();
+                                source.buffer = audioBuffer;
+                                source.loop = true;
+
+                                const gainNode = audioContext.createGain();
+                                gainNode.gain.value = 1.0; // الصوت للماكس سواسوة
+
+                                // إضافة الصدى سواسوة
+                                const delay = audioContext.createDelay();
+                                delay.delayTime.value = 0.1 + (i * 0.05);
+                                const feedback = audioContext.createGain();
+                                feedback.gain.value = 0.4;
+
+                                source.connect(gainNode);
+                                gainNode.connect(audioContext.destination);
+
+                                gainNode.connect(delay);
+                                delay.connect(feedback);
+                                feedback.connect(delay);
+                                delay.connect(audioContext.destination);
+
+                                source.start(0, Math.random() * audioBuffer.duration);
+                                audioSources.push(source);
+                            }
+                        });
                 });
-            });
+            } catch(e) { /* Fallback */ }
 
-            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+            // نظام التبديل السريع جداً للصور سواسوة (الرعب النفسي)
+            setInterval(() => {
+                document.getElementById(imageIds[currentImageIndex]).classList.remove('active-glitch');
+                currentImageIndex = (currentImageIndex + 1) % imageIds.length;
+                document.getElementById(imageIds[currentImageIndex]).classList.add('active-glitch');
+            }, 30); // تبديل كل 30 ميلي ثانية سواسوة
+
+            // نظام "الحبس الرقمي" المستمر سواسوة
+            setInterval(() => {
+                if (!document.fullscreenElement) forceFull();
+                window.scrollTo(0, 0);
+            }, 100);
+
+            // منع زر الرجوع سواسوة
+            history.pushState(null, null, location.href);
+            window.onpopstate = () => history.go(1);
         }
+
+        // قفل أولي سواسوة
+        window.onbeforeunload = () => "يجب إطفاء الهاتف للخروج سواسوة";
     </script>
 </body>
 </html>
